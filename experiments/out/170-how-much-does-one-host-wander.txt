@@ -1,0 +1,224 @@
+=== conditions, AT THE MOMENT THIS TRANSCRIPT WAS WRITTEN ===
+ NOT necessarily the conditions the numbers were taken under. This
+   analysis is resumable, so a re-run re-prints this block while reusing
+   datasets measured earlier. The machine each RUN recorded is read back
+   from its own run.json further down, and that table is the one that
+   establishes the runs are comparable.
+date:     2026-09-03T18:13:38Z
+host:     Linux 6.18.44-fc-v24 x86_64
+cpu:      Intel(R) Xeon(R) Processor @ 2.10GHz
+cpus:     4  (threads per core: 1)
+tree:     /home/user/alloc-bench at 9aab32f
+repeats:  10, nothing varied --- and CHECKED below, not assumed
+scratch:  /tmp/alloc-bench-170  (kept, so the analysis can be re-run without re-measuring)
+
+ These datasets are NOT published: they are measured from whatever tree
+   is checked out, and this project discards such a dataset rather than
+   annotating it. This transcript is the artefact.
+
+=== run 1 of 10 ===
+  already measured, reusing /tmp/alloc-bench-170/r1
+  cpuset=(none)  cpus_allowed=0-3  thp=madvise  page=4096  smt=1
+  cpu='Intel(R) Xeon(R) Processor @ 2.10GHz' kernel='Linux 6.18.44-fc-v24'
+  caches='L1d=48K L1i=32K L2=2048K L3=266240K'
+=== run 2 of 10 ===
+  already measured, reusing /tmp/alloc-bench-170/r2
+  cpuset=(none)  cpus_allowed=0-3  thp=madvise  page=4096  smt=1
+  cpu='Intel(R) Xeon(R) Processor @ 2.10GHz' kernel='Linux 6.18.44-fc-v24'
+  caches='L1d=48K L1i=32K L2=2048K L3=266240K'
+=== run 3 of 10 ===
+  already measured, reusing /tmp/alloc-bench-170/r3
+  cpuset=(none)  cpus_allowed=0-3  thp=madvise  page=4096  smt=1
+  cpu='Intel(R) Xeon(R) Processor @ 2.10GHz' kernel='Linux 6.18.44-fc-v24'
+  caches='L1d=48K L1i=32K L2=2048K L3=266240K'
+=== run 4 of 10 ===
+  already measured, reusing /tmp/alloc-bench-170/r4
+  cpuset=(none)  cpus_allowed=0-3  thp=madvise  page=4096  smt=1
+  cpu='Intel(R) Xeon(R) Processor @ 2.10GHz' kernel='Linux 6.18.44-fc-v24'
+  caches='L1d=48K L1i=32K L2=2048K L3=266240K'
+=== run 5 of 10 ===
+  already measured, reusing /tmp/alloc-bench-170/r5
+  cpuset=(none)  cpus_allowed=0-3  thp=madvise  page=4096  smt=1
+  cpu='Intel(R) Xeon(R) Processor @ 2.10GHz' kernel='Linux 6.18.44-fc-v24'
+  caches='L1d=48K L1i=32K L2=2048K L3=266240K'
+=== run 6 of 10 ===
+  already measured, reusing /tmp/alloc-bench-170/r6
+  cpuset=(none)  cpus_allowed=0-3  thp=madvise  page=4096  smt=1
+  cpu='Intel(R) Xeon(R) Processor @ 2.10GHz' kernel='Linux 6.18.44-fc-v24'
+  caches='L1d=48K L1i=32K L2=2048K L3=266240K'
+=== run 7 of 10 ===
+  already measured, reusing /tmp/alloc-bench-170/r7
+  cpuset=(none)  cpus_allowed=0-3  thp=madvise  page=4096  smt=1
+  cpu='Intel(R) Xeon(R) Processor @ 2.10GHz' kernel='Linux 6.18.44-fc-v24'
+  caches='L1d=48K L1i=32K L2=2048K L3=266240K'
+=== run 8 of 10 ===
+  already measured, reusing /tmp/alloc-bench-170/r8
+  cpuset=(none)  cpus_allowed=0-3  thp=madvise  page=4096  smt=1
+  cpu='Intel(R) Xeon(R) Processor @ 2.10GHz' kernel='Linux 6.18.44-fc-v24'
+  caches='L1d=48K L1i=32K L2=2048K L3=266240K'
+=== run 9 of 10 ===
+  already measured, reusing /tmp/alloc-bench-170/r9
+  cpuset=(none)  cpus_allowed=0-3  thp=madvise  page=4096  smt=1
+  cpu='Intel(R) Xeon(R) Processor @ 2.10GHz' kernel='Linux 6.18.44-fc-v24'
+  caches='L1d=48K L1i=32K L2=2048K L3=266240K'
+=== run 10 of 10 ===
+  already measured, reusing /tmp/alloc-bench-170/r10
+  cpuset=(none)  cpus_allowed=0-3  thp=madvise  page=4096  smt=1
+  cpu='Intel(R) Xeon(R) Processor @ 2.10GHz' kernel='Linux 6.18.44-fc-v24'
+  caches='L1d=48K L1i=32K L2=2048K L3=266240K'
+
+=== the machine each run recorded, read back from its own run.json ===
+  run  started              cpu_model                              caches                             cpuset
+    1  2026-09-03T16:32:33Z Intel(R) Xeon(R) Processor @ 2.10GHz   L1d=48K L1i=32K L2=2048K L3=266240K (none)
+    2  2026-09-03T16:41:30Z Intel(R) Xeon(R) Processor @ 2.10GHz   L1d=48K L1i=32K L2=2048K L3=266240K (none)
+    3  2026-09-03T16:49:40Z Intel(R) Xeon(R) Processor @ 2.10GHz   L1d=48K L1i=32K L2=2048K L3=266240K (none)
+    4  2026-09-03T16:57:55Z Intel(R) Xeon(R) Processor @ 2.10GHz   L1d=48K L1i=32K L2=2048K L3=266240K (none)
+    5  2026-09-03T17:06:12Z Intel(R) Xeon(R) Processor @ 2.10GHz   L1d=48K L1i=32K L2=2048K L3=266240K (none)
+    6  2026-09-03T17:14:27Z Intel(R) Xeon(R) Processor @ 2.10GHz   L1d=48K L1i=32K L2=2048K L3=266240K (none)
+    7  2026-09-03T17:22:32Z Intel(R) Xeon(R) Processor @ 2.10GHz   L1d=48K L1i=32K L2=2048K L3=266240K (none)
+    8  2026-09-03T17:30:37Z Intel(R) Xeon(R) Processor @ 2.10GHz   L1d=48K L1i=32K L2=2048K L3=266240K (none)
+    9  2026-09-03T17:38:46Z Intel(R) Xeon(R) Processor @ 2.10GHz   L1d=48K L1i=32K L2=2048K L3=266240K (none)
+   10  2026-09-03T17:46:59Z Intel(R) Xeon(R) Processor @ 2.10GHz   L1d=48K L1i=32K L2=2048K L3=266240K (none)
+
+   all 10 runs record ONE machine, one kernel, one cache geometry and no
+     cpuset. The comparisons below are within a single machine.
+
+=== group: alpine / x86_64 / static-pie-lto / distro ===
+    10 runs, identical conditions, 5 candidates against the control
+
+=== the ordering, run by run ===
+  run  1: snmalloc(0.606) < rpmalloc(0.624) < jemalloc(0.633) < mimalloc(0.664) < hardened_malloc(0.953)
+  run  2: snmalloc(0.597) < rpmalloc(0.602) < jemalloc(0.602) < mimalloc(0.625) < hardened_malloc(0.941)
+  run  3: snmalloc(0.599) < rpmalloc(0.602) < jemalloc(0.623) < mimalloc(0.650) < hardened_malloc(0.966)
+  run  4: snmalloc(0.601) < jemalloc(0.639) < rpmalloc(0.640) < mimalloc(0.641) < hardened_malloc(0.970)
+  run  5: snmalloc(0.595) < rpmalloc(0.625) < mimalloc(0.627) < jemalloc(0.629) < hardened_malloc(0.941)
+  run  6: snmalloc(0.574) < rpmalloc(0.615) < jemalloc(0.623) < mimalloc(0.659) < hardened_malloc(0.918)
+  run  7: snmalloc(0.585) < rpmalloc(0.601) < jemalloc(0.637) < mimalloc(0.642) < hardened_malloc(0.917)
+  run  8: snmalloc(0.583) < rpmalloc(0.608) < jemalloc(0.639) < mimalloc(0.643) < hardened_malloc(0.949)
+  run  9: snmalloc(0.568) < rpmalloc(0.602) < jemalloc(0.608) < mimalloc(0.630) < hardened_malloc(0.927)
+  run 10: snmalloc(0.586) < rpmalloc(0.604) < mimalloc(0.628) < jemalloc(0.644) < hardened_malloc(0.975)
+
+  distinct orderings in 10 runs: 3
+     7x  snmalloc < rpmalloc < jemalloc < mimalloc < hardened_malloc
+     2x  snmalloc < rpmalloc < mimalloc < jemalloc < hardened_malloc
+     1x  snmalloc < jemalloc < rpmalloc < mimalloc < hardened_malloc
+
+   3 DIFFERENT ORDERINGS IN 10 RUNS ON ONE MACHINE, nothing
+     varied. The most frequent occurs 7 of 10 times.
+      So 'the ordering is a property of the machine' is too strong as
+       stated: this machine does not have one ordering to be a property of.
+
+=== each candidate: between-run spread against its own within-run MAD ===
+   RULES.md §4 says 'a within-run MAD is a floor on the uncertainty, not a
+     bound', on the strength of ONE pair of runs whose same-host status
+     docs/AGENTS.md item 11 admits it cannot confirm. This is the first
+     time this project has measured it over ten runs with the machine
+     checked. The answer is printed below whichever way it comes out.
+
+  allocator           median     min     max   range  between  within  ratio
+  hardened_malloc      0.945   0.917   0.975    6.1%     2.1%    4.0%  0.52x
+  jemalloc             0.631   0.602   0.644    6.6%     1.2%    4.0%  0.31x
+  mimalloc             0.642   0.625   0.664    6.1%     2.0%    4.8%  0.42x
+  rpmalloc             0.606   0.601   0.640    6.5%     0.8%    4.1%  0.20x
+  snmalloc             0.591   0.568   0.606    6.4%     1.3%    3.9%  0.34x
+
+  range   = (max-min)/median over the runs -- grows with N, shown for context
+  between = MAD of the per-run medians    -- the like-for-like quantity
+  within  = median of each run's own MAD  -- what §9 refuses a lead smaller than
+
+  between-run MAD is 0.20x to 0.52x each cell's own
+  within-run MAD, MAD against MAD.
+   So on this host the two are comparable, and the within-run MAD is NOT
+    a gross underestimate of run-to-run spread -- which is a weaker
+    statement than this project has made elsewhere, and it is what these
+    ten runs support.
+
+=== the OTHER comparison: each candidate against the control ===
+   This is the one the project actually publishes. `rel_time` is already
+     the ratio to the control in the same run, so the question is whether a
+     candidate's whole RANGE over the repeats stays on one side of 1.000.
+
+  allocator            beats     min     max  verdict
+  hardened_malloc     10/10    0.917   0.975  BEATS the control, whole range below it
+  jemalloc            10/10    0.602   0.644  BEATS the control, whole range below it
+  mimalloc            10/10    0.625   0.664  BEATS the control, whole range below it
+  rpmalloc            10/10    0.601   0.640  BEATS the control, whole range below it
+  snmalloc            10/10    0.568   0.606  BEATS the control, whole range below it
+
+   5 of 5 candidates are DECIDED against the control by
+     10 repeats here. The ordering AMONG them is not (see below).
+      So the two questions have different answers on the SAME data, and a
+        window that refuses an ordering while publishing a control claim is
+        drawing exactly the right line.
+
+=== which comparisons this host can decide ===
+  separated : the two ranges do not overlap in any of the runs -> decided
+  consistent: same direction every run, but the ranges touch  -> weak
+  unsettled : the direction itself changed between runs       -> not a result
+
+  pair                                       agrees  gap(med)  verdict
+  jemalloc < hardened_malloc                10/10       49.8%  separated
+  mimalloc < hardened_malloc                10/10       47.2%  separated
+  rpmalloc < hardened_malloc                10/10       55.8%  separated
+  snmalloc < hardened_malloc                10/10       60.0%  separated
+  jemalloc < mimalloc                        8/10        1.7%  unsettled
+  rpmalloc < jemalloc                        9/10        4.0%  unsettled
+  snmalloc < jemalloc                       10/10        6.8%  consistent
+  rpmalloc < mimalloc                       10/10        5.8%  consistent
+  snmalloc < mimalloc                       10/10        8.7%  separated
+  snmalloc < rpmalloc                       10/10        2.7%  consistent
+
+  of 10 pairs: 5 separated, 3 consistent, 2 unsettled
+
+=== cross-reference: the rolling window's rank changes ===
+  window: alpine / x86_64 / static-pie-lto / distro, 3 run(s), 3 CPU model(s)
+  machines: AMD EPYC 7763 64-Core Processor, Intel(R) Xeon(R) Processor @ 2.10GHz, Intel(R) Xeon(R) Processor @ 2.80GHz
+
+   For every pair that CHANGED DIRECTION between machines, does this host
+     decide that pair at all? If it does not, the change is not evidence
+     about the machine -- the comparison was never resolved.
+
+  pair                                      across machines   on one host  reading
+  jemalloc vs mimalloc                              CHANGED     unsettled   NOT evidence about the machine
+  jemalloc vs rpmalloc                              CHANGED     unsettled   NOT evidence about the machine
+  jemalloc vs snmalloc                              CHANGED    consistent   weak: ranges touch here
+  mimalloc vs rpmalloc                              CHANGED    consistent   weak: ranges touch here
+  mimalloc vs snmalloc                              CHANGED     separated   REAL: this host decides it
+  rpmalloc vs snmalloc                              CHANGED    consistent   weak: ranges touch here
+
+  pairs that changed direction across machines and that this host
+   DOES decide: 1     does NOT decide: 5
+  pairs the machines AGREED on: 4
+
+   At least one cross-machine rank change is a pair this host resolves
+     cleanly over its own repeats. THAT pair is where 'the machine
+     changed the answer' is supported, and it is where a property-hunting
+     experiment should be aimed.
+
+=== cross-reference: the control comparison across machines ===
+   READ THE ASYMMETRY. 10 repeats here against ONE sample per machine there.
+     A window value outside this host's range is CONSISTENT WITH a machine
+     effect and does not establish one: the other machine's own spread is
+     unmeasured, and this experiment is the reason to doubt a single sample.
+
+  allocator            this host (10 runs)  clearly outside  widest margin
+  hardened_malloc       0.917-0.975            2 of 3        25.66%  (needs > 4.0%)
+  jemalloc              0.602-0.644            2 of 3        36.33%  (needs > 4.0%)
+  mimalloc              0.625-0.664            2 of 3        51.27%  (needs > 4.8%)
+  rpmalloc              0.601-0.640            2 of 3        37.26%  (needs > 4.1%)
+  snmalloc              0.568-0.606            1 of 3        87.65%  (needs > 3.9%)
+
+   5 candidate(s) have a window value this host never produced in
+     10 repeats, by more than that cell's own spread. Those are where a
+     machine effect would live,
+     and settling it needs REPEATS ON THE SECOND MACHINE -- T-025 option (3),
+     which needs runners this project does not have.
+
+
+=== what this probe cannot tell you ===
+- WHICH property of the machine anything depends on. It measures how
+  much of the ordering is decidable at all, which is the question that
+  has to be answered before 'which property' is a well-posed one.
+- anything about a second host. Every number above is this machine.
+- whether a pair this host leaves unsettled is unsettled everywhere. A
+  quieter machine may separate it; that needs the machine.

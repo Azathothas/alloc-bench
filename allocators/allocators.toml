@@ -1,0 +1,113 @@
+# Allocator policy. Exact revisions are resolved into allocators.lock.json.
+
+schema_version = 1
+
+[[allocator]]
+id            = "system"
+name          = "system (distribution default)"
+kind          = "builtin"
+license       = "n/a; supplied by the distribution"
+integrations  = ["baseline"]
+summary       = "The image's allocator: musl mallocng or glibc ptmalloc2. This is the control."
+
+[[allocator]]
+id            = "mimalloc"
+name          = "mimalloc"
+repo          = "https://github.com/microsoft/mimalloc"
+license       = "MIT"
+track         = "latest-release"
+branch        = "dev"
+build         = "cmake"
+prefix        = "mi_"
+integrations  = ["rust-global", "libc-surgery", "link-override", "preload"]
+summary       = "A C allocator with distinct prefixed and override build modes."
+
+[[allocator]]
+id            = "jemalloc"
+name          = "jemalloc"
+repo          = "https://github.com/jemalloc/jemalloc"
+license       = "BSD-2-Clause"
+track         = "latest-release"
+branch        = "dev"
+build         = "autotools"
+prefix        = "je_"
+integrations  = ["rust-global", "libc-surgery", "link-override", "preload"]
+summary       = "The allocator selected by unmodified ripgrep on 64-bit musl; this project removes that selection from every control."
+
+[[allocator]]
+id            = "snmalloc"
+name          = "snmalloc"
+repo          = "https://github.com/microsoft/snmalloc"
+license       = "MIT"
+track         = "latest-release"
+branch        = "main"
+build         = "cmake"
+prefix        = "sn_"
+integrations  = ["rust-global", "link-override", "preload"]
+summary       = "A C++20 allocator with prefixed and override shims."
+[allocator.unsupported_notes]
+libc-surgery = "The override archive requires a C++ runtime in every static link, including Cargo build scripts whose link lines this project does not control."
+[allocator.build_notes]
+alpine = "Use CXX11 destructors on musl to preserve thread teardown behavior."
+
+[[allocator]]
+id            = "rpmalloc"
+name          = "rpmalloc"
+repo          = "https://github.com/mjansson/rpmalloc"
+license       = "MIT OR Unlicense"
+track         = "latest-release"
+branch        = "develop"
+build         = "direct-cc"
+prefix        = "rp"
+integrations  = ["rust-global", "libc-surgery", "link-override", "preload"]
+summary       = "A C allocator compiled directly to avoid unrelated C++ test targets."
+[allocator.integration_notes]
+rust-global = "The shim initializes rpmalloc once per process and once per thread before first allocation."
+
+[[allocator]]
+id            = "hardened_malloc"
+name          = "hardened_malloc"
+repo          = "https://github.com/GrapheneOS/hardened_malloc"
+license       = "MIT"
+track         = "latest-release"
+branch        = "main"
+build         = "direct-cc"
+prefix        = "h_"
+variants      = ["default", "light"]
+integrations  = ["rust-global", "libc-surgery", "link-override", "preload"]
+summary       = "A security-oriented C allocator measured here only for performance, memory, and size."
+[allocator.build_notes]
+all = "Archive upstream-configured objects with native tuning, the C++ API, and allocator-internal LTO disabled for comparability."
+
+[[allocator]]
+id            = "mesh"
+name          = "Mesh"
+repo          = "https://github.com/plasma-umass/mesh"
+license       = "Apache-2.0"
+track         = "branch"
+branch        = "master"
+build         = "cmake"
+integrations  = ["preload"]
+summary       = "A compacting allocator pinned to a branch commit because upstream publishes no tag."
+[allocator.unsupported_notes]
+rust-global = "Mesh has no distinct prefixed C allocation API for a global-allocator shim."
+libc-surgery = "Mesh has no static archive target and depends on mmap interposition and load-time pthread_atfork registration."
+link-override = "Mesh has no static archive target."
+
+[[allocator]]
+id            = "tcmalloc"
+name          = "tcmalloc (Google)"
+repo          = "https://github.com/google/tcmalloc"
+license       = "Apache-2.0"
+track         = "branch"
+branch        = "master"
+build         = "bazel"
+bazel_version = "8.6.0"
+integrations  = ["preload"]
+summary       = "Google tcmalloc, built with Bazel and pinned to a branch commit."
+[allocator.build_notes]
+all = "Build with Bazel 8.6.0; Bazel 9 is incompatible with the pinned source."
+[allocator.unsupported_notes]
+rust-global = "The supported API does not expose a distinct prefixed C allocation interface."
+libc-surgery = "The Bazel target is not a self-contained static archive, requires Abseil and a C++ runtime, and does not support musl upstream."
+link-override = "No self-contained static archive is available."

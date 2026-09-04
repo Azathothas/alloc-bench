@@ -1,0 +1,390 @@
+{
+  "cpu_models": [
+    "Intel(R) Xeon(R) Processor @ 2.80GHz"
+  ],
+  "distinct_cpu_models": 1,
+  "generated_from": "rankings.json of each run in the window; nothing re-derived",
+  "groups": [
+    {
+      "beat_control_every_run": [
+        "rpmalloc",
+        "mimalloc",
+        "jemalloc",
+        "rpmalloc",
+        "snmalloc",
+        "mimalloc",
+        "jemalloc",
+        "hardened_malloc"
+      ],
+      "control_crossers": [],
+      "group": "alpine / x86_64 / static-pie / distro",
+      "ordering_transfers": true,
+      "rank_movers": [],
+      "rows": [
+        {
+          "allocator": "rpmalloc",
+          "beats_control_but_inside_its_own_noise": false,
+          "beats_control_every_run": true,
+          "between_run_spread": 0.0,
+          "crosses_control": false,
+          "integration": "libc-surgery",
+          "is_baseline": false,
+          "label": "rpmalloc",
+          "loses_to_control_every_run": false,
+          "n_runs": 1,
+          "positions": [
+            1
+          ],
+          "rank_stable": true,
+          "rel_rss": {
+            "max": 1.0547476475620188,
+            "median": 1.0547476475620188,
+            "min": 1.0547476475620188
+          },
+          "rel_time": {
+            "max": 0.46840984459368573,
+            "median": 0.46840984459368573,
+            "min": 0.46840984459368573,
+            "values": [
+              0.46840984459368573
+            ]
+          },
+          "variant": "default",
+          "within_run_mad": {
+            "max": 0.042420354,
+            "min": 0.042420354
+          }
+        },
+        {
+          "allocator": "mimalloc",
+          "beats_control_but_inside_its_own_noise": false,
+          "beats_control_every_run": true,
+          "between_run_spread": 0.0,
+          "crosses_control": false,
+          "integration": "libc-surgery",
+          "is_baseline": false,
+          "label": "mimalloc",
+          "loses_to_control_every_run": false,
+          "n_runs": 1,
+          "positions": [
+            2
+          ],
+          "rank_stable": true,
+          "rel_rss": {
+            "max": 3.4649272882805815,
+            "median": 3.4649272882805815,
+            "min": 3.4649272882805815
+          },
+          "rel_time": {
+            "max": 0.4948191115595615,
+            "median": 0.4948191115595615,
+            "min": 0.4948191115595615,
+            "values": [
+              0.4948191115595615
+            ]
+          },
+          "variant": "default",
+          "within_run_mad": {
+            "max": 0.074187118,
+            "min": 0.074187118
+          }
+        },
+        {
+          "allocator": "jemalloc",
+          "beats_control_but_inside_its_own_noise": false,
+          "beats_control_every_run": true,
+          "between_run_spread": 0.0,
+          "crosses_control": false,
+          "integration": "libc-surgery",
+          "is_baseline": false,
+          "label": "jemalloc",
+          "loses_to_control_every_run": false,
+          "n_runs": 1,
+          "positions": [
+            3
+          ],
+          "rank_stable": true,
+          "rel_rss": {
+            "max": 1.3695466210436271,
+            "median": 1.3695466210436271,
+            "min": 1.3695466210436271
+          },
+          "rel_time": {
+            "max": 0.4953638789537291,
+            "median": 0.4953638789537291,
+            "min": 0.4953638789537291,
+            "values": [
+              0.4953638789537291
+            ]
+          },
+          "variant": "default",
+          "within_run_mad": {
+            "max": 0.03368786,
+            "min": 0.03368786
+          }
+        },
+        {
+          "allocator": "rpmalloc",
+          "beats_control_but_inside_its_own_noise": false,
+          "beats_control_every_run": true,
+          "between_run_spread": 0.0,
+          "crosses_control": false,
+          "integration": "rust-global",
+          "is_baseline": false,
+          "label": "rpmalloc",
+          "loses_to_control_every_run": false,
+          "n_runs": 1,
+          "positions": [
+            4
+          ],
+          "rank_stable": true,
+          "rel_rss": {
+            "max": 1.0684345594525235,
+            "median": 1.0684345594525235,
+            "min": 1.0684345594525235
+          },
+          "rel_time": {
+            "max": 0.5476190555060522,
+            "median": 0.5476190555060522,
+            "min": 0.5476190555060522,
+            "values": [
+              0.5476190555060522
+            ]
+          },
+          "variant": "default",
+          "within_run_mad": {
+            "max": 0.034253839,
+            "min": 0.034253839
+          }
+        },
+        {
+          "allocator": "snmalloc",
+          "beats_control_but_inside_its_own_noise": false,
+          "beats_control_every_run": true,
+          "between_run_spread": 0.0,
+          "crosses_control": false,
+          "integration": "rust-global",
+          "is_baseline": false,
+          "label": "snmalloc",
+          "loses_to_control_every_run": false,
+          "n_runs": 1,
+          "positions": [
+            5
+          ],
+          "rank_stable": true,
+          "rel_rss": {
+            "max": 1.5064157399486742,
+            "median": 1.5064157399486742,
+            "min": 1.5064157399486742
+          },
+          "rel_time": {
+            "max": 0.598554197353006,
+            "median": 0.598554197353006,
+            "min": 0.598554197353006,
+            "values": [
+              0.598554197353006
+            ]
+          },
+          "variant": "default",
+          "within_run_mad": {
+            "max": 0.045459493,
+            "min": 0.045459493
+          }
+        },
+        {
+          "allocator": "mimalloc",
+          "beats_control_but_inside_its_own_noise": false,
+          "beats_control_every_run": true,
+          "between_run_spread": 0.0,
+          "crosses_control": false,
+          "integration": "rust-global",
+          "is_baseline": false,
+          "label": "mimalloc",
+          "loses_to_control_every_run": false,
+          "n_runs": 1,
+          "positions": [
+            6
+          ],
+          "rank_stable": true,
+          "rel_rss": {
+            "max": 3.468776732249786,
+            "median": 3.468776732249786,
+            "min": 3.468776732249786
+          },
+          "rel_time": {
+            "max": 0.6758217021925966,
+            "median": 0.6758217021925966,
+            "min": 0.6758217021925966,
+            "values": [
+              0.6758217021925966
+            ]
+          },
+          "variant": "default",
+          "within_run_mad": {
+            "max": 0.063118398,
+            "min": 0.063118398
+          }
+        },
+        {
+          "allocator": "jemalloc",
+          "beats_control_but_inside_its_own_noise": false,
+          "beats_control_every_run": true,
+          "between_run_spread": 0.0,
+          "crosses_control": false,
+          "integration": "rust-global",
+          "is_baseline": false,
+          "label": "jemalloc",
+          "loses_to_control_every_run": false,
+          "n_runs": 1,
+          "positions": [
+            7
+          ],
+          "rank_stable": true,
+          "rel_rss": {
+            "max": 1.561163387510693,
+            "median": 1.561163387510693,
+            "min": 1.561163387510693
+          },
+          "rel_time": {
+            "max": 0.6812240738109601,
+            "median": 0.6812240738109601,
+            "min": 0.6812240738109601,
+            "values": [
+              0.6812240738109601
+            ]
+          },
+          "variant": "default",
+          "within_run_mad": {
+            "max": 0.064193792,
+            "min": 0.064193792
+          }
+        },
+        {
+          "allocator": "hardened_malloc",
+          "beats_control_but_inside_its_own_noise": false,
+          "beats_control_every_run": true,
+          "between_run_spread": 0.0,
+          "crosses_control": false,
+          "integration": "libc-surgery",
+          "is_baseline": false,
+          "label": "hardened_malloc",
+          "loses_to_control_every_run": false,
+          "n_runs": 1,
+          "positions": [
+            8
+          ],
+          "rank_stable": true,
+          "rel_rss": {
+            "max": 2.902480752780154,
+            "median": 2.902480752780154,
+            "min": 2.902480752780154
+          },
+          "rel_time": {
+            "max": 0.8855170274393614,
+            "median": 0.8855170274393614,
+            "min": 0.8855170274393614,
+            "values": [
+              0.8855170274393614
+            ]
+          },
+          "variant": "default",
+          "within_run_mad": {
+            "max": 0.038197577,
+            "min": 0.038197577
+          }
+        },
+        {
+          "allocator": "hardened_malloc",
+          "beats_control_but_inside_its_own_noise": true,
+          "beats_control_every_run": false,
+          "between_run_spread": 0.0,
+          "crosses_control": false,
+          "integration": "rust-global",
+          "is_baseline": false,
+          "label": "hardened_malloc",
+          "loses_to_control_every_run": false,
+          "n_runs": 1,
+          "positions": [
+            9
+          ],
+          "rank_stable": true,
+          "rel_rss": {
+            "max": 2.8751069289991444,
+            "median": 2.8751069289991444,
+            "min": 2.8751069289991444
+          },
+          "rel_time": {
+            "max": 0.9962476585131804,
+            "median": 0.9962476585131804,
+            "min": 0.9962476585131804,
+            "values": [
+              0.9962476585131804
+            ]
+          },
+          "variant": "default",
+          "within_run_mad": {
+            "max": 0.032502987,
+            "min": 0.032502987
+          }
+        },
+        {
+          "allocator": "system",
+          "beats_control_but_inside_its_own_noise": false,
+          "beats_control_every_run": false,
+          "between_run_spread": 0.0,
+          "crosses_control": false,
+          "integration": "baseline",
+          "is_baseline": true,
+          "label": "system",
+          "loses_to_control_every_run": false,
+          "n_runs": 1,
+          "positions": [
+            10
+          ],
+          "rank_stable": true,
+          "rel_rss": {
+            "max": 1.0,
+            "median": 1.0,
+            "min": 1.0
+          },
+          "rel_time": {
+            "max": 1.0,
+            "median": 1.0,
+            "min": 1.0,
+            "values": [
+              1.0
+            ]
+          },
+          "variant": "default",
+          "within_run_mad": {
+            "max": 0.026614058,
+            "min": 0.026614058
+          }
+        }
+      ]
+    }
+  ],
+  "primary_workload": "literal",
+  "schema_version": 1,
+  "window": {
+    "keep": 6,
+    "n_runs": 1,
+    "runs": [
+      {
+        "ci_run_id": null,
+        "corpus_seed": 20260901,
+        "cpu_count": 4,
+        "cpu_model": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+        "emulated": false,
+        "git_commit": "31476973fae90d40d3a7e562c41b855387a6b986",
+        "kernel": "Linux 6.18.44-fc-v22",
+        "run_id": "20260902-021113",
+        "runtime": "docker",
+        "started_at": "2026-09-02T02:11:13Z",
+        "suites": [
+          "mechanisms"
+        ]
+      }
+    ]
+  }
+}

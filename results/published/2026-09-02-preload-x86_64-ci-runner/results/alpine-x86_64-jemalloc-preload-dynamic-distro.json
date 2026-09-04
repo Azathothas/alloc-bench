@@ -1,0 +1,1206 @@
+{
+  "cell": {
+    "id": "alpine-x86_64-jemalloc-preload-dynamic-distro",
+    "suite": "preload",
+    "distro": "alpine",
+    "arch": "x86_64",
+    "libc": "musl",
+    "allocator": "jemalloc",
+    "integration": "preload",
+    "profile": "dynamic",
+    "toolchain": "distro",
+    "corpus": "standard",
+    "repeat": 10,
+    "variant": "default",
+    "status": "planned",
+    "reason": null
+  },
+  "outcome": "ok",
+  "detail": null,
+  "image_digest": "local:sha256:68d9223f9bfd6997a188c3c764c8c962d77882a48d87b67eb878c54d815296ce",
+  "image_env": {
+    "ar": "GNU ar (GNU Binutils) 2.45.1",
+    "arch": "x86_64",
+    "cargo": "cargo 1.96.0 (30a34c682 2026-05-25)",
+    "cc": "cc (Alpine 15.2.0) 15.2.0",
+    "cmake": "cmake version 4.2.3",
+    "cxx": "c++ (Alpine 15.2.0) 15.2.0",
+    "distro": "alpine",
+    "distro_version": "3.24.1",
+    "ld": "GNU ld (GNU Binutils) 2.45.1",
+    "libc": "musl",
+    "libc_version": "musl-1.2.6-r2 description:",
+    "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)",
+    "zig": "0.16.0",
+    "zig_available": "yes"
+  },
+  "build": {
+    "alloc_cc": "cc (Alpine 15.2.0) 15.2.0",
+    "allocator": "jemalloc",
+    "binary_bytes": 8249936,
+    "cargo": "cargo 1.96.0 (30a34c682 2026-05-25)",
+    "cargo_lock_sha256": "490c7eb5b6035d3d809dd33a71d57f8476346fcf0e4597032a1568eb8a7da6cf",
+    "cargo_lto": "false",
+    "cc": "cc (Alpine 15.2.0) 15.2.0",
+    "integration": "preload",
+    "linker": "GNU ld (GNU Binutils) 2.45.1",
+    "profile": "dynamic",
+    "rustc": "rustc 1.96.0 (ac68faa20 2026-05-25)",
+    "rustflags": "-C target-feature=-crt-static",
+    "target": "x86_64-unknown-linux-musl",
+    "toolchain": "distro"
+  },
+  "allocator_build": {
+    "ALLOC_ARCH": "x86_64",
+    "ALLOC_LIBC": "musl",
+    "ALLOC_LINK_CXX": "",
+    "ALLOC_LINK_SEARCH": "",
+    "ALLOC_MODE": "preload",
+    "ALLOC_PIC": "1",
+    "build_flags": "autotools --with-jemalloc-prefix='' --enable-shared --disable-cxx --disable-initial-exec-tls CFLAGS='-O3 -fPIC'"
+  },
+  "identity": {
+    "allocators_detected": [],
+    "binary_bytes": 8249936,
+    "expect_allocator": "system",
+    "has_symtab": true,
+    "interp": "/lib/ld-musl-x86_64.so.1",
+    "libc_allocator_detected": [],
+    "link_kind": "dynamic",
+    "machine": "x86_64",
+    "ok": true,
+    "reasons": [],
+    "symbols_total": 5068
+  },
+  "correctness": {
+    "checks": [
+      {
+        "detail": "ripgrep 15.2.0 (rev e89fff89ac)",
+        "name": "starts",
+        "ok": true
+      },
+      {
+        "detail": "16261 lines in 6475 files",
+        "name": "literal",
+        "ok": true
+      },
+      {
+        "detail": "26943 lines",
+        "name": "icase",
+        "ok": true
+      },
+      {
+        "detail": "7657 lines",
+        "name": "unicode",
+        "ok": true
+      },
+      {
+        "detail": "19507 lines",
+        "name": "regex",
+        "ok": true
+      },
+      {
+        "detail": "0 lines, exit 1",
+        "name": "nomatch",
+        "ok": true
+      },
+      {
+        "detail": "-j1 and -j4 agree on 6475 files",
+        "name": "threads",
+        "ok": true
+      },
+      {
+        "detail": "second run agrees",
+        "name": "repeat",
+        "ok": true
+      },
+      {
+        "detail": "16261 match events",
+        "name": "json",
+        "ok": true
+      }
+    ],
+    "ok": true,
+    "output_digest": "6b02561a2b166be9"
+  },
+  "aslr": {
+    "attempts": 6,
+    "bases": [
+      "0x559c0d5f1000",
+      "0x563fb24b1000",
+      "0x55d9ce1c5000",
+      "0x5620e5f75000",
+      "0x55edf14b9000",
+      "0x55e6d17cd000"
+    ],
+    "distinct_bases": 6,
+    "randomised": true,
+    "sampled": 6
+  },
+  "preload": {
+    "allocators_detected_in_library": [
+      "jemalloc"
+    ],
+    "expect_allocator": "jemalloc",
+    "library_has_symtab": true,
+    "ok": true,
+    "reasons": [],
+    "so": "/cache/alloc/jemalloc-81034ce1f1373e37dc865038e1bc8eeecf559ce8-preload-pic1-musl-x86_64-distro-default/lib/liballocbench.so",
+    "with_preload": {
+      "attempts": 4,
+      "library_resident": 4,
+      "map_line": "7f0da0a00000-7f0da0a09000 r--p 00000000 08:01 7644279                    /cache/alloc/jemalloc-81034ce1f1373e37dc865038e1bc8eeecf559ce8-preload-pic1-musl-x86_64-distro-default/lib/liballocbench.so",
+      "subject_sampled": 4
+    },
+    "without_preload": {
+      "attempts": 4,
+      "library_resident": 0,
+      "map_line": null,
+      "subject_sampled": 4
+    }
+  },
+  "binary_bytes": 8249936,
+  "build_seconds": 61.0,
+  "measurements": {
+    "files": {
+      "argv": [
+        "/out/rg",
+        "--no-ignore",
+        "--hidden",
+        "--no-messages",
+        "-l",
+        "ZORKMID",
+        "/cache/corpus-standard-20260901/data"
+      ],
+      "binary": "/out/rg",
+      "failures": 0,
+      "maxrss_kb": {
+        "mad": 103.782,
+        "max": 33408.0,
+        "mean": 33268.0,
+        "median": 33242.0,
+        "min": 33152.0,
+        "n": 10,
+        "rel_mad": 0.003122014,
+        "stddev": 96.645974797
+      },
+      "repeat": 10,
+      "samples": [
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 33244,
+          "minflt": 201,
+          "signal": null,
+          "sys_us": 128421,
+          "user_us": 33587,
+          "wall_ns": 44807734,
+          "wall_s": 0.044807734
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 33164,
+          "minflt": 202,
+          "signal": null,
+          "sys_us": 124387,
+          "user_us": 39440,
+          "wall_ns": 45225271,
+          "wall_s": 0.045225271
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 33180,
+          "minflt": 199,
+          "signal": null,
+          "sys_us": 130661,
+          "user_us": 28490,
+          "wall_ns": 47178974,
+          "wall_s": 0.047178974
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 33152,
+          "minflt": 201,
+          "signal": null,
+          "sys_us": 125490,
+          "user_us": 38842,
+          "wall_ns": 45298414,
+          "wall_s": 0.045298414
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 33408,
+          "minflt": 203,
+          "signal": null,
+          "sys_us": 133906,
+          "user_us": 28553,
+          "wall_ns": 45422966,
+          "wall_s": 0.045422966
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 33228,
+          "minflt": 202,
+          "signal": null,
+          "sys_us": 135499,
+          "user_us": 27693,
+          "wall_ns": 44690459,
+          "wall_s": 0.044690459
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 33288,
+          "minflt": 200,
+          "signal": null,
+          "sys_us": 130812,
+          "user_us": 32457,
+          "wall_ns": 45139787,
+          "wall_s": 0.045139787
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 33400,
+          "minflt": 201,
+          "signal": null,
+          "sys_us": 129749,
+          "user_us": 34403,
+          "wall_ns": 45364497,
+          "wall_s": 0.045364497
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 33240,
+          "minflt": 199,
+          "signal": null,
+          "sys_us": 128181,
+          "user_us": 35496,
+          "wall_ns": 44999588,
+          "wall_s": 0.044999588
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 33376,
+          "minflt": 203,
+          "signal": null,
+          "sys_us": 131213,
+          "user_us": 31809,
+          "wall_ns": 45628038,
+          "wall_s": 0.045628038
+        }
+      ],
+      "samples_ok": 10,
+      "wall_s": {
+        "mad": 0.00031385,
+        "max": 0.047178974,
+        "mean": 0.045375573,
+        "median": 0.045261842,
+        "min": 0.044690459,
+        "n": 10,
+        "rel_mad": 0.006934099,
+        "stddev": 0.000694077
+      },
+      "warmup": 2,
+      "workload": "files"
+    },
+    "json": {
+      "argv": [
+        "/out/rg",
+        "--no-ignore",
+        "--hidden",
+        "--no-messages",
+        "--json",
+        "ZORKMID",
+        "/cache/corpus-standard-20260901/data"
+      ],
+      "binary": "/out/rg",
+      "failures": 0,
+      "maxrss_kb": {
+        "mad": 47.4432,
+        "max": 33396.0,
+        "mean": 33333.2,
+        "median": 33330.0,
+        "min": 33260.0,
+        "n": 10,
+        "rel_mad": 0.001423438,
+        "stddev": 45.413654334
+      },
+      "repeat": 10,
+      "samples": [
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 33292,
+          "minflt": 201,
+          "signal": null,
+          "sys_us": 82533,
+          "user_us": 73584,
+          "wall_ns": 43129032,
+          "wall_s": 0.043129032
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 33396,
+          "minflt": 203,
+          "signal": null,
+          "sys_us": 83669,
+          "user_us": 72580,
+          "wall_ns": 44412971,
+          "wall_s": 0.044412971
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 33316,
+          "minflt": 203,
+          "signal": null,
+          "sys_us": 95998,
+          "user_us": 60120,
+          "wall_ns": 43175282,
+          "wall_s": 0.043175282
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 33364,
+          "minflt": 202,
+          "signal": null,
+          "sys_us": 86388,
+          "user_us": 69700,
+          "wall_ns": 44018152,
+          "wall_s": 0.044018152
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 33308,
+          "minflt": 201,
+          "signal": null,
+          "sys_us": 88653,
+          "user_us": 66246,
+          "wall_ns": 42565201,
+          "wall_s": 0.042565201
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 33344,
+          "minflt": 202,
+          "signal": null,
+          "sys_us": 87198,
+          "user_us": 68155,
+          "wall_ns": 43951488,
+          "wall_s": 0.043951488
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 33260,
+          "minflt": 204,
+          "signal": null,
+          "sys_us": 75639,
+          "user_us": 79568,
+          "wall_ns": 43480176,
+          "wall_s": 0.043480176
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 33396,
+          "minflt": 203,
+          "signal": null,
+          "sys_us": 98796,
+          "user_us": 56882,
+          "wall_ns": 44126286,
+          "wall_s": 0.044126286
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 33356,
+          "minflt": 203,
+          "signal": null,
+          "sys_us": 77055,
+          "user_us": 77055,
+          "wall_ns": 43564447,
+          "wall_s": 0.043564447
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 33300,
+          "minflt": 203,
+          "signal": null,
+          "sys_us": 86991,
+          "user_us": 68209,
+          "wall_ns": 43005133,
+          "wall_s": 0.043005133
+        }
+      ],
+      "samples_ok": 10,
+      "wall_s": {
+        "mad": 0.000685715,
+        "max": 0.044412971,
+        "mean": 0.043542817,
+        "median": 0.043522312,
+        "min": 0.042565201,
+        "n": 10,
+        "rel_mad": 0.015755484,
+        "stddev": 0.000581768
+      },
+      "warmup": 2,
+      "workload": "json"
+    },
+    "literal": {
+      "argv": [
+        "/out/rg",
+        "--no-ignore",
+        "--hidden",
+        "--no-messages",
+        "ZORKMID",
+        "/cache/corpus-standard-20260901/data"
+      ],
+      "binary": "/out/rg",
+      "failures": 0,
+      "maxrss_kb": {
+        "mad": 71.1648,
+        "max": 33468.0,
+        "mean": 33324.4,
+        "median": 33316.0,
+        "min": 33256.0,
+        "n": 10,
+        "rel_mad": 0.002136055,
+        "stddev": 70.211110232
+      },
+      "repeat": 10,
+      "samples": [
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 33296,
+          "minflt": 205,
+          "signal": null,
+          "sys_us": 144094,
+          "user_us": 30595,
+          "wall_ns": 47757014,
+          "wall_s": 0.047757014
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 33356,
+          "minflt": 204,
+          "signal": null,
+          "sys_us": 132130,
+          "user_us": 42718,
+          "wall_ns": 48149788,
+          "wall_s": 0.048149788
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 33340,
+          "minflt": 203,
+          "signal": null,
+          "sys_us": 137684,
+          "user_us": 38082,
+          "wall_ns": 47835492,
+          "wall_s": 0.047835492
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 33276,
+          "minflt": 203,
+          "signal": null,
+          "sys_us": 135529,
+          "user_us": 39570,
+          "wall_ns": 48896070,
+          "wall_s": 0.04889607
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 33400,
+          "minflt": 205,
+          "signal": null,
+          "sys_us": 135850,
+          "user_us": 40361,
+          "wall_ns": 49254198,
+          "wall_s": 0.049254198
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 33256,
+          "minflt": 203,
+          "signal": null,
+          "sys_us": 132698,
+          "user_us": 42931,
+          "wall_ns": 48607843,
+          "wall_s": 0.048607843
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 33260,
+          "minflt": 203,
+          "signal": null,
+          "sys_us": 131403,
+          "user_us": 43801,
+          "wall_ns": 47777172,
+          "wall_s": 0.047777172
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 33256,
+          "minflt": 206,
+          "signal": null,
+          "sys_us": 128886,
+          "user_us": 46958,
+          "wall_ns": 47914267,
+          "wall_s": 0.047914267
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 33468,
+          "minflt": 204,
+          "signal": null,
+          "sys_us": 142190,
+          "user_us": 32270,
+          "wall_ns": 48820327,
+          "wall_s": 0.048820327
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 33336,
+          "minflt": 204,
+          "signal": null,
+          "sys_us": 134716,
+          "user_us": 39622,
+          "wall_ns": 47481170,
+          "wall_s": 0.04748117
+        }
+      ],
+      "samples_ok": 10,
+      "wall_s": {
+        "mad": 0.000612218,
+        "max": 0.049254198,
+        "mean": 0.048249334,
+        "median": 0.048032028,
+        "min": 0.04748117,
+        "n": 10,
+        "rel_mad": 0.012746041,
+        "stddev": 0.000599205
+      },
+      "warmup": 2,
+      "workload": "literal"
+    },
+    "literal-j1": {
+      "argv": [
+        "/out/rg",
+        "--no-ignore",
+        "--hidden",
+        "--no-messages",
+        "-j",
+        "1",
+        "ZORKMID",
+        "/cache/corpus-standard-20260901/data"
+      ],
+      "binary": "/out/rg",
+      "failures": 0,
+      "maxrss_kb": {
+        "mad": 50.4084,
+        "max": 10884.0,
+        "mean": 10810.8,
+        "median": 10814.0,
+        "min": 10672.0,
+        "n": 10,
+        "rel_mad": 0.004661402,
+        "stddev": 61.652791232
+      },
+      "repeat": 10,
+      "samples": [
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 10780,
+          "minflt": 188,
+          "signal": null,
+          "sys_us": 96624,
+          "user_us": 23149,
+          "wall_ns": 119959230,
+          "wall_s": 0.11995923
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 10672,
+          "minflt": 186,
+          "signal": null,
+          "sys_us": 98094,
+          "user_us": 25024,
+          "wall_ns": 123295338,
+          "wall_s": 0.123295338
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 10860,
+          "minflt": 190,
+          "signal": null,
+          "sys_us": 91633,
+          "user_us": 30876,
+          "wall_ns": 122734580,
+          "wall_s": 0.12273458
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 10868,
+          "minflt": 187,
+          "signal": null,
+          "sys_us": 92267,
+          "user_us": 30087,
+          "wall_ns": 122534037,
+          "wall_s": 0.122534037
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 10788,
+          "minflt": 188,
+          "signal": null,
+          "sys_us": 96394,
+          "user_us": 25837,
+          "wall_ns": 122566337,
+          "wall_s": 0.122566337
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 10884,
+          "minflt": 190,
+          "signal": null,
+          "sys_us": 99611,
+          "user_us": 22910,
+          "wall_ns": 122662028,
+          "wall_s": 0.122662028
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 10808,
+          "minflt": 186,
+          "signal": null,
+          "sys_us": 107346,
+          "user_us": 19061,
+          "wall_ns": 126703632,
+          "wall_s": 0.126703632
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 10780,
+          "minflt": 188,
+          "signal": null,
+          "sys_us": 102072,
+          "user_us": 23016,
+          "wall_ns": 125470492,
+          "wall_s": 0.125470492
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 10848,
+          "minflt": 187,
+          "signal": null,
+          "sys_us": 97723,
+          "user_us": 24929,
+          "wall_ns": 122732790,
+          "wall_s": 0.12273279
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 10820,
+          "minflt": 190,
+          "signal": null,
+          "sys_us": 102063,
+          "user_us": 26016,
+          "wall_ns": 128346314,
+          "wall_s": 0.128346314
+        }
+      ],
+      "samples_ok": 10,
+      "wall_s": {
+        "mad": 0.000564352,
+        "max": 0.128346314,
+        "mean": 0.123700478,
+        "median": 0.122733685,
+        "min": 0.11995923,
+        "n": 10,
+        "rel_mad": 0.004598187,
+        "stddev": 0.002437926
+      },
+      "warmup": 2,
+      "workload": "literal-j1"
+    },
+    "nomatch": {
+      "argv": [
+        "/out/rg",
+        "--no-ignore",
+        "--hidden",
+        "--no-messages",
+        "QQQQ-ZZZZ-NO-SUCH-TOKEN",
+        "/cache/corpus-standard-20260901/data"
+      ],
+      "binary": "/out/rg",
+      "failures": 0,
+      "maxrss_kb": {
+        "mad": 71.1648,
+        "max": 35532.0,
+        "mean": 33588.8,
+        "median": 33376.0,
+        "min": 33304.0,
+        "n": 10,
+        "rel_mad": 0.002132215,
+        "stddev": 684.569743221
+      },
+      "repeat": 10,
+      "samples": [
+        {
+          "exit_code": 1,
+          "majflt": 0,
+          "maxrss_kb": 35532,
+          "minflt": 201,
+          "signal": null,
+          "sys_us": 80206,
+          "user_us": 23059,
+          "wall_ns": 30545935,
+          "wall_s": 0.030545935
+        },
+        {
+          "exit_code": 1,
+          "majflt": 0,
+          "maxrss_kb": 33456,
+          "minflt": 204,
+          "signal": null,
+          "sys_us": 86584,
+          "user_us": 16726,
+          "wall_ns": 29811802,
+          "wall_s": 0.029811802
+        },
+        {
+          "exit_code": 1,
+          "majflt": 0,
+          "maxrss_kb": 33384,
+          "minflt": 201,
+          "signal": null,
+          "sys_us": 82271,
+          "user_us": 21547,
+          "wall_ns": 29877646,
+          "wall_s": 0.029877646
+        },
+        {
+          "exit_code": 1,
+          "majflt": 0,
+          "maxrss_kb": 33368,
+          "minflt": 203,
+          "signal": null,
+          "sys_us": 81749,
+          "user_us": 21194,
+          "wall_ns": 30190391,
+          "wall_s": 0.030190391
+        },
+        {
+          "exit_code": 1,
+          "majflt": 0,
+          "maxrss_kb": 33368,
+          "minflt": 205,
+          "signal": null,
+          "sys_us": 76617,
+          "user_us": 26521,
+          "wall_ns": 31287736,
+          "wall_s": 0.031287736
+        },
+        {
+          "exit_code": 1,
+          "majflt": 0,
+          "maxrss_kb": 33304,
+          "minflt": 202,
+          "signal": null,
+          "sys_us": 85719,
+          "user_us": 17941,
+          "wall_ns": 30189649,
+          "wall_s": 0.030189649
+        },
+        {
+          "exit_code": 1,
+          "majflt": 0,
+          "maxrss_kb": 33440,
+          "minflt": 203,
+          "signal": null,
+          "sys_us": 87930,
+          "user_us": 16426,
+          "wall_ns": 30282588,
+          "wall_s": 0.030282588
+        },
+        {
+          "exit_code": 1,
+          "majflt": 0,
+          "maxrss_kb": 33304,
+          "minflt": 200,
+          "signal": null,
+          "sys_us": 77091,
+          "user_us": 26347,
+          "wall_ns": 31331745,
+          "wall_s": 0.031331745
+        },
+        {
+          "exit_code": 1,
+          "majflt": 0,
+          "maxrss_kb": 33344,
+          "minflt": 204,
+          "signal": null,
+          "sys_us": 77526,
+          "user_us": 25170,
+          "wall_ns": 29507242,
+          "wall_s": 0.029507242
+        },
+        {
+          "exit_code": 1,
+          "majflt": 0,
+          "maxrss_kb": 33388,
+          "minflt": 202,
+          "signal": null,
+          "sys_us": 85125,
+          "user_us": 18379,
+          "wall_ns": 29925535,
+          "wall_s": 0.029925535
+        }
+      ],
+      "samples_ok": 10,
+      "wall_s": {
+        "mad": 0.000495403,
+        "max": 0.031331745,
+        "mean": 0.030295027,
+        "median": 0.03019002,
+        "min": 0.029507242,
+        "n": 10,
+        "rel_mad": 0.016409484,
+        "stddev": 0.000606471
+      },
+      "warmup": 2,
+      "workload": "nomatch"
+    },
+    "regex": {
+      "argv": [
+        "/out/rg",
+        "--no-ignore",
+        "--hidden",
+        "--no-messages",
+        "TRACE-[0-9]{4}-(alpha|omega)",
+        "/cache/corpus-standard-20260901/data"
+      ],
+      "binary": "/out/rg",
+      "failures": 0,
+      "maxrss_kb": {
+        "mad": 80.0604,
+        "max": 35576.0,
+        "mean": 33878.8,
+        "median": 33480.0,
+        "min": 33404.0,
+        "n": 10,
+        "rel_mad": 0.00239129,
+        "stddev": 871.643250163
+      },
+      "repeat": 10,
+      "samples": [
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 33536,
+          "minflt": 206,
+          "signal": null,
+          "sys_us": 133778,
+          "user_us": 51753,
+          "wall_ns": 51918212,
+          "wall_s": 0.051918212
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 33404,
+          "minflt": 205,
+          "signal": null,
+          "sys_us": 142063,
+          "user_us": 44019,
+          "wall_ns": 51079954,
+          "wall_s": 0.051079954
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 33468,
+          "minflt": 208,
+          "signal": null,
+          "sys_us": 138654,
+          "user_us": 45892,
+          "wall_ns": 50505485,
+          "wall_s": 0.050505485
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 33420,
+          "minflt": 207,
+          "signal": null,
+          "sys_us": 141131,
+          "user_us": 43730,
+          "wall_ns": 50645841,
+          "wall_s": 0.050645841
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 33492,
+          "minflt": 206,
+          "signal": null,
+          "sys_us": 145045,
+          "user_us": 39201,
+          "wall_ns": 50892536,
+          "wall_s": 0.050892536
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 33440,
+          "minflt": 207,
+          "signal": null,
+          "sys_us": 137430,
+          "user_us": 45810,
+          "wall_ns": 50070133,
+          "wall_s": 0.050070133
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 35576,
+          "minflt": 204,
+          "signal": null,
+          "sys_us": 143503,
+          "user_us": 40858,
+          "wall_ns": 50766812,
+          "wall_s": 0.050766812
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 35484,
+          "minflt": 202,
+          "signal": null,
+          "sys_us": 146718,
+          "user_us": 38662,
+          "wall_ns": 50777467,
+          "wall_s": 0.050777467
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 33436,
+          "minflt": 207,
+          "signal": null,
+          "sys_us": 140651,
+          "user_us": 43953,
+          "wall_ns": 51438450,
+          "wall_s": 0.05143845
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 33532,
+          "minflt": 205,
+          "signal": null,
+          "sys_us": 143533,
+          "user_us": 39870,
+          "wall_ns": 50323935,
+          "wall_s": 0.050323935
+        }
+      ],
+      "samples_ok": 10,
+      "wall_s": {
+        "mad": 0.000425854,
+        "max": 0.051918212,
+        "mean": 0.050841883,
+        "median": 0.05077214,
+        "min": 0.050070133,
+        "n": 10,
+        "rel_mad": 0.00838755,
+        "stddev": 0.000537367
+      },
+      "warmup": 2,
+      "workload": "regex"
+    },
+    "startup": {
+      "argv": [
+        "/out/rg",
+        "--no-ignore",
+        "--hidden",
+        "--no-messages",
+        "ZORKMID",
+        "/cache/corpus-standard-20260901/data/d000/f0000.txt"
+      ],
+      "binary": "/out/rg",
+      "failures": 0,
+      "maxrss_kb": {
+        "mad": 163.086,
+        "max": 10884.0,
+        "mean": 10757.6,
+        "median": 10756.0,
+        "min": 10620.0,
+        "n": 10,
+        "rel_mad": 0.015162328,
+        "stddev": 107.665325069
+      },
+      "repeat": 10,
+      "samples": [
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 10864,
+          "minflt": 190,
+          "signal": null,
+          "sys_us": 835,
+          "user_us": 835,
+          "wall_ns": 1950841,
+          "wall_s": 0.001950841
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 10748,
+          "minflt": 187,
+          "signal": null,
+          "sys_us": 785,
+          "user_us": 785,
+          "wall_ns": 1691437,
+          "wall_s": 0.001691437
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 10668,
+          "minflt": 187,
+          "signal": null,
+          "sys_us": 1435,
+          "user_us": 0,
+          "wall_ns": 1697580,
+          "wall_s": 0.00169758
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 10868,
+          "minflt": 189,
+          "signal": null,
+          "sys_us": 1409,
+          "user_us": 0,
+          "wall_ns": 1599425,
+          "wall_s": 0.001599425
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 10868,
+          "minflt": 190,
+          "signal": null,
+          "sys_us": 702,
+          "user_us": 702,
+          "wall_ns": 1634081,
+          "wall_s": 0.001634081
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 10628,
+          "minflt": 184,
+          "signal": null,
+          "sys_us": 0,
+          "user_us": 1370,
+          "wall_ns": 1635443,
+          "wall_s": 0.001635443
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 10620,
+          "minflt": 185,
+          "signal": null,
+          "sys_us": 1401,
+          "user_us": 0,
+          "wall_ns": 1674095,
+          "wall_s": 0.001674095
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 10764,
+          "minflt": 188,
+          "signal": null,
+          "sys_us": 1652,
+          "user_us": 0,
+          "wall_ns": 1740260,
+          "wall_s": 0.00174026
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 10884,
+          "minflt": 188,
+          "signal": null,
+          "sys_us": 838,
+          "user_us": 838,
+          "wall_ns": 1939330,
+          "wall_s": 0.00193933
+        },
+        {
+          "exit_code": 0,
+          "majflt": 0,
+          "maxrss_kb": 10664,
+          "minflt": 186,
+          "signal": null,
+          "sys_us": 798,
+          "user_us": 798,
+          "wall_ns": 1669287,
+          "wall_s": 0.001669287
+        }
+      ],
+      "samples_ok": 10,
+      "wall_s": {
+        "mad": 0.000071171,
+        "max": 0.001950841,
+        "mean": 0.001723178,
+        "median": 0.001682766,
+        "min": 0.001599425,
+        "n": 10,
+        "rel_mad": 0.042293896,
+        "stddev": 0.000123275
+      },
+      "warmup": 2,
+      "workload": "startup"
+    }
+  }
+}

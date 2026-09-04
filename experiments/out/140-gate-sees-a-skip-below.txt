@@ -1,0 +1,81 @@
+=== conditions ===
+date:    2026-09-03T06:33:50Z
+host:    Linux 6.18.44-fc-v24 x86_64
+git:     git version 2.43.0
+python3: Python 3.11.15
+tree:    /home/user/alloc-bench at 28f3d93
+scratch: /tmp/alloc-bench-140-gate-skip.4031
+
+=== the two clones ===
+  shallow  is-shallow=true  commits=1
+  full     is-shallow=false  commits=56
+
+=== B. each checker, plain and --strict, in both clones ===
+(exit 0 = passed; exit 1 = refused. 'skips' is the checker's own count.)
+
+  checker                clone    plain          --strict
+  check-docs.py          shallow  rc=0 n=1        rc=1
+  check-docs.py          full     rc=0 n=0        rc=0
+  check-snapshots.py     shallow  rc=0 n=1        rc=1
+  check-snapshots.py     full     rc=0 n=0        rc=0
+
+=== A. scripts/gate.sh --strict, unmodified, in the shallow clone ===
+(this builds the workspace in the clone; it is the real gate, not a
+ reimplementation of it -- a probe that re-implements its subject is
+ the defect T-019 was filed for, one level up)
+
+  | gate: host-side checks, in /tmp/alloc-bench-140-gate-skip.4031/shallow
+  |
+  |   cargo fmt --all --check                        pass
+  |   cargo clippy -D warnings                       pass
+  |   cargo test -p rgalloc-shim                     pass
+  |   cargo build --release                          pass
+  |   alloc-bench doctor (host can run cells)        pass
+  |   alloc-runner selftest                          pass
+  |   alloc-bench plan --suite all                   pass
+  |   mine-repo.sh --selftest                        pass
+  |   sh -n over scripts allocators experiments examples pass
+  |   shellcheck -S warning                          pass
+  |   check-todo.py  (the record agrees)             pass
+  |   check-docs.py  (references resolve)            FAIL
+  |       | check-docs: SKIP the vintage check: this is a shallow clone, so no commit can be shown reachable from HEAD (fetch-depth: 0, or `git fetch --unshallow`)
+  |       | check-docs: --strict, and 1 check(s) could not run
+  |   check-snapshots.py  (conditions kept)          FAIL
+  |       | check-snapshots: EXEMPT published/2026-09-01-core-x86_64: git_commit 'unknown' -- exempt: run.json records "unknown": `git rev-parse HEAD` failed at run time and the value was never captured. Every other condition is present, so the machine is answerable and only the tree is not.
+  |       | check-snapshots: EXEMPT published/2026-09-01-mechanisms-x86_64/run-a-11member-splice: no run.json -- exempt: run A was committed with rankings.json alone. Its conditions were never recorded, so reconstructing them would mean inventing a CPU model. docs/AGENTS.md item 11 is the finding this cost.  Do not delete the directory to make this pass: section 11.2 cites its numbers.
+  |       | check-snapshots: EXEMPT rolling/core-x86_64/runs/20260901-035224-local: git_commit 'unknown' -- exempt: the same run as published/2026-09-01-core-x86_64, folded into the rolling window, and it carries the same unrecorded commit.  Do not drop it from the window to make this pass: the window's whole claim is what held across ALL THREE machines, and removing one changes the answer.
+  |       | check-snapshots: SKIP the recovery check: this is a shallow clone, so a commit absent from it cannot be told apart from one on a dead branch (fetch-depth: 0, or `git fetch --unshallow`)
+  |       | check-snapshots: --strict, and 1 check(s) could not run
+  |   check-snapshots.py --selftest                  pass
+  |   extract-evidence.py --selftest                 pass
+  |   aggregate.py --selftest                        pass
+  |   committed evidence keeps its finding           pass
+  |   rolling windows coherent and current           pass
+  |
+  |   tracked markdown lines (docs/, docs/history/todo/, root): 14397
+  |
+  | gate: 16 passed, 2 failed, 0 skipped.
+  | gate: failed: check-docs.py  (references resolve) check-snapshots.py  (conditions kept)
+
+  gate exit code: 1
+   the refusal names check-docs.py
+   the refusal names check-snapshots.py
+
+=== what this establishes ===
+ A gate that counts only the skips IT decided cannot see a skip one
+   level down. Two checkers retired a check each and the summary line
+   read '0 skipped' -- under --strict, whose entire job is to refuse a
+   skip. The check a session ran before pushing was weaker than the
+   one CI would run over the same tree.
+
+ Two independent guards now, on purpose. --strict is passed DOWN to
+   every checker that has it, so the gate runs CI's own invocation;
+   and a passing check's output is scanned for a skip marker, which is
+   what covers a checker with no such flag.
+
+=== what this probe cannot tell you ===
+- whether every checker the gate runs has been audited for internal
+  skips. alloc-runner selftest also skips and exits 0; it has nothing
+  to skip today, and the marker scan is what would catch it if it did.
+- whether CI is right. CI already passed --strict; this probe is about
+  the gate having drifted below it.

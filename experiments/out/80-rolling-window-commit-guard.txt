@@ -1,0 +1,48 @@
+=== conditions ===
+date:  2026-09-02T12:03:19Z
+host:  Linux 6.18.44-fc-v22 x86_64
+git:   git version 2.43.0
+scratch repository: /tmp/alloc-bench-80-roll-guard.12552
+
+=== the guard, as bench.yml had it, and as it now has it ===
+old:  if git diff --quiet -- results/rolling; then ... exit 0; fi
+new:  if [ -z "$(git status --porcelain -- results/rolling)" ]; then ... exit 0; fi
+
+=== case 1: a window that does not exist yet ===
+(what a dispatch of a suite with no window does: profiles, 2026-09-02)
+  mutation landed: ?? results/rolling/profiles-x86_64/
+  old guard  git diff --quiet        -> SKIP
+  new guard  git status --porcelain  -> COMMIT
+  wanted                             -> COMMIT
+
+=== case 2: an existing window gains a run ===
+(the case that DID work, and must keep working)
+  mutation landed:  M results/rolling/core-x86_64/aggregate.md ?? results/rolling/core-x86_64/runs/r2/
+  old guard  git diff --quiet        -> COMMIT
+  new guard  git status --porcelain  -> COMMIT
+  wanted                             -> COMMIT
+
+=== case 3: nothing changed ===
+(a guard that always commits would pass case 1 and be worse)
+  mutation landed: (nothing, deliberately)
+  old guard  git diff --quiet        -> SKIP
+  new guard  git status --porcelain  -> SKIP
+  wanted                             -> SKIP
+
+=== what this establishes ===
+ `git diff` compares TRACKED paths. A window the fold step has just
+   created is untracked in every one of its files, so the old guard
+   reads it as 'unchanged', the step exits 0 having printed nothing,
+   and the folded window is discarded under a green tick.
+
+ It is the MIRROR IMAGE of the git_dirty defect fixed the same day in
+   crates/alloc-bench/src/envinfo.rs, where `git status --porcelain`
+   counted untracked files it should have ignored. Here the untracked
+   files are the entire change. Both directions of one confusion.
+
+=== what this probe cannot tell you ===
+- whether the FIXED job actually pushes. That is a property of the
+  runner's token and of main not having moved, and only a dispatch
+  answers it. docs/history/todo/instrument.md T-014 names the run that did.
+- whether the two windows already in the tree are correct. They were
+  committed by hand and scripts/gate.sh re-derives them on every run.

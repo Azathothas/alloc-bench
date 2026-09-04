@@ -1,0 +1,89 @@
+=== conditions ===
+date:     2026-09-03T08:27:07Z
+host:     Linux 6.18.44-fc-v24 x86_64
+cpu:      Intel(R) Xeon(R) Processor @ 2.10GHz
+cpus:     4  (threads per core: 1)
+tree:     /home/user/alloc-bench at c13689a
+cpusets:  A=0-3 (whole host)   B=0-1 (half)   C=0-3 (control)
+scratch:  /tmp/alloc-bench-160.26690
+
+ These datasets are NOT published: every container in run B is pinned,
+   so its run.json records host.cpuset and check-snapshots.py rule 6
+   would refuse it without a note. They exist to be compared here.
+
+=== run A: whole host (0-3) ===
+  exit 0, 478s
+    [  1/8] alpine-x86_64-hardened_malloc-rust-global-static-pie-lto-distro ok
+    [  2/8] alpine-x86_64-jemalloc-rust-global-static-pie-lto-distro   ok
+    [  3/8] alpine-x86_64-mesh-rust-global-static-pie-lto-distro       unsupported: Mesh exports no prefixed C allocation API. Its published interface is the malloc/free override i
+    [  4/8] alpine-x86_64-mimalloc-rust-global-static-pie-lto-distro   ok
+    [  5/8] alpine-x86_64-rpmalloc-rust-global-static-pie-lto-distro   ok
+    [  6/8] alpine-x86_64-snmalloc-rust-global-static-pie-lto-distro   ok
+    [  7/8] alpine-x86_64-system-baseline-static-pie-lto-distro        ok
+    [  8/8] alpine-x86_64-tcmalloc-rust-global-static-pie-lto-distro   unsupported: tcmalloc exports no prefixed C allocation API. Its supported interface is the operator-new/mallo
+  run.json host.cpuset: (none)
+
+=== run B: pinned (0-1) ===
+  exit 0, 581s
+    [  1/8] alpine-x86_64-hardened_malloc-rust-global-static-pie-lto-distro ok
+    [  2/8] alpine-x86_64-jemalloc-rust-global-static-pie-lto-distro   ok
+    [  3/8] alpine-x86_64-mesh-rust-global-static-pie-lto-distro       unsupported: Mesh exports no prefixed C allocation API. Its published interface is the malloc/free override i
+    [  4/8] alpine-x86_64-mimalloc-rust-global-static-pie-lto-distro   ok
+    [  5/8] alpine-x86_64-rpmalloc-rust-global-static-pie-lto-distro   ok
+    [  6/8] alpine-x86_64-snmalloc-rust-global-static-pie-lto-distro   ok
+    [  7/8] alpine-x86_64-system-baseline-static-pie-lto-distro        ok
+    [  8/8] alpine-x86_64-tcmalloc-rust-global-static-pie-lto-distro   unsupported: tcmalloc exports no prefixed C allocation API. Its supported interface is the operator-new/mallo
+  run.json host.cpuset: 0-1
+
+=== run C: whole host (0-3) ===
+  exit 0, 502s
+    [  1/8] alpine-x86_64-hardened_malloc-rust-global-static-pie-lto-distro ok
+    [  2/8] alpine-x86_64-jemalloc-rust-global-static-pie-lto-distro   ok
+    [  3/8] alpine-x86_64-mesh-rust-global-static-pie-lto-distro       unsupported: Mesh exports no prefixed C allocation API. Its published interface is the malloc/free override i
+    [  4/8] alpine-x86_64-mimalloc-rust-global-static-pie-lto-distro   ok
+    [  5/8] alpine-x86_64-rpmalloc-rust-global-static-pie-lto-distro   ok
+    [  6/8] alpine-x86_64-snmalloc-rust-global-static-pie-lto-distro   ok
+    [  7/8] alpine-x86_64-system-baseline-static-pie-lto-distro        ok
+    [  8/8] alpine-x86_64-tcmalloc-rust-global-static-pie-lto-distro   unsupported: tcmalloc exports no prefixed C allocation API. Its supported interface is the operator-new/mallo
+  run.json host.cpuset: (none)
+
+=== the magnitudes: wander against effect ===
+  allocator                A       C    wander       B    effect
+  hardened_malloc      0.994   0.999      0.5%   1.060      6.4%
+  jemalloc             0.598   0.697     15.3%   0.790     21.9%
+  mimalloc             0.609   0.618      1.4%   0.778     26.8%
+  rpmalloc             0.594   0.648      8.8%   0.827     33.2%
+  snmalloc             0.653   0.610      6.8%   0.725     14.9%
+
+  wander (A vs C, identical conditions) : 0.5% - 15.3%
+  effect (B vs the mean of A and C)     : 6.4% - 33.2%
+  every candidate moved the same way    : yes
+
+   The effect is NOT cleanly outside the wander, so this run separates
+    neither, and no claim is made about magnitude either.
+
+=== the orderings ===
+  A  whole host : rpmalloc(0.594) < jemalloc(0.598) < mimalloc(0.609) < snmalloc(0.653) < hardened_malloc(0.994) < system(1.000)
+  B  pinned     : snmalloc(0.725) < mimalloc(0.778) < jemalloc(0.790) < rpmalloc(0.827) < system(1.000) < hardened_malloc(1.060)
+  C  whole host : snmalloc(0.610) < mimalloc(0.618) < rpmalloc(0.648) < jemalloc(0.697) < hardened_malloc(0.999) < system(1.000)
+
+=== what that means ===
+   A AND C DISAGREE, so this host does not reproduce its own
+     ordering and B tells us nothing about core count. That is
+     itself the finding: docs/AGENTS.md item 11 recorded the
+     same host wandering, and this is a second instance under a
+     design built to detect it.
+      The experiment is not invalid --- its CONTROL fired, which
+       is what a control is for. And the MAGNITUDE table above may
+       still separate cleanly even when the ORDER does not: the
+       candidates sit within a few percent of each other, so the
+       wander swamps the gaps BETWEEN them while leaving each
+       one's distance from the control readable.
+
+=== what this probe cannot tell you ===
+- whether core count explains it on any OTHER host. One machine.
+- whether 2 of 4 pinned cores behaves like a 2-core machine. Cache,
+  memory bandwidth and the scheduler's view all differ, which is why
+  T-025's option (3) stays open.
+- anything about SMT: this host reports 1 thread per core, so the
+  hypothesis's OTHER half cannot be varied here at all.

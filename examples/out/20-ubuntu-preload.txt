@@ -1,0 +1,70 @@
+Unable to find image 'ubuntu:latest' locally
+latest: Pulling from library/ubuntu
+f3db1cd94078: Pulling fs layer
+06e9d71331fb: Pulling fs layer
+f79afc4bbefe: Download complete
+06e9d71331fb: Download complete
+06e9d71331fb: Pull complete
+f3db1cd94078: Download complete
+f3db1cd94078: Pull complete
+Digest: sha256:2260313b31c8c011cd2eebe728008efac1b3982be73eb71348ea2648d2c0e09b
+Status: Downloaded newer image for ubuntu:latest
+note: no trust store yet -- call trust_extra_ca again after installing ca-certificates
+=== 1. build mimalloc from source, at a pinned commit ===
+=== conditions ===
+date:     2026-09-03T13:28:14Z
+kernel:   Linux 6.18.44-fc-v24 x86_64
+distro:   Ubuntu 26.04 LTS
+cc:       cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+libc:     ldd (Ubuntu GLIBC 2.43-2ubuntu2.3) 2.43
+binutils: GNU nm (GNU Binutils for Ubuntu) 2.46
+
+note: appended the sandbox's proxy CA to /etc/ssl/certs/ca-certificates.crt (see docs/AGENTS.md)
+note: also installed 152 certificate(s) into the OpenSSL hashed directory
+mimalloc: https://github.com/microsoft/mimalloc @ 18b08671c9302247bfb682286e6bf3cc1773f801
+built:    /tmp/mi-build/libmimalloc.so.3.5 -> /usr/local/lib/libmimalloc-EXAMPLE20.so (263800 bytes)
+
+=== 2. does the library you just built actually export an allocator? ===
+ nm -D, not nm. The DYNAMIC symbol table is what ld.so resolves
+   against; a library can define malloc in .symtab and export nothing.
+
+   exports malloc
+   exports free
+   exports calloc
+   exports realloc
+   exports posix_memalign
+  mimalloc's own prefixed API is there too, which is how you know it is mimalloc:
+     T mi_free
+     T mi_malloc
+     T mi_realloc
+     T mi_version
+
+=== 3. run the subject under it ===
+   /tmp/allocprobe is a dynamic binary
+   libmimalloc-EXAMPLE20.so is mapped into the running process (LD_PRELOAD took effect)
+   control: libmimalloc-EXAMPLE20.so is absent without LD_PRELOAD (so the check above can fail)
+   stress, 4 threads, 40 000 iterations -> exit 0: STRESS-OK threads=4 iters=40000
+   stress, 8 threads (contention) -> exit 0: STRESS-OK threads=8 iters=20000
+   known-answer: found 715 of an expected 715 needles in 5000 lines
+
+=== 4. the check that the ENVIRONMENT VARIABLE is not the evidence ===
+ mimalloc will tell you about itself if asked. MIMALLOC_VERBOSE=1 prints
+   its banner from inside the process -- a second, independent witness
+   that does not depend on reading /proc:
+
+     mimalloc: process init: 0x7FB6938AB780
+     mimalloc: reserved 1048576 KiB memory
+     mimalloc: process done 128
+
+ Not every allocator has such a banner, which is why residency is the
+  check the harness relies on: it works for all of them.
+
+=== what this example establishes ===
+ An allocator built from source at a pinned commit can be preloaded into
+   an unmodified dynamic binary on Ubuntu, and both the export check and
+   the residency check confirm it is the file that was built here.
+ It does not establish that it is faster. On glibc this project measured
+   preloaded mimalloc at 1.194x the control -- 19.4% SLOWER, outside its
+   own 2.9% MAD -- in results/published/2026-09-03-preload-x86_64-all-eight/.
+
+  11 passed, 0 FAILED

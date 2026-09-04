@@ -1,0 +1,14 @@
+# tcmalloc, preload mode, debian --- the bazel failure, in full
+#
+#  This is a TLS trust failure in the JVM, not an upstream limitation.
+# bazelisk downloads its own JDK, whose cacerts is not the image's
+# /etc/ssl/certs/ca-certificates.crt, so the proxy CA this image trusts
+# is invisible to it.
+
+ERROR: Error computing the main repository mapping: Error accessing registry https://bcr.bazel.build/: Failed to fetch registry file https://bcr.bazel.build/modules/protobuf/34.0/MODULE.bazel: TLS error: (certificate_unknown) PKIX path building failed: sun.security.provider.certpath.Sun
+ERROR: Error computing the main repository mapping: Error accessing registry https://bcr.bazel.build/: Failed to fetch registry file https://bcr.bazel.build/modules/bazel_skylib/1.8.1/MODULE.bazel: TLS error: (certificate_unknown) PKIX path building failed: sun.security.provider.certpath.Sun
+ERROR: Error computing the main repository mapping: Error accessing registry https://bcr.bazel.build/: Failed to fetch registry file https://bcr.bazel.build/modules/protobuf/34.0/MODULE.bazel: TLS error: (certificate_unknown) PKIX path building failed: sun.security.provider.certpath.Sun
+ERROR: Error computing the main repository mapping: Error accessing registry https://bcr.bazel.build/: Failed to fetch registry file https://bcr.bazel.build/modules/bazel_skylib/1.8.1/MODULE.bazel: TLS error: (certificate_unknown) PKIX path building failed: sun.security.provider.certpath.Sun
+
+-- and the alpine cell, which refuses earlier and for a different reason:
+upstream does not support musl; the Bazel build requires glibc-specific interfaces.

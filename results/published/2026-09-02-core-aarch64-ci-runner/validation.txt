@@ -1,0 +1,5 @@
+warn  noisy                      alpine-aarch64-mimalloc-rust-global-static-lto-distro workload startup has a relative MAD of 10.0%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host
+warn  noisy                      alpine-aarch64-snmalloc-rust-global-static-lto-distro workload nomatch has a relative MAD of 5.5%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host
+warn  noisy                      alpine-aarch64-system-baseline-static-lto-distro     workload nomatch has a relative MAD of 7.1%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host
+
+0 error(s), 3 warning(s) over 8 result(s).

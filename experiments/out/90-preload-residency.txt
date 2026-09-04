@@ -1,0 +1,54 @@
+=== conditions ===
+date:    2026-09-02T13:04:30Z
+host:    Linux 6.18.44-fc-v22 x86_64
+cc:      cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+runner:  /home/user/alloc-bench/target/release/alloc-runner
+scratch: /tmp/alloc-bench-90-preload.21168
+
+subject: /tmp/alloc-bench-90-preload.21168/subject, sleeps 300 ms; interpreter /lib64/ld-linux-x86-64.so.2
+stand-in library: /tmp/alloc-bench-90-preload.21168/liballocbench.so (15144 bytes)
+  exports:        mi_free mi_malloc
+
+=== case 1: a library the loader takes -- must PASS ===
+--- preloaded stand-in
+    --so /tmp/alloc-bench-90-preload.21168/liballocbench.so
+    with LD_PRELOAD:    resident 3 of 3 sampled
+    without (control):  resident 0 of 3 sampled
+    exit 0, wanted 0
+
+=== case 2: a library that is not there at all ===
+(preload-check sets LD_PRELOAD itself, so 'nobody preloaded it' is not
+ reachable from outside; the reachable neighbour is a library the tool
+ cannot read.  That is exit 2 -- could not run -- and never 0.)
+--- a path that does not exist
+    --so /tmp/alloc-bench-90-preload.21168/absent.so
+    (no JSON: Expecting value: line 1 column 1 (char 0))
+    exit 2, wanted 2
+
+=== case 3: a library the subject maps ANYWAY -- the control must fire ===
+    the subject loads: /lib/x86_64-linux-gnu/libc.so.6
+--- libc, which is resident either way
+    --so /lib/x86_64-linux-gnu/libc.so.6
+    with LD_PRELOAD:    resident 3 of 3 sampled
+    without (control):  resident 3 of 3 sampled
+    reason: /lib/x86_64-linux-gnu/libc.so.6 has no .symtab (stripped): symbol evidence is unavailable, so identity is UNPROVEN
+    reason: no symbol evidence of mimalloc in /lib/x86_64-linux-gnu/libc.so.6 (found: none)
+    reason: the library was mapped in 3 of 3 runs with NO LD_PRELOAD set: the positive observation does not distinguish a working preload from a library that is there anyway
+    exit 1, wanted 1
+
+     and it failed for the RIGHT reason: the control fired.
+
+=== what this establishes ===
+ preload-check distinguishes a library the loader took from one it
+   did not, and its negative control CAN fail -- case 3 makes it fail.
+ Without case 3 the pair would be indistinguishable from a check that
+   always answers yes to the positive and no to the control, which is
+   what the first draft of preload.rs did.
+
+=== what this probe cannot tell you ===
+- whether the mapped library actually SERVED the allocations. The
+  stand-in here deliberately does not define malloc. finish_so asserts
+  the dynamic export of malloc on the real recipes; the two checks
+  together are the argument and neither alone is.
+- anything about musl. This host is glibc; the alpine cells exercise
+  the musl loader and are the real test.

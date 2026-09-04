@@ -1,0 +1,169 @@
+Unable to find image 'chimeralinux/chimera:latest' locally
+latest: Pulling from chimeralinux/chimera
+d52e05eb8512: Pulling fs layer
+d52e05eb8512: Download complete
+d52e05eb8512: Pull complete
+Digest: sha256:29102d7e12a1f464707d7aba19ce53e652d277861838ed4129178d0655444b1a
+Status: Downloaded newer image for chimeralinux/chimera:latest
+note: appended the sandbox's proxy CA to /etc/ssl/certs/ca-certificates.crt (see docs/AGENTS.md)
+note: also installed 152 certificate(s) into the OpenSSL hashed directory
+=== 1. toolchain: clang, LLVM binutils, and the STATIC libc package ===
+  /usr/lib/libc.a before installing anything:  no
+note: the proxy CA was already appended to /etc/ssl/certs/ca-certificates.crt
+=== conditions ===
+date:     2026-09-03T13:31:05Z
+kernel:   Linux 6.18.44-fc-v24 x86_64
+distro:   Chimera Linux
+cc:       clang version 22.1.8
+libc:     musl libc (x86_64)
+binutils: llvm-nm, compatible with GNU nm
+
+cc is really: clang version 22.1.8
+ar is really: LLVM (http://llvm.org/):
+nm is really: llvm-nm, compatible with GNU nm
+
+=== 2. where is libc.a? ===
+  /usr/lib/libc.a now exists?    yes
+  cc -print-file-name=libc.a ->  /lib/libc.a
+  ls -ld /lib:                   lrwxrwxrwx  1 root root 7 Dec 20  2025 /lib -> usr/lib
+   /lib is a symlink to usr/lib, so the two paths are the same file.
+     Asking the compiler is still the right move -- it is what makes this
+     script portable to the distribution where they are NOT the same.
+  using: /lib/libc.a ( 2487356 bytes,     1345 members)
+
+   llvm-nm's archive member headers, the thing most likely to break a
+    parser written against GNU binutils. On this version they are BARE,
+    the same as GNU nm; musl-libc-surgery.sh normalises both forms:
+       aio.lo:
+       aio_suspend.lo:
+       lio_listio.lo:
+
+=== 3.  WHAT IS ALREADY IN THIS libc, WHICH IS THE WHOLE STORY ===
+  members of libc.a matching 'mimalloc':
+    mimalloc.o
+
+  what that member defines (a selection of 85 symbols):
+    D __malloc_tls_default
+    D _mi_heap_empty
+    D _mi_heap_main
+    T __libc_malloc_impl
+    T __malloc_donate
+    T __malloc_init
+    T __malloc_tls_teardown
+    T aligned_alloc
+    T malloc_usable_size
+
+  and mallocng -- the allocator upstream musl ships -- is NOT here:
+    nontrivial_free in libc.a: 0
+    get_meta in libc.a:        0
+
+   SO THE 'SYSTEM ALLOCATOR' ON CHIMERA IS mimalloc. Any measurement
+     that calls this distribution's control 'musl's allocator' is naming
+     the wrong thing, and any ELF check that tries to tell your mimalloc
+     from the distribution's cannot: they are the same implementation.
+
+   And this is the symbol that decides the rest of this example:
+    who references __malloc_tls_default, which mimalloc.o defines?
+    __init_tls.lo
+    pthread_create.lo
+     Threading code. Not allocation code.
+
+=== 4. can this toolchain produce a static-PIE? ===
+  -static-pie:  supported, and it produces a DYN image
+  link mode for this run: static-pie
+
+=== 5. build upstream mimalloc, with a generator that exists here ===
+mimalloc: 18b08671c9302247bfb682286e6bf3cc1773f801
+archive: /tmp/mi-build/libmimalloc.a (  374108 bytes)
+
+=== 6.  THE SURGERY, AND IT REFUSES ===
+The same unedited script examples 30 and 40 run to completion.
+
+=== the archive, before ===
+libc.a:      /lib/libc.a ( 2487356 bytes,     1345 members)
+replacement: /tmp/mi-build/libmimalloc.a (  374108 bytes,       19 members)
+
+=== members that define an allocation entry point ===
+  calloc.lo
+  free.lo
+  lite_malloc.lo
+  mimalloc.o
+  posix_memalign.lo
+  realloc.lo
+  (       6 members)
+
+guard: no candidate member defines any of: fork pthread_create printf open close memcpy read write execve mmap
+
+surgery: REFUSING -- the deletion would strand symbols the rest of libc.a
+surgery: still references, and /tmp/mi-build/libmimalloc.a does not define them:
+    __malloc_init
+    __malloc_tls_default
+    __malloc_tls_teardown
+surgery: this libc has fused its allocator into unrelated machinery.
+surgery: exit 3 -- unsupported on this distribution, with a reason.
+
+  exit status: 3   (0 spliced, 1 failed, 2 could not run, 3 refused)
+   the script refused with a reason and named the symbol, rather than
+        producing a libc.a that fails to link three steps later
+
+=== 7.  AND WHAT THE REFUSAL PREVENTED ===
+A guard that is never seen to fire is a comment. So the deletion is done
+anyway here -- ignoring the refusal -- and the link is attempted.
+
+  members that would be deleted:
+    calloc.lo
+    free.lo
+    lite_malloc.lo
+    mimalloc.o
+    posix_memalign.lo
+    realloc.lo
+  the archive spliced cleanly:     1358 members
+  definitions of malloc in it: 1
+   Nothing has gone wrong YET. This is exactly why the check has to
+    look at references and not only at definitions.
+
+  cc -static-pie -O2 -pthread -o /tmp/forced allocprobe.c
+   the linker's own words:
+       undefined hidden symbol: __malloc_tls_default
+   the link fails on __malloc_tls_default -- the symbol section 6 named
+  /lib/libc.a restored
+
+=== 8.  WHAT YOU DO ON CHIMERA INSTEAD: NOTHING ===
+The allocator the surgery would have installed is the one the
+distribution already ships. So build the ordinary way and check.
+
+  cc -static-pie -O2 -pthread -o allocprobe allocprobe.c   # no flags
+  -rwxr-xr-x  1 root root 169272 Sep  3 13:31 /tmp/probe
+
+   /tmp/probe is a static-pie binary
+   /tmp/probe defines malloc
+   /tmp/probe defines free
+   /tmp/probe defines _mi_heap_main
+   no negative control is run on this binary, and that is the point:
+    the allocator the surgery would have installed is the one already
+    here, so no symbol can tell 'displaced' from 'never replaced'.
+    mallocng markers in this binary: 0 (they were 0 in libc.a too)
+   no NEEDED entries
+   stress, 4 threads, 60 000 iterations -> exit 0: STRESS-OK threads=4 iters=60000
+   stress, 8 threads (contention) -> exit 0: STRESS-OK threads=8 iters=30000
+   known-answer: found 715 of an expected 715 needles in 5000 lines
+   ASLR: 6 distinct load addresses in 6 runs
+
+=== what this example establishes ===
+ The libc.a surgery is NOT a property of musl alone. It needs a libc
+   whose allocator members are referenced only by allocation code.
+   Chimera's are referenced by pthread_create and __init_tls, so the
+   mechanism is unsupported here -- with a named reason, checked by a
+   guard that section 7 shows firing.
+ What DOES carry across all three musl distributions is the derivation:
+   find libc.a by asking the compiler, read the member list out of the
+   archive, refuse on evidence. Two of those three answered differently
+   here and the script still did the right thing.
+ And a result that costs nothing: a Chimera static binary is already a
+   mimalloc binary. The verification above is the whole job.
+ With one caveat this example refuses to hide: on Chimera no ELF check
+   can tell YOUR mimalloc from the DISTRIBUTION'S. They are the same
+   implementation, so the identity oracle every other cell here relies on
+   has nothing to discriminate with.
+
+  11 passed, 0 FAILED

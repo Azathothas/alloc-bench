@@ -1,0 +1,194 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  instrument:
+    name: instrument selftest
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install the pinned Rust toolchain
+        run: |
+          set -euo pipefail
+          . toolchains/pins.env
+          rustup toolchain install "$RUST_VERSION" --profile minimal --component rustfmt,clippy
+          rustup default "$RUST_VERSION"
+          rustc --version
+
+      - name: Build
+        run: cargo build --release --workspace
+
+      - name: Workspace unit tests (shim alignment, environment probes)
+        run: cargo test --release --workspace
+
+      - name: alloc-runner selftest
+        run: ./target/release/alloc-runner selftest
+
+      - name: Formatting and lints
+        run: |
+          cargo fmt --all -- --check
+          cargo clippy --workspace --all-targets -- -D warnings
+
+  configuration:
+    name: matrix and manifest
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - name: Install the pinned Rust toolchain
+        run: |
+          set -euo pipefail
+          . toolchains/pins.env
+          rustup toolchain install "$RUST_VERSION" --profile minimal
+          rustup default "$RUST_VERSION"
+      - run: cargo build --release -p alloc-bench -p alloc-runner
+
+      - name: Every suite expands
+        run: |
+          set -euo pipefail
+          ./target/release/alloc-bench plan --suite all > /tmp/plan.json
+          python3 - <<'PY'
+          import json, sys
+          cells = json.load(open('/tmp/plan.json'))
+          print(f"{len(cells)} cells")
+          bad = [c for c in cells if c['status'] == 'unsupported' and not (c.get('reason') or '').strip()]
+          if bad:
+              print("unsupported cells with no recorded reason:", [c['id'] for c in bad])
+              sys.exit(1)
+          ids = [c['id'] for c in cells]
+          if len(ids) != len(set(ids)):
+              print("duplicate cell ids in the plan"); sys.exit(1)
+          PY
+
+      - name: The lock file covers the manifest
+        run: |
+          python3 - <<'PY'
+          import json, sys, re
+          lock = json.load(open('allocators/allocators.lock.json'))
+          toml = open('allocators/allocators.toml').read()
+          ids = re.findall(r'^id\s*=\s*"([^"]+)"', toml, re.M)
+          missing = [i for i in ids if i != 'system' and i not in lock['entries']]
+          if missing:
+              print("allocators with no pinned revision:", missing)
+              print("run: alloc-bench update --write")
+              sys.exit(1)
+          for name, e in lock['entries'].items():
+              if not re.fullmatch(r'[0-9a-f]{40}', e['commit']):
+                  print(f"{name}: commit is not a full sha: {e['commit']}"); sys.exit(1)
+          print(f"{len(lock['entries'])} pinned revisions, all full SHAs")
+          PY
+
+      - name: Shell scripts parse
+        run: |
+          set -euo pipefail
+          rc=0
+          while IFS= read -r -d '' f; do
+            sh -n "$f" || { echo "syntax error: $f"; rc=1; }
+          done < <(find scripts allocators experiments examples -name '*.sh' -print0 2>/dev/null)
+          exit $rc
+
+      - name: shellcheck
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq shellcheck
+          find scripts allocators experiments examples -name '*.sh' -print0 \
+            | xargs -0 shellcheck -S warning -e SC1091
+
+      - name: Every documented reference resolves
+        run: python3 scripts/check-docs.py --strict
+
+      - name: Every published snapshot carries its conditions
+        run: |
+          python3 scripts/check-snapshots.py --selftest
+          python3 scripts/check-snapshots.py --strict
+
+      - name: The published evidence still contains its failure
+        run: |
+          python3 scripts/report/extract-evidence.py --selftest
+          python3 scripts/report/extract-evidence.py \
+            --check results/published/2026-09-01-mechanisms-x86_64/evidence \
+            --expect 'multiple definition of .__libc_malloc' \
+            --expect 'multiple definition of .strdup'
+
+      - name: The rolling aggregator checks itself
+        run: python3 scripts/report/aggregate.py --selftest
+
+      - name: Every rolling window is coherent
+        run: |
+          set -euo pipefail
+          n=0
+          for w in results/rolling/*/; do
+            [ -d "$w/runs" ] || continue
+            python3 scripts/report/aggregate.py --window "$w" --check
+            n=$((n + 1))
+          done
+          echo "$n window(s) checked"
+
+      - name: The committed aggregates are what the script produces
+        run: |
+          set -euo pipefail
+          for w in results/rolling/*/; do
+            [ -d "$w/runs" ] || continue
+            python3 scripts/report/aggregate.py --window "$w" >/dev/null
+          done
+          if ! git diff --quiet -- results/rolling; then
+            echo "::error::results/rolling is stale; run scripts/report/aggregate.py --window <dir>"
+            git diff --stat -- results/rolling
+            exit 1
+          fi
+          echo "every committed aggregate matches the script's output"
+
+  smoke:
+    name: end-to-end smoke
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install the pinned Rust toolchain
+        run: |
+          set -euo pipefail
+          . toolchains/pins.env
+          rustup toolchain install "$RUST_VERSION" --profile minimal
+          rustup default "$RUST_VERSION"
+      - run: cargo build --release -p alloc-bench
+
+      - run: ./target/release/alloc-bench doctor
+
+      - name: Run the smoke suite
+        run: |
+          ./target/release/alloc-bench run \
+            --suite smoke --arch x86_64 --repeat 5 \
+            --out "$GITHUB_WORKSPACE/results/ci-smoke" --strict
+
+      - name: Upload the evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: smoke-evidence
+          path: results/ci-smoke
+          retention-days: 14
+
+      - name: Summary
+        if: always()
+        run: |
+          {
+            echo "## Smoke run"
+            echo
+            sed -n '/^## Rankings/,/^## Every workload/p' results/ci-smoke/report.md 2>/dev/null | head -40
+            echo
+            echo "The smoke suite uses a corpus too small for allocator rankings."
+            echo "It verifies only that the complete pipeline works."
+          } >> "$GITHUB_STEP_SUMMARY" || true

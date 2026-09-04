@@ -1,0 +1,107 @@
+{
+  "composite_formula": "composite = 0.60 x (time / baseline_time) + 0.30 x (peak_rss / baseline_peak_rss) + 0.10 x (binary_bytes / baseline_binary_bytes); lower is better, 1.000 is the control",
+  "findings": [
+    {
+      "cell": "alpine-x86_64-hardened_malloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload nomatch has a relative MAD of 5.1%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "alpine-x86_64-hardened_malloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 9.3%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "alpine-x86_64-hardened_malloc-rust-global-static-pie-distro-light",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 8.8%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "alpine-x86_64-system-baseline-static-pie-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 13.1%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    }
+  ],
+  "groups": [
+    {
+      "group": "alpine / x86_64 / static-pie / distro",
+      "rows": [
+        {
+          "allocator": "hardened_malloc",
+          "arch": "x86_64",
+          "cell_id": "alpine-x86_64-hardened_malloc-rust-global-static-pie-distro-light",
+          "composite": 0.8909911604686679,
+          "distro": "alpine",
+          "integration": "rust-global",
+          "is_baseline": false,
+          "profile": "static-pie",
+          "rel_mad": 0.047823592,
+          "rel_rss": 1.177929854576561,
+          "rel_size": 1.0025966899460435,
+          "rel_time": 0.7289208918351587,
+          "rss_kb": 5508.0,
+          "size_bytes": 8565368,
+          "startup_s": 0.002542245,
+          "time_s": 0.044098286,
+          "toolchain": "distro",
+          "variant": "light"
+        },
+        {
+          "allocator": "system",
+          "arch": "x86_64",
+          "cell_id": "alpine-x86_64-system-baseline-static-pie-distro",
+          "composite": 0.9999999999999999,
+          "distro": "alpine",
+          "integration": "baseline",
+          "is_baseline": true,
+          "profile": "static-pie",
+          "rel_mad": 0.041192177,
+          "rel_rss": 1.0,
+          "rel_size": 1.0,
+          "rel_time": 1.0,
+          "rss_kb": 4676.0,
+          "size_bytes": 8543184,
+          "startup_s": 0.001722458,
+          "time_s": 0.060498041,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "hardened_malloc",
+          "arch": "x86_64",
+          "cell_id": "alpine-x86_64-hardened_malloc-rust-global-static-pie-distro",
+          "composite": 1.6132915813095403,
+          "distro": "alpine",
+          "integration": "rust-global",
+          "is_baseline": false,
+          "profile": "static-pie",
+          "rel_mad": 0.012090745,
+          "rel_rss": 2.8751069289991444,
+          "rel_size": 1.0025938806889796,
+          "rel_time": 1.0841668575681649,
+          "rss_kb": 13444.0,
+          "size_bytes": 8565344,
+          "startup_s": 0.004120511,
+          "time_s": 0.065589971,
+          "toolchain": "distro",
+          "variant": "default"
+        }
+      ]
+    }
+  ],
+  "primary_workload": "literal",
+  "run_id": "20260902-073754",
+  "verdicts": [
+    {
+      "group": "alpine / x86_64 / static-pie / distro",
+      "margin_pct": 37.18909846065219,
+      "note": "hardened_malloc is 37.2% faster than the next row, which is outside the run's spread of 4.8%",
+      "winner": "hardened_malloc (rust-global)",
+      "within_noise": false
+    }
+  ]
+}

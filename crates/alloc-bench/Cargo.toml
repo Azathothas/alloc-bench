@@ -1,0 +1,18 @@
+[package]
+name = "alloc-bench"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+description = "Host orchestrator: resolves allocator versions, builds images, runs the matrix, validates the dataset, ranks and reports."
+
+[[bin]]
+name = "alloc-bench"
+path = "src/main.rs"
+
+[dependencies]
+# HTTP uses the required `curl` executable, preserving proxy behavior without
+# adding another TLS stack.
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+toml = "1.1"

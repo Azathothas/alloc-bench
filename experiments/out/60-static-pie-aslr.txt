@@ -1,0 +1,40 @@
+=== conditions ===
+date          2026-09-02T08:19:56Z
+host          Linux 6.18.44-fc-v22 x86_64
+rustc         rustc 1.94.1 (e408947bf 2026-03-25)
+target        x86_64-unknown-linux-musl
+instrument    /home/user/alloc-bench/target/release/alloc-runner
+corpus        smoke, seed 20260901
+aslr samples  6 per profile
+document      docs/static-linking.md (expectations parsed from it)
+subject       a 6-line Rust program, NOT ripgrep -- see the header
+
+=== what the document claims ===
+
+profile          ELF type   PT_INTERP  ASLR
+static           EXEC       no         no
+static-pie       DYN        no         yes
+static-lto       EXEC       no         no
+static-pie-lto   DYN        no         yes
+dynamic          DYN        yes        yes
+
+=== what the artefacts do ===
+
+profile          link kind    PT_INTERP  bases seen   ASLR     verdict
+static           static       no         1 of 6       no       ok
+static-pie       static-pie   no         6 of 6       yes      ok
+static-lto       static       no         1 of 6       no       ok
+static-pie-lto   static-pie   no         6 of 6       yes      ok
+dynamic          dynamic      yes        6 of 6       yes      ok
+
+=== what this establishes ===
+
+ Every profile in docs/static-linking.md's table behaves as the table
+   says: the ELF type, the presence of PT_INTERP, and the OBSERVED
+   load address all agree, on this host, with this rustc.
+
+ What it does NOT establish: anything about ripgrep's build, which
+   adds a stack-size link argument and an allocator archive; and
+   anything about another kernel's randomize_va_space.
+
+exit 0

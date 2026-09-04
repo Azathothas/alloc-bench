@@ -1,0 +1,52 @@
+=== conditions ===
+date          2026-09-02T01:59:33Z
+host          Linux 6.18.44-fc-v22 x86_64
+rustc         rustc 1.94.1 (e408947bf 2026-03-25)
+profile flags -C target-feature=+crt-static -C relocation-model=pic
+
+=== 1. what rustc puts on the link line ===
+
+target                         rc         driver                   link mode
+x86_64-unknown-linux-musl      0          (linked, no error)       (linked: ELF type DYN -- a static-PIE)
+aarch64-unknown-linux-musl     1          cc                       -no-pie -static
+
+ A non-zero rc for aarch64 here is EXPECTED on an x86_64 host with no
+  aarch64 cc: the link dies on 'Relocations in generic ELF (EM: 183)'.
+  The link MODE above is what rustc asked for, and is emitted either way.
+
+=== 2. rustc's own target definition ===
+
+target                         static-position-independent-executables        linker-flavor
+x86_64-unknown-linux-musl      True                                           gnu-cc
+aarch64-unknown-linux-musl     ABSENT                                         gnu-cc
+
+=== what this establishes ===
+
+ static-PIE is decided by ONE BOOLEAN IN RUSTC, not by the linker.
+
+   x86_64-unknown-linux-musl  sets static-position-independent-executables
+   aarch64-unknown-linux-musl leaves it unset
+
+   so rustc emits -static -no-pie on the aarch64 link line and
+   -static-pie on the x86_64 one.
+
+ BOTH targets already use the gnu-cc linker flavour -- the gcc
+   driver. So 'use gcc instead of rust-lld' is not a lever: it is
+   already what happens. The previously recorded reason ('rust-lld
+   rejects the argument') does not describe this.
+
+   -C link-arg=-static-pie only APPENDS the flag; rustc's own
+   -static -no-pie stay on the line beside it.
+
+RESULT: exit 1 ON PURPOSE. The project publishes aarch64/musl
+static-pie* cells as unsupported with this reason, and runs `core`
+on the non-PIE static-lto profile there. docs/history/todo/platform.md T-002.
+
+=== what this probe cannot tell you ===
+- whether the aarch64 musl LINKER would accept -static-pie if asked.
+  rustc never asks, and this host has no aarch64 cc to ask it with.
+- whether a CUSTOM target JSON with the flag flipped, built with
+  -Z build-std, would produce a working static-PIE. Untested, and it
+  would mean shipping a custom rustc target.
+ So 'impossible' is not what this says. 'Not achievable from the
+  stable toolchain as it stands' is.

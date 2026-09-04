@@ -1,0 +1,23 @@
+* text=auto eol=lf
+
+*.md text eol=lf
+*.txt text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.toml text eol=lf
+*.sh text eol=lf
+*.rs text eol=lf
+*.c text eol=lf
+
+*.pyc binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.gz binary
+*.xz binary
+*.zst binary
+*.zip binary
+
+Cargo.lock linguist-generated=true

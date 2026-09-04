@@ -1,0 +1,18 @@
+# wolfi-x86_64-snmalloc-rust-global-static-pie-distro
+# outcome: build_failed
+# source: cells/wolfi-x86_64-snmalloc-rust-global-static-pie-distro/build.log -- 8588 bytes, 82 lines
+# kept 7 distinct diagnostic line(s) of 8 matching; 75 line(s) elided
+# classes: {'undefined reference': 1, 'error': 3, 'collect2/ld': 3}
+#  Chosen by relevance, not by `tail -n`. The full log is not published;
+#   the byte count above is what it was.
+
+--- undefined reference: 1 distinct ---
+          /usr/x86_64-pc-linux-gnu/bin/ld: /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib64/libc.a(qsort.o):(.data.rel.local.DW.ref.__gcc_personality_v0[DW.ref.__gcc_personality_v0]+0x0): undefined reference to `__gcc_personality_v0'
+--- error: 3 distinct ---
+error: linking with `cc` failed: exit status: 1
+          collect2: error: ld returned 1 exit status
+error: could not compile `ripgrep` (bin "rg") due to 1 previous error
+--- collect2/ld: 3 distinct ---
+  = note: /usr/x86_64-pc-linux-gnu/bin/ld: /usr/local/rustup/toolchains/1.96.0-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libstd-ca1bab40bfe81adf.rlib(std-ca1bab40bfe81adf.std.a54583e5ff73ed63-cgu.0.rcgu.o): in function `std::sys::net::connection::socket::lookup_host::{closure#0}':
+          /usr/x86_64-pc-linux-gnu/bin/ld: /usr/local/rustup/toolchains/1.96.0-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libstd-ca1bab40bfe81adf.rlib(std-ca1bab40bfe81adf.std.a54583e5ff73ed63-cgu.0.rcgu.o): in function `std::sys::paths::unix::home_dir::fallback':
+          /usr/x86_64-pc-linux-gnu/bin/ld: /usr/local/rustup/toolchains/1.96.0-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libstd-ca1bab40bfe81adf.rlib(std-ca1bab40bfe81adf.std.a54583e5ff73ed63-cgu.0.rcgu.o): note: the message above does not take linker garbage collection into account    [x2]

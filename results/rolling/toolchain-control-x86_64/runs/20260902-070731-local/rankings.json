@@ -1,0 +1,239 @@
+{
+  "composite_formula": "composite = 0.60 x (time / baseline_time) + 0.30 x (peak_rss / baseline_peak_rss) + 0.10 x (binary_bytes / baseline_binary_bytes); lower is better, 1.000 is the control",
+  "findings": [
+    {
+      "cell": "alpine-x86_64-mimalloc-rust-global-static-pie-zig",
+      "check": "noisy",
+      "message": "workload literal has a relative MAD of 7.8%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "alpine-x86_64-mimalloc-rust-global-static-pie-zig",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 7.7%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "alpine-x86_64-system-baseline-static-pie-zig",
+      "check": "noisy",
+      "message": "workload literal has a relative MAD of 17.2%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "archlinux-x86_64-mimalloc-rust-global-static-pie-zig",
+      "check": "noisy",
+      "message": "workload files has a relative MAD of 5.1%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "archlinux-x86_64-mimalloc-rust-global-static-pie-zig",
+      "check": "noisy",
+      "message": "workload literal-j1 has a relative MAD of 6.0%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "archlinux-x86_64-mimalloc-rust-global-static-pie-zig",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 10.2%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "archlinux-x86_64-system-baseline-static-pie-zig",
+      "check": "noisy",
+      "message": "workload literal has a relative MAD of 5.2%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "archlinux-x86_64-system-baseline-static-pie-zig",
+      "check": "noisy",
+      "message": "workload regex has a relative MAD of 6.5%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "archlinux-x86_64-system-baseline-static-pie-zig",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 5.9%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "debian-x86_64-mimalloc-rust-global-static-pie-zig",
+      "check": "noisy",
+      "message": "workload json has a relative MAD of 10.8%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "debian-x86_64-mimalloc-rust-global-static-pie-zig",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 6.5%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "debian-x86_64-system-baseline-static-pie-zig",
+      "check": "noisy",
+      "message": "workload literal-j1 has a relative MAD of 6.0%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "debian-x86_64-system-baseline-static-pie-zig",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 8.3%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    }
+  ],
+  "groups": [
+    {
+      "group": "alpine / x86_64 / static-pie / zig",
+      "rows": [
+        {
+          "allocator": "mimalloc",
+          "arch": "x86_64",
+          "cell_id": "alpine-x86_64-mimalloc-rust-global-static-pie-zig",
+          "composite": 1.543704418068341,
+          "distro": "alpine",
+          "integration": "rust-global",
+          "is_baseline": false,
+          "profile": "static-pie",
+          "rel_mad": 0.07755794,
+          "rel_rss": 3.4696321642429426,
+          "rel_size": 1.1370936175552346,
+          "rel_time": 0.648509011733225,
+          "rss_kb": 16224.0,
+          "size_bytes": 9714400,
+          "startup_s": 0.00244955,
+          "time_s": 0.047182838,
+          "toolchain": "zig"
+        },
+        {
+          "allocator": "system",
+          "arch": "x86_64",
+          "cell_id": "alpine-x86_64-system-baseline-static-pie-zig",
+          "composite": 0.9999999999999999,
+          "distro": "alpine",
+          "integration": "baseline",
+          "is_baseline": true,
+          "profile": "static-pie",
+          "rel_mad": 0.172325098,
+          "rel_rss": 1.0,
+          "rel_size": 1.0,
+          "rel_time": 1.0,
+          "rss_kb": 4676.0,
+          "size_bytes": 8543184,
+          "startup_s": 0.001908683,
+          "time_s": 0.072755871,
+          "toolchain": "zig"
+        }
+      ]
+    },
+    {
+      "group": "archlinux / x86_64 / static-pie / zig",
+      "rows": [
+        {
+          "allocator": "system",
+          "arch": "x86_64",
+          "cell_id": "archlinux-x86_64-system-baseline-static-pie-zig",
+          "composite": 0.9999999999999999,
+          "distro": "archlinux",
+          "integration": "baseline",
+          "is_baseline": true,
+          "profile": "static-pie",
+          "rel_mad": 0.05214058,
+          "rel_rss": 1.0,
+          "rel_size": 1.0,
+          "rel_time": 1.0,
+          "rss_kb": 5716.0,
+          "size_bytes": 9525400,
+          "startup_s": 0.001948841,
+          "time_s": 0.040257574,
+          "toolchain": "zig"
+        },
+        {
+          "allocator": "mimalloc",
+          "arch": "x86_64",
+          "cell_id": "archlinux-x86_64-mimalloc-rust-global-static-pie-zig",
+          "composite": 1.7362108899910993,
+          "distro": "archlinux",
+          "integration": "rust-global",
+          "is_baseline": false,
+          "profile": "static-pie",
+          "rel_mad": 0.034424036,
+          "rel_rss": 3.360041987403779,
+          "rel_size": 1.1226883910386964,
+          "rel_time": 1.0265490911101598,
+          "rss_kb": 19206.0,
+          "size_bytes": 10694056,
+          "startup_s": 0.002882572,
+          "time_s": 0.041326376,
+          "toolchain": "zig"
+        }
+      ]
+    },
+    {
+      "group": "debian / x86_64 / static-pie / zig",
+      "rows": [
+        {
+          "allocator": "mimalloc",
+          "arch": "x86_64",
+          "cell_id": "debian-x86_64-mimalloc-rust-global-static-pie-zig",
+          "composite": 1.7369961580617028,
+          "distro": "debian",
+          "integration": "rust-global",
+          "is_baseline": false,
+          "profile": "static-pie",
+          "rel_mad": 0.044432348,
+          "rel_rss": 3.46999276934201,
+          "rel_size": 1.1235216719967935,
+          "rel_time": 0.972743600099034,
+          "rss_kb": 19196.0,
+          "size_bytes": 10629288,
+          "startup_s": 0.00326828,
+          "time_s": 0.041218406,
+          "toolchain": "zig"
+        },
+        {
+          "allocator": "system",
+          "arch": "x86_64",
+          "cell_id": "debian-x86_64-system-baseline-static-pie-zig",
+          "composite": 0.9999999999999999,
+          "distro": "debian",
+          "integration": "baseline",
+          "is_baseline": true,
+          "profile": "static-pie",
+          "rel_mad": 0.032659039,
+          "rel_rss": 1.0,
+          "rel_size": 1.0,
+          "rel_time": 1.0,
+          "rss_kb": 5532.0,
+          "size_bytes": 9460688,
+          "startup_s": 0.002424189,
+          "time_s": 0.042373351,
+          "toolchain": "zig"
+        }
+      ]
+    }
+  ],
+  "primary_workload": "literal",
+  "run_id": "20260902-070731",
+  "verdicts": [
+    {
+      "group": "alpine / x86_64 / static-pie / zig",
+      "margin_pct": 54.19986182263984,
+      "note": "mimalloc is 54.2% faster than the next row, which is outside the run's spread of 17.2%",
+      "winner": "mimalloc (rust-global)",
+      "within_noise": false
+    },
+    {
+      "group": "archlinux / x86_64 / static-pie / zig",
+      "margin_pct": 2.654909111015981,
+      "note": "the lead of 2.7% is within this run's own spread (5.2% relative MAD), so the ordering between the top rows is not established here",
+      "winner": "system (baseline)",
+      "within_noise": true
+    },
+    {
+      "group": "debian / x86_64 / static-pie / zig",
+      "margin_pct": 2.8020127707024804,
+      "note": "the lead of 2.8% is within this run's own spread (4.4% relative MAD), so the ordering between the top rows is not established here",
+      "winner": "mimalloc (rust-global)",
+      "within_noise": true
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+=== conditions ===
+date:   2026-09-03T05:30:27Z
+host:   Linux 6.18.44-fc-v24 x86_64
+runner: /home/user/alloc-bench/target/x86_64-unknown-linux-musl/release/alloc-runner (musl static-PIE, so it starts in these images)
+
+=== alpine: the script must COMPLETE and the result must RUN ===
+    cc:   cc (Alpine 15.2.0) 15.2.0
+    ar:   GNU ar (GNU Binutils) 2.45.1
+    libc: /usr/lib/gcc/x86_64-alpine-linux-musl/15.2.0/../../../../lib/libc.a (1350 members)
+
+    -- running scripts/build/libc-surgery.sh, unmodified
+       surgery: /usr/lib/libc.a
+       surgery:   displacing 13 member(s): aligned_alloc.lo calloc.lo donate.lo free.lo libc_calloc.lo lite_malloc.lo malloc.lo malloc_usable_size.lo memalign.lo posix_memalign.lo realloc.lo reallocarray.lo valloc.lo
+       surgery:   __libc_calloc __libc_free __libc_malloc -- referenced by musl, defined by nothing; synthesising
+       surgery:   nothing stranded -- every symbol the deleted members defined
+       surgery:   is either supplied or no longer referenced
+       {"archive":"/tmp/tmp.goEGEH/libc.a","symbol":"malloc","expect_providers":1,"found_providers":1,"members":["plain.o"],"ok":true}
+       {"archive":"/tmp/tmp.goEGEH/libc.a","symbol":"free","expect_providers":1,"found_providers":1,"members":["plain.o"],"ok":true}
+       surgery: patched 1 libc.a copy/copies and verified each
+    exit status: 0
+  SURGERY_RC=0
+    libc.a members: 1350 -> 1337   bytes: 9398572 -> 9233814
+  LIBC_UNCHANGED=0
+
+    -- link and RUN something against the spliced archive
+       it links
+  RUN_OK=1
+       and it runs, exit 0
+       standin_marker in the binary: 1
+       mallocng internals left:      0
+
+  PASS  the real script exits 0 on Alpine
+  PASS  and the new guard reports nothing stranded
+  PASS   a program linked against the spliced libc.a RUNS and returns 0
+
+=== chimera: the script must REFUSE, and leave libc.a alone ===
+    cc:   clang version 22.1.8
+    ar:   LLVM (http://llvm.org/):
+    libc: /lib/libc.a (1345 members)
+
+    -- running scripts/build/libc-surgery.sh, unmodified
+       surgery: /usr/lib/libc.a
+       surgery:   displacing 9 member(s): calloc.lo free.lo lite_malloc.lo memalign.lo mimalloc.o posix_memalign.lo realloc.lo reallocarray.lo valloc.lo
+       surgery:   __libc_calloc __libc_free __libc_malloc -- referenced by musl, defined by nothing; synthesising
+       surgery: FAILED on /usr/lib/libc.a -- the splice stranded symbols the rest of
+       surgery: libc.a still references and the replacement does not define:
+           __malloc_tls_default
+       surgery: this libc has fused its allocator into unrelated machinery,
+       surgery: or the replacement is missing an entry point it must supply.
+    exit status: 1
+  SURGERY_RC=1
+    libc.a members: 1345 -> 1345   bytes:  2487356 ->  2487356
+  LIBC_UNCHANGED=1
+
+  PASS  the real script exits 1 on Chimera
+  PASS  and it NAMES __malloc_tls_default rather than failing at link time
+  PASS   libc.a is byte-identical afterwards -- it refused before writing
+
+exit: 0

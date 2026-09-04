@@ -1,0 +1,231 @@
+{
+  "composite_formula": "composite = 0.60 x (time / baseline_time) + 0.30 x (peak_rss / baseline_peak_rss) + 0.10 x (binary_bytes / baseline_binary_bytes); lower is better, 1.000 is the control",
+  "findings": [
+    {
+      "cell": "alpine-x86_64-mimalloc-preload-dynamic-distro",
+      "check": "noisy",
+      "message": "workload nomatch has a relative MAD of 5.0%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "alpine-x86_64-mimalloc-preload-dynamic-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 6.7%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "debian-x86_64-jemalloc-preload-dynamic-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 10.1%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "debian-x86_64-mimalloc-preload-dynamic-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 19.8%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "debian-x86_64-snmalloc-preload-dynamic-distro",
+      "check": "noisy",
+      "message": "workload literal has a relative MAD of 5.1%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "debian-x86_64-snmalloc-preload-dynamic-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 15.2%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    }
+  ],
+  "groups": [
+    {
+      "group": "alpine / x86_64 / dynamic / distro",
+      "rows": [
+        {
+          "allocator": "jemalloc",
+          "arch": "x86_64",
+          "cell_id": "alpine-x86_64-jemalloc-preload-dynamic-distro",
+          "composite": 2.6689123168742106,
+          "distro": "alpine",
+          "integration": "preload",
+          "is_baseline": false,
+          "profile": "dynamic",
+          "rel_mad": 0.012746041,
+          "rel_rss": 6.838259441707717,
+          "rel_size": 1.0,
+          "rel_time": 0.8623908072698252,
+          "rss_kb": 33316.0,
+          "size_bytes": 8249936,
+          "startup_s": 0.001682766,
+          "time_s": 0.048032028,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "system",
+          "arch": "x86_64",
+          "cell_id": "alpine-x86_64-system-baseline-dynamic-distro",
+          "composite": 0.9999999999999999,
+          "distro": "alpine",
+          "integration": "baseline",
+          "is_baseline": true,
+          "profile": "dynamic",
+          "rel_mad": 0.01063127,
+          "rel_rss": 1.0,
+          "rel_size": 1.0,
+          "rel_time": 1.0,
+          "rss_kb": 4872.0,
+          "size_bytes": 8249936,
+          "startup_s": 0.00166632,
+          "time_s": 0.055696359,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "mimalloc",
+          "arch": "x86_64",
+          "cell_id": "alpine-x86_64-mimalloc-preload-dynamic-distro",
+          "composite": 1.8837965411910143,
+          "distro": "alpine",
+          "integration": "preload",
+          "is_baseline": false,
+          "profile": "dynamic",
+          "rel_mad": 0.024730641,
+          "rel_rss": 3.8711001642036127,
+          "rel_size": 1.0,
+          "rel_time": 1.0374441532165506,
+          "rss_kb": 18860.0,
+          "size_bytes": 8249936,
+          "startup_s": 0.001765004,
+          "time_s": 0.057781862,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "snmalloc",
+          "arch": "x86_64",
+          "cell_id": "alpine-x86_64-snmalloc-preload-dynamic-distro",
+          "composite": 1.8597769812676748,
+          "distro": "alpine",
+          "integration": "preload",
+          "is_baseline": false,
+          "profile": "dynamic",
+          "rel_mad": 0.016682128,
+          "rel_rss": 3.454022988505747,
+          "rel_size": 1.0,
+          "rel_time": 1.2059501411932512,
+          "rss_kb": 16828.0,
+          "size_bytes": 8249936,
+          "startup_s": 0.001755356,
+          "time_s": 0.067167032,
+          "toolchain": "distro",
+          "variant": "default"
+        }
+      ]
+    },
+    {
+      "group": "debian / x86_64 / dynamic / distro",
+      "rows": [
+        {
+          "allocator": "system",
+          "arch": "x86_64",
+          "cell_id": "debian-x86_64-system-baseline-dynamic-distro",
+          "composite": 0.9999999999999999,
+          "distro": "debian",
+          "integration": "baseline",
+          "is_baseline": true,
+          "profile": "dynamic",
+          "rel_mad": 0.007848513,
+          "rel_rss": 1.0,
+          "rel_size": 1.0,
+          "rel_time": 1.0,
+          "rss_kb": 5874.0,
+          "size_bytes": 8320792,
+          "startup_s": 0.001667237,
+          "time_s": 0.046209782,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "jemalloc",
+          "arch": "x86_64",
+          "cell_id": "debian-x86_64-jemalloc-preload-dynamic-distro",
+          "composite": 2.1377926102905547,
+          "distro": "debian",
+          "integration": "preload",
+          "is_baseline": false,
+          "profile": "dynamic",
+          "rel_mad": 0.020409717,
+          "rel_rss": 4.75859720803541,
+          "rel_size": 1.0,
+          "rel_time": 1.0170224131332193,
+          "rss_kb": 27952.0,
+          "size_bytes": 8320792,
+          "startup_s": 0.001799331,
+          "time_s": 0.046996384,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "mimalloc",
+          "arch": "x86_64",
+          "cell_id": "debian-x86_64-mimalloc-preload-dynamic-distro",
+          "composite": 1.8740669492344306,
+          "distro": "debian",
+          "integration": "preload",
+          "is_baseline": false,
+          "profile": "dynamic",
+          "rel_mad": 0.009011511,
+          "rel_rss": 3.4194756554307117,
+          "rel_size": 1.0,
+          "rel_time": 1.2470404210086947,
+          "rss_kb": 20086.0,
+          "size_bytes": 8320792,
+          "startup_s": 0.002069855,
+          "time_s": 0.057625466,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "snmalloc",
+          "arch": "x86_64",
+          "cell_id": "debian-x86_64-snmalloc-preload-dynamic-distro",
+          "composite": 1.5930739982974838,
+          "distro": "debian",
+          "integration": "preload",
+          "is_baseline": false,
+          "profile": "dynamic",
+          "rel_mad": 0.050552915,
+          "rel_rss": 2.3013278855975483,
+          "rel_size": 1.0,
+          "rel_time": 1.3377927210303653,
+          "rss_kb": 13518.0,
+          "size_bytes": 8320792,
+          "startup_s": 0.0020343,
+          "time_s": 0.06181911,
+          "toolchain": "distro",
+          "variant": "default"
+        }
+      ]
+    }
+  ],
+  "primary_workload": "literal",
+  "run_id": "20260902-133258",
+  "verdicts": [
+    {
+      "group": "alpine / x86_64 / dynamic / distro",
+      "margin_pct": 15.956709135829126,
+      "note": "jemalloc is 16.0% faster than the next row, which is outside the run's spread of 1.3%",
+      "winner": "jemalloc (preload)",
+      "within_noise": false
+    },
+    {
+      "group": "debian / x86_64 / dynamic / distro",
+      "margin_pct": 1.7022413133219376,
+      "note": "the lead of 1.7% is within this run's own spread (2.0% relative MAD), so the ordering between the top rows is not established here",
+      "winner": "system (baseline)",
+      "within_noise": true
+    }
+  ]
+}

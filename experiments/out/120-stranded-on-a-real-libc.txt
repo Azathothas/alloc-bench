@@ -1,0 +1,30 @@
+=== conditions ===
+date:   2026-09-03T05:31:39Z
+host:   Linux 6.18.44-fc-v24 x86_64
+runner: /home/user/alloc-bench/target/release/alloc-runner
+
+=== alpine (alpine:latest) ===
+  libc.a: /usr/lib/gcc/x86_64-alpine-linux-musl/15.2.0/../../../../lib/libc.a (1350 members)
+  members deleted: aligned_alloc.lo calloc.lo free.lo lite_malloc.lo malloc_usable_size.lo posix_memalign.lo realloc.lo
+  after-plain.a: 1342 members
+  after-full.a: 1343 members
+
+=== chimera (chimeralinux/chimera:latest) ===
+  libc.a: /lib/libc.a (    1345 members)
+  members deleted: calloc.lo free.lo lite_malloc.lo mimalloc.o posix_memalign.lo realloc.lo
+  after-plain.a:     1340 members
+  after-full.a:     1341 members
+
+=== what the splice broke, derived rather than listed ===
+  alpine   plain  -> 2 symbol(s): __libc_free __libc_malloc
+  alpine   full   -> 0 symbol(s):
+  chimera  plain  -> 4 symbol(s): __libc_calloc __libc_free __libc_malloc __malloc_tls_default
+  chimera  full   -> 1 symbol(s): __malloc_tls_default
+
+=== the assertions ===
+  PASS  alpine/plain names musl's internal aliases
+  PASS   alpine/full is EMPTY -- synthesis closes it, so the check can refuse
+  PASS  chimera/plain names __malloc_tls_default
+  PASS   chimera/full STILL reports -- synthesis does not rescue it
+
+exit: 0

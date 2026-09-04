@@ -1,0 +1,101 @@
+=== conditions ===
+date: 2026-09-03T07:04:16Z
+host: Linux 6.18.44-fc-v24 x86_64
+cc:   cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+nm:   GNU nm (GNU Binutils for Ubuntu) 2.42
+tree: /home/user/alloc-bench at 8aefb61
+
+  object       bytes      defined dynamic symbols
+  full.so      15200      4
+  other.so     15144      2
+  empty.so     15200      0
+  notelf.so    40         nm REFUSES it
+
+=== the real finish_so, against each ===
+
+  --- full.so (accepted) ---
+      | built /tmp/alloc-bench-150-symbol-reads.16699/stage-full/lib/liballocbench.so (15200 bytes, mode=preload pic=1 libc=glibc arch=x86_64)
+      exit 0 (expected 0)
+
+  --- other.so (refused) ---
+      | shared object /tmp/alloc-bench-150-symbol-reads.16699/stage-other/lib/liballocbench.so does not EXPORT required symbol(s): malloc free realloc calloc
+      | --- 2 defined dynamic symbol(s); first 40 ---
+      | 0000000000001108 T another
+      | 00000000000010f9 T answer
+      exit 1 (expected 1)
+
+  --- empty.so (refused) ---
+      | shared object /tmp/alloc-bench-150-symbol-reads.16699/stage-empty/lib/liballocbench.so does not EXPORT required symbol(s): malloc free realloc calloc
+      |  and it exports NOTHING AT ALL: 0 defined dynamic symbols.
+      |    That is a property of how it was LINKED, not of the allocator:
+      |    a shared object built with no exported-symbols list, or whose
+      |    objects were all localised, has an empty .dynsym.
+      exit 1 (expected 1)
+
+  --- notelf.so (could-not-run) ---
+      | cannot read the dynamic symbol table of /tmp/alloc-bench-150-symbol-reads.16699/stage-notelf/lib/liballocbench.so with 'llvm-nm'
+      |  This says NOTHING about the allocator: the library was built and
+      |    the tool that inspects it failed. llvm-nm said:
+      |    | llvm-nm: error: /tmp/alloc-bench-150-symbol-reads.16699/stage-notelf/lib/liballocbench.so: The file was not recognized as a valid object file
+      exit 2 (expected 2)
+
+=== the two states that used to be one ===
+   empty.so is named as exporting nothing, in words
+   notelf.so is named as unreadable, and exits 2 rather than 1
+   their output differs, which is the whole point
+
+=== the archive counterpart, finish() ===
+
+  --- full.a, MODE=override (accepted) ---
+      | built /tmp/alloc-bench-150-symbol-reads.16699/astage-full-override/lib/liballocbench.a (1728 bytes, mode=override pic=1 libc=glibc arch=x86_64)
+      exit 0 (expected 0)
+
+  --- other.a, MODE=override (refused) ---
+      | archive /tmp/alloc-bench-150-symbol-reads.16699/astage-other-override/lib/liballocbench.a is missing required symbol(s): malloc free realloc calloc
+      | --- 3 defined symbol(s); first 40 ---
+      |
+      | other.o:
+      | 000000000000000f T another
+      | 0000000000000000 T answer
+      exit 1 (expected 1)
+
+  --- empty.a, MODE=override (refused) ---
+      | archive /tmp/alloc-bench-150-symbol-reads.16699/astage-empty-override/lib/liballocbench.a is missing required symbol(s): malloc free realloc calloc
+      |  and it defines NOTHING AT ALL: 0 symbols in the archive.
+      |    An archive with an empty symbol table is a build result --
+      |    no objects added, or every object empty -- not a missing API.
+      exit 1 (expected 1)
+
+  --- notar.a, MODE=override (could-not-run) ---
+      | cannot read the symbol table of /tmp/alloc-bench-150-symbol-reads.16699/astage-notar-override/lib/liballocbench.a with 'llvm-nm'
+      |  This says NOTHING about the allocator: the archive was built and
+      |    the tool that inspects it failed. llvm-nm said:
+      |    | llvm-nm: error: /tmp/alloc-bench-150-symbol-reads.16699/astage-notar-override/lib/liballocbench.a: The file was not recognized as a valid object file
+      exit 2 (expected 2)
+
+=== the check that failed OPEN: MODE=prefixed over an archive defining malloc ===
+      | archive defines malloc in prefixed mode: the override layer was not disabled
+      exit 1 (expected 1)
+      an unreadable archive in prefixed mode: exit 2 (expected 2, NOT 0)
+
+=== what this establishes ===
+ `cmd 2>/dev/null | grep -q` reads GREP's exit code. A tool that
+   failed to run reads exactly like a subject that lacks the thing
+   being looked for, and the second is what gets written down.
+ finish and finish_so now read the table ONCE, exit 2 when they
+   cannot read it at all, and say 'NOTHING AT ALL' in words rather
+   than printing a header over an empty list.
+ And one of the four checks failed OPEN rather than closed: the
+   prefixed-mode assertion asks whether malloc IS defined, so a
+   broken nm answered 'no' and let the archive through. That one
+   would not have failed a build; it would have made two mechanisms
+   the same experiment and published them as two.
+
+=== what this probe cannot tell you ===
+- what tcmalloc's own shared object contains. Bazel cannot run on this
+  host, and case 3 is a library shaped LIKE the one that run produced,
+  not that library. docs/history/todo/mechanisms.md T-003 names the dispatch that
+  would answer it.
+- whether an exported malloc actually interposes. Nothing a build step
+  can see establishes that; alloc-runner preload-check does, against
+  the running process.

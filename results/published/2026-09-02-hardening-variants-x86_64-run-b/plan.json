@@ -1,0 +1,50 @@
+[
+  {
+    "id": "alpine-x86_64-hardened_malloc-rust-global-static-pie-distro",
+    "suite": "hardening-variants",
+    "distro": "alpine",
+    "arch": "x86_64",
+    "libc": "musl",
+    "allocator": "hardened_malloc",
+    "integration": "rust-global",
+    "profile": "static-pie",
+    "toolchain": "distro",
+    "corpus": "standard",
+    "repeat": 10,
+    "variant": "default",
+    "status": "planned",
+    "reason": null
+  },
+  {
+    "id": "alpine-x86_64-hardened_malloc-rust-global-static-pie-distro-light",
+    "suite": "hardening-variants",
+    "distro": "alpine",
+    "arch": "x86_64",
+    "libc": "musl",
+    "allocator": "hardened_malloc",
+    "integration": "rust-global",
+    "profile": "static-pie",
+    "toolchain": "distro",
+    "corpus": "standard",
+    "repeat": 10,
+    "variant": "light",
+    "status": "planned",
+    "reason": null
+  },
+  {
+    "id": "alpine-x86_64-system-baseline-static-pie-distro",
+    "suite": "hardening-variants",
+    "distro": "alpine",
+    "arch": "x86_64",
+    "libc": "musl",
+    "allocator": "system",
+    "integration": "baseline",
+    "profile": "static-pie",
+    "toolchain": "distro",
+    "corpus": "standard",
+    "repeat": 10,
+    "variant": "default",
+    "status": "planned",
+    "reason": null
+  }
+]
