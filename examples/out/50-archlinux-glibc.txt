@@ -1,0 +1,88 @@
+Unable to find image 'archlinux:latest' locally
+latest: Pulling from library/archlinux
+a2610f4936b0: Pulling fs layer
+c9ee456ee054: Pulling fs layer
+a2610f4936b0: Download complete
+815e29fe391c: Download complete
+0b97c74c8f83: Download complete
+c9ee456ee054: Download complete
+a2610f4936b0: Pull complete
+c9ee456ee054: Pull complete
+Digest: sha256:82b1b08faae9d61e3e7e13d562f4d09114d939105b0d59ff34140f3bd418593a
+Status: Downloaded newer image for archlinux:latest
+note: appended the sandbox's proxy CA to /etc/ssl/certs/ca-certificates.crt (see docs/AGENTS.md)
+note: also installed 152 certificate(s) into the OpenSSL hashed directory
+=== 1. toolchain, and a packaged allocator ===
+note: the proxy CA was already appended to /etc/ssl/certs/ca-certificates.crt
+=== conditions ===
+date:     2026-09-03T13:30:15Z
+kernel:   Linux 6.18.44-fc-v24 x86_64
+distro:   Arch Linux
+cc:       cc (GCC) 16.2.1 20260810
+libc:     ldd (GNU libc) 2.44
+binutils: GNU nm (GNU Binutils) 2.47
+
+installed: /usr/lib/libjemalloc.so.2 (1010816 bytes)
+package:   jemalloc 1:5.3.1-3
+
+=== 2. LD_PRELOAD, which works here exactly as it does on Debian ===
+   /tmp/allocprobe is a dynamic binary
+   libjemalloc.so.2 EXPORTS malloc in its dynamic symbol table
+   libjemalloc.so.2 is mapped into the running process (LD_PRELOAD took effect)
+   control: libjemalloc.so.2 is absent without LD_PRELOAD (so the check above can fail)
+   stress, 4 threads, 40 000 iterations -> exit 0: STRESS-OK threads=4 iters=40000
+   known-answer: found 715 of an expected 715 needles in 5000 lines
+
+=== 3.  THE STATIC REPLACEMENT, ATTEMPTED ===
+Everything the musl examples do, on glibc, on a COPY of libc.a.
+
+  libc.a: /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libc.a (6999946 bytes, 2231 members)
+
+  -- which members define the allocation entry points?
+     malloc.o defines calloc
+     malloc.o defines free
+     malloc.o defines malloc
+     malloc.o defines realloc
+
+  -- and what ELSE does the member defining malloc define?
+     member: malloc.o
+     it defines 195 symbols, including:
+       T __glibc_morecore
+       T __libc_calloc
+       T __libc_free
+       T __libc_mallinfo
+       T __libc_mallinfo2
+       T __libc_malloc
+       T __libc_mallopt
+       T __libc_memalign
+       T __libc_pvalloc
+       T __libc_realloc
+       T __libc_valloc
+       T __malloc_arena_thread_freeres
+       T __malloc_fork_lock_parent
+       T __malloc_fork_unlock_child
+       T __malloc_fork_unlock_parent
+       T __malloc_info
+
+  -- delete it and see what breaks
+     deleted malloc.o from the copy
+     installed the modified archive as /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libc.a
+     cc -static -include stdlib.h -o /tmp/g /tmp/g.c        # no archive named
+      it does not link. The linker's own words:
+       undefined reference to `calloc'
+       undefined reference to `free'
+       undefined reference to `malloc'
+       undefined reference to `realloc'
+       (368 undefined-reference lines in total)
+     /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/libc.a restored
+
+=== what this example establishes ===
+ On glibc, LD_PRELOAD replaces the allocator in an unmodified dynamic
+   binary, and residency proves it did.
+ The static libc.a surgery that works on musl does NOT transfer to
+   glibc, and the reason is visible above: the member defining malloc
+   defines a great deal else that the rest of libc needs.
+ This is why this project's planner marks glibc static-replacement cells
+   unsupported with that reason rather than letting them fail every run.
+
+  6 passed, 0 FAILED

@@ -1,0 +1,70 @@
+# mesh, preload mode, alpine and debian --- what the build actually left
+#
+# Extracted from the cell's steps.log, which is where an UNSUPPORTED
+# verdict from an allocator recipe lands: the cell never reaches a
+# ripgrep build.log, so scripts/report/extract-evidence.py has nothing
+# to select from. That is why this file is hand-cut and says so.
+
+=== alpine-x86_64-mesh-preload-dynamic-distro ===
+--- what the build left under <BUILD> (top 30 by size) ---
+   2341210 <BUILD>/googletest-build/lib/libgtest.a
+   2061536 <BUILD>/googletest-build/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o
+    753396 <BUILD>/googletest-build/lib/libgmock.a
+    662344 <BUILD>/googletest-build/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o
+    606744 <BUILD>/src/CMakeFiles/unit.test.dir/testing/unit/triple_mesh_test.cc.o
+    595048 <BUILD>/src/CMakeFiles/mesh.dir/libmesh.cc.o
+    577696 <BUILD>/src/CMakeFiles/unit.test.dir/testing/unit/alignment.cc.o
+    575200 <BUILD>/src/CMakeFiles/unit.test.dir/testing/unit/mesh_memory_test.cc.o
+    567904 <BUILD>/src/CMakeFiles/unit.test.dir/runtime.cc.o
+    567904 <BUILD>/src/CMakeFiles/mesh.dir/runtime.cc.o
+    525296 <BUILD>/src/CMakeFiles/unit.test.dir/testing/unit/concurrent_mesh_test.cc.o
+    517776 <BUILD>/src/CMakeFiles/unit.test.dir/testing/unit/mesh_test.cc.o
+    414600 <BUILD>/src/CMakeFiles/unit.test.dir/testing/unit/bitmap_test.cc.o
+    389736 <BUILD>/src/CMakeFiles/unit.test.dir/meshable_arena.cc.o
+    389736 <BUILD>/src/CMakeFiles/mesh.dir/meshable_arena.cc.o
+    364864 <BUILD>/src/CMakeFiles/unit.test.dir/testing/unit/thread_exit_test.cc.o
+    338608 <BUILD>/src/CMakeFiles/unit.test.dir/testing/unit/pending_list_test.cc.o
+    169960 <BUILD>/src/CMakeFiles/unit.test.dir/testing/unit/size_class_test.cc.o
+     68952 <BUILD>/src/CMakeFiles/unit.test.dir/testing/unit/rng_test.cc.o
+     40872 <BUILD>/src/CMakeFiles/unit.test.dir/d_assert.cc.o
+     40872 <BUILD>/src/CMakeFiles/mesh.dir/d_assert.cc.o
+     21445 <BUILD>/googletest-src/googletest/test/googletest-filter-unittest.py
+     20597 <BUILD>/googletest-src/googletest/test/gtest_xml_output_unittest.py
+     18664 <BUILD>/googletest-build/CMakeFiles/4.2.3/CompilerIdCXX/a.out
+     18664 <BUILD>/CMakeFiles/4.2.3/CompilerIdCXX/a.out
+     18656 <BUILD>/googletest-build/CMakeFiles/4.2.3/CompilerIdC/a.out
+
+-- shared objects anywhere under the build tree:
+0
+
+=== debian-x86_64-mesh-preload-dynamic-distro ===
+--- what the build left under <BUILD> (top 30 by size) ---
+   2343512 <BUILD>/googletest-build/lib/libgtest.a
+   2042928 <BUILD>/googletest-build/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o
+    729038 <BUILD>/googletest-build/lib/libgmock.a
+    634432 <BUILD>/googletest-build/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o
+    621192 <BUILD>/src/CMakeFiles/unit.test.dir/testing/unit/triple_mesh_test.cc.o
+    616432 <BUILD>/src/CMakeFiles/mesh.dir/libmesh.cc.o
+    596856 <BUILD>/src/CMakeFiles/unit.test.dir/testing/unit/alignment.cc.o
+    593712 <BUILD>/src/CMakeFiles/unit.test.dir/testing/unit/mesh_memory_test.cc.o
+    583432 <BUILD>/src/CMakeFiles/unit.test.dir/runtime.cc.o
+    583432 <BUILD>/src/CMakeFiles/mesh.dir/runtime.cc.o
+    541752 <BUILD>/src/CMakeFiles/unit.test.dir/testing/unit/concurrent_mesh_test.cc.o
+    533432 <BUILD>/src/CMakeFiles/unit.test.dir/testing/unit/mesh_test.cc.o
+    420608 <BUILD>/src/CMakeFiles/unit.test.dir/testing/unit/bitmap_test.cc.o
+    412120 <BUILD>/src/CMakeFiles/unit.test.dir/meshable_arena.cc.o
+    412120 <BUILD>/src/CMakeFiles/mesh.dir/meshable_arena.cc.o
+    378128 <BUILD>/src/CMakeFiles/unit.test.dir/testing/unit/thread_exit_test.cc.o
+    352776 <BUILD>/src/CMakeFiles/unit.test.dir/testing/unit/pending_list_test.cc.o
+    176104 <BUILD>/src/CMakeFiles/unit.test.dir/testing/unit/size_class_test.cc.o
+     73176 <BUILD>/src/CMakeFiles/unit.test.dir/testing/unit/rng_test.cc.o
+     41552 <BUILD>/src/CMakeFiles/mesh.dir/d_assert.cc.o
+     41528 <BUILD>/src/CMakeFiles/unit.test.dir/d_assert.cc.o
+     21445 <BUILD>/googletest-src/googletest/test/googletest-filter-unittest.py
+     20597 <BUILD>/googletest-src/googletest/test/gtest_xml_output_unittest.py
+     18832 <BUILD>/src/CMakeFiles/unit.test.dir/real.cc.o
+     18832 <BUILD>/src/CMakeFiles/mesh.dir/real.cc.o
+     17068 <BUILD>/heap_layers-src/wrappers/winwrapper.cpp
+
+-- shared objects anywhere under the build tree:
+0

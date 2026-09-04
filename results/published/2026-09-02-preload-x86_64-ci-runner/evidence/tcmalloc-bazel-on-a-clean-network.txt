@@ -1,0 +1,28 @@
+# tcmalloc on a runner WITHOUT a TLS-inspecting proxy --- the wall moved
+#
+#  On the dev sandbox this cell died fetching bcr.bazel.build with
+# 'PKIX path building failed'. Here it did not: bazel resolved its module
+# graph, built, and the recipe reached its post-build search. So the TLS
+# diagnosis was right, and it was not the whole story.
+
+== the cell's recorded outcome and reason
+unsupported
+the bazel build produced no shared object usable for LD_PRELOAD under bazel-bin; what it did leave is listed on stderr
+
+==  AND THE SEARCH COULD NOT LOOK.
+# `bazel-bin` is a SYMLINK into bazel's output base, and `find` with its
+# default -P does not follow a symlink even as the starting point.
+# Reproduced on the host, 2026-09-02:
+#
+#   ln -s real bazel-bin; touch real/libtcmalloc.so
+#   find    bazel-bin -type f -name '*.so'  ->  0
+#   find -L bazel-bin -type f -name '*.so'  ->  1
+#
+# So this cell's 'no shared object' verdict is a property of the search,
+# not of the build. Fixed to `find -L`; the next dispatch answers what
+# bazel actually leaves.
+
+== the stderr listing this run produced (empty, for the reason above)
+--- shared objects under bazel-bin (top 20 by size) ---
+UNSUPPORTED: the bazel build produced no shared object usable for LD_PRELOAD under bazel-bin; what it did leave is listed on stderr
+[cell debian-x86_64-tcmalloc-preload-dynamic-distro] unsupported: the bazel build produced no shared object usable for LD_PRELOAD under bazel-bin; what it did leave is listed on stderr

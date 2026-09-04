@@ -1,0 +1,62 @@
+=== conditions ===
+date:    2026-09-03T00:26:41Z
+host:    Linux 6.18.44-fc-v24 x86_64
+cmake:   cmake version 3.28.3
+c++:     c++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+mesh:    https://github.com/plasma-umass/mesh @ 2987f883b8695c07a80dc40da67c61f524460dfd
+scratch: /tmp/alloc-bench-100-mesh.2831
+
+=== fetch the pinned commit ===
+HEAD: 2987f883b8695c07a80dc40da67c61f524460dfd
+
+=== what the CMakeLists actually says ===
+11:set(CMAKE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build)
+12:set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_OUTPUT_DIRECTORY}/bin)
+13:set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_OUTPUT_DIRECTORY}/lib)
+14:set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_OUTPUT_DIRECTORY}/lib)
+30:add_library(mesh SHARED ${mesh_src})
+
+=== configure and build, exactly as allocators/mesh/build.sh does ===
+cmake -S $SRC -B $B -DCMAKE_BUILD_TYPE=Release
+configure: ok
+build:     ok (all; --target mesh alone did not build)
+
+=== 1. the recipe's search: shared objects under -B ===
+    find $B -type f -name '*.so*'
+    count: 0
+
+=== 1b. and the objects of the mesh target ARE there ===
+    $B/**/mesh.dir/*.cc.o: 9
+
+=== 2. where CMake was told to put it: $SRC/build ===
+    find $SRC/build -type f -name '*.so*'
+<SRC>/build/lib/libmesh.so
+    size: 313424 bytes
+    file: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, BuildID[sha1]=aa4ecc3db493bd095efd9283b28c2fe545024de2, not stripped
+
+=== 3. does it EXPORT malloc? (allocators/lib.sh finish_so's rule) ===
+    nm -D: malloc EXPORTED
+    other allocator entry points it exports:
+      free             yes
+      realloc          yes
+      calloc           yes
+      posix_memalign   yes
+      aligned_alloc    yes
+
+=== what this establishes ===
+ mesh builds a shared library and always did. The refusal was the
+   recipe searching the CMake BINARY directory for an artefact mesh's
+   own CMakeLists redirects into the SOURCE directory.
+ It is the third refusal in this project that turned out to be the
+   instrument rather than the allocator -- after tcmalloc's `find`
+   not following the bazel-bin symlink, and its TLS failure being
+   reported as "bazel build failed". A refusal is a measurement and
+   has to be able to fail for the right reason.
+
+=== what this probe cannot tell you ===
+- whether a mesh cell now measures. The ripgrep build, the identity
+  gate, preload-check's residency read and the correctness gate all
+  sit downstream. Only a run of the `preload` suite answers that.
+- whether writing into the source tree is safe for a CACHED source
+  directory. allocators/mesh/build.sh now cleans $SRC/build before
+  configuring for exactly that reason; this probe uses a fresh clone.

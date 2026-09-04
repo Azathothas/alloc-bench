@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="830" height="312" viewBox="0 0 830 312" font-family="ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif" role="img" aria-label="Binary size - void / x86_64 / static-pie / distro - ◀ shorter bar is BETTER">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="16" y="26" font-size="15" font-weight="600" fill="#1b1f24">Binary size - void / x86_64 / static-pie / distro</text>
+<text x="16" y="45" font-size="11" fill="#5b636d">unstripped, with symbols retained so the identity oracle can read the binary</text>
+<rect x="16" y="54" width="188" height="19" rx="9.5" fill="#1f7a4d" opacity="0.12"/>
+<text x="110" y="67.5" font-size="10.5" font-weight="600" fill="#1f7a4d" text-anchor="middle">◀ shorter bar is BETTER</text>
+<rect x="214.0" y="58" width="10" height="10" rx="2" fill="#8a8f98"/>
+<text x="228.0" y="67" font-size="10" fill="#5b636d">control</text>
+<rect x="267.8" y="58" width="10" height="10" rx="2" fill="#3b7dd8"/>
+<text x="281.8" y="67" font-size="10" fill="#5b636d">better than control</text>
+<rect x="386.4" y="58" width="10" height="10" rx="2" fill="#d1495b"/>
+<text x="400.4" y="67" font-size="10" fill="#5b636d">worse than control</text>
+<rect x="499.6" y="58" width="10" height="10" rx="2" fill="#9aa7b4"/>
+<text x="513.6" y="67" font-size="10" fill="#5b636d">inside its own noise</text>
+<line x1="260.0" y1="98.0" x2="260.0" y2="260.0" stroke="#d8dce1" stroke-width="1"/>
+<text x="260.0" y="93.0" font-size="9.5" fill="#5b636d" text-anchor="middle">0 MiB</text>
+<line x1="321.8" y1="98.0" x2="321.8" y2="260.0" stroke="#d8dce1" stroke-width="1"/>
+<text x="321.8" y="93.0" font-size="9.5" fill="#5b636d" text-anchor="middle">2 MiB</text>
+<line x1="383.7" y1="98.0" x2="383.7" y2="260.0" stroke="#d8dce1" stroke-width="1"/>
+<text x="383.7" y="93.0" font-size="9.5" fill="#5b636d" text-anchor="middle">4 MiB</text>
+<line x1="445.5" y1="98.0" x2="445.5" y2="260.0" stroke="#d8dce1" stroke-width="1"/>
+<text x="445.5" y="93.0" font-size="9.5" fill="#5b636d" text-anchor="middle">6 MiB</text>
+<line x1="507.3" y1="98.0" x2="507.3" y2="260.0" stroke="#d8dce1" stroke-width="1"/>
+<text x="507.3" y="93.0" font-size="9.5" fill="#5b636d" text-anchor="middle">8 MiB</text>
+<line x1="569.1" y1="98.0" x2="569.1" y2="260.0" stroke="#d8dce1" stroke-width="1"/>
+<text x="569.1" y="93.0" font-size="9.5" fill="#5b636d" text-anchor="middle">10 MiB</text>
+<line x1="631.0" y1="98.0" x2="631.0" y2="260.0" stroke="#d8dce1" stroke-width="1"/>
+<text x="631.0" y="93.0" font-size="9.5" fill="#5b636d" text-anchor="middle">12 MiB</text>
+<line x1="692.8" y1="98.0" x2="692.8" y2="260.0" stroke="#d8dce1" stroke-width="1"/>
+<text x="692.8" y="93.0" font-size="9.5" fill="#5b636d" text-anchor="middle">14 MiB</text>
+<line x1="260.0" y1="260.0" x2="720.0" y2="260.0" stroke="#aeb4bb" stroke-width="1"/>
+<line x1="511.9" y1="98.0" x2="511.9" y2="264.0" stroke="#1b1f24" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="511.9" y="276.0" font-size="10" font-weight="600" fill="#1b1f24" text-anchor="middle">control</text>
+<text x="250" y="121.7" font-size="11" fill="#1b1f24" text-anchor="end">rpmalloc / rust-global</text>
+<rect x="260" y="109.0" width="254.7" height="15" rx="2" fill="#d1495b"/>
+<text x="520.7" y="121.7" font-size="10.5" fill="#5b636d">8.24 MiB  1.1% larger</text>
+<text x="250" y="147.7" font-size="11" fill="#1b1f24" text-anchor="end">snmalloc / rust-global</text>
+<rect x="260" y="135.0" width="253.3" height="15" rx="2" fill="#d1495b"/>
+<text x="519.3" y="147.7" font-size="10.5" fill="#5b636d">8.20 MiB  0.6% larger</text>
+<text x="250" y="173.7" font-size="11" fill="#1b1f24" text-anchor="end">jemalloc / rust-global</text>
+<rect x="260" y="161.0" width="425.9" height="15" rx="2" fill="#d1495b"/>
+<text x="691.9" y="173.7" font-size="10.5" fill="#5b636d">13.78 MiB  69.1% larger</text>
+<text x="250" y="199.7" font-size="11" fill="#1b1f24" text-anchor="end">mimalloc / rust-global</text>
+<rect x="260" y="187.0" width="258.9" height="15" rx="2" fill="#d1495b"/>
+<text x="524.9" y="199.7" font-size="10.5" fill="#5b636d">8.37 MiB  2.8% larger</text>
+<text x="250" y="225.7" font-size="11" fill="#1b1f24" text-anchor="end">hardened_malloc / rust-global</text>
+<rect x="260" y="213.0" width="252.5" height="15" rx="2" fill="#d1495b"/>
+<text x="518.5" y="225.7" font-size="10.5" fill="#5b636d">8.17 MiB  0.3% larger</text>
+<text x="250" y="251.7" font-size="11" fill="#1b1f24" text-anchor="end">system (control)</text>
+<rect x="260" y="239.0" width="251.9" height="15" rx="2" fill="#8a8f98"/>
+<text x="517.9" y="251.7" font-size="10.5" fill="#5b636d">8.15 MiB</text>
+<text x="16" y="300.0" font-size="10" fill="#5b636d"> These binaries keep `.symtab` on purpose; a shipped build would strip and be smaller. Size is the smallest of the three costs and the composite weights it 0.10.</text></svg>

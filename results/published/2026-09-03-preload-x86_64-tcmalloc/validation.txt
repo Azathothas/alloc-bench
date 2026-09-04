@@ -1,0 +1,8 @@
+warn  noisy                      alpine-x86_64-hardened_malloc-preload-dynamic-distro workload startup has a relative MAD of 7.1%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host
+warn  noisy                      alpine-x86_64-mesh-preload-dynamic-distro            workload startup has a relative MAD of 7.5%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host
+warn  noisy                      debian-x86_64-hardened_malloc-preload-dynamic-distro workload startup has a relative MAD of 5.2%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host
+warn  noisy                      debian-x86_64-mesh-preload-dynamic-distro            workload startup has a relative MAD of 10.6%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host
+warn  noisy                      debian-x86_64-mimalloc-preload-dynamic-distro        workload nomatch has a relative MAD of 6.1%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host
+warn  noisy                      debian-x86_64-mimalloc-preload-dynamic-distro        workload startup has a relative MAD of 9.8%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host
+
+0 error(s), 6 warning(s) over 16 result(s).

@@ -1,0 +1,146 @@
+# Named suites avoid an expensive Cartesian product. Unsupported cells remain
+# visible with the reason from allocators/allocators.toml.
+
+schema_version = 1
+
+[[suite]]
+id = "smoke"
+why = """
+Exercise the complete pipeline on a small corpus. This suite verifies behavior
+but is too short and noisy for allocator ranking.
+"""
+distros      = ["alpine"]
+arches       = ["x86_64"]
+allocators   = ["system", "mimalloc", "jemalloc"]
+integrations = ["rust-global"]
+profiles     = ["static-pie"]
+toolchains   = ["distro"]
+corpus       = "smoke"
+repeat       = 5
+
+[[suite]]
+id = "core"
+why = """
+Compare supported allocators with the musl system allocator in a static LTO
+build. x86_64 uses static-PIE; the stable aarch64 musl target cannot produce it
+and uses plain static LTO. Profiles are never compared across architectures.
+"""
+distros      = ["alpine"]
+arches       = ["x86_64", "aarch64"]
+allocators   = ["*"]
+integrations = ["rust-global"]
+profiles     = ["static-pie-lto"]
+profiles_by_arch = { aarch64 = ["static-lto"] }
+toolchains   = ["distro"]
+corpus       = "standard"
+repeat       = 12
+
+[[suite]]
+id = "profiles"
+why = """
+Measure whether LTO or position independence changes results while holding the
+distribution, integration mechanism, and toolchain constant.
+"""
+distros      = ["alpine"]
+arches       = ["x86_64", "aarch64"]
+allocators   = ["system", "mimalloc", "jemalloc", "snmalloc"]
+integrations = ["rust-global"]
+profiles     = ["static", "static-pie", "static-lto", "static-pie-lto"]
+toolchains   = ["distro"]
+corpus       = "standard"
+repeat       = 10
+
+[[suite]]
+id = "mechanisms"
+why = """
+Compare source integration, musl archive replacement, and link-order override
+for otherwise identical cells. Debian replacement cells remain visible as
+unsupported evidence because glibc archive replacement is not valid.
+"""
+distros      = ["alpine", "debian"]
+arches       = ["x86_64", "aarch64"]
+allocators   = ["system", "mimalloc", "jemalloc", "snmalloc", "rpmalloc", "hardened_malloc"]
+integrations = ["rust-global", "libc-surgery", "link-override"]
+profiles     = ["static-pie"]
+toolchains   = ["distro"]
+corpus       = "standard"
+repeat       = 10
+
+[[suite]]
+id = "distros"
+why = """
+Compare musl and glibc distributions using each distribution's compiler.
+Arch Linux ARM is labelled archlinuxarm because Arch publishes no aarch64
+image.
+"""
+distros      = ["alpine", "debian", "archlinux"]
+arches       = ["x86_64", "aarch64"]
+allocators   = ["system", "mimalloc", "jemalloc"]
+integrations = ["rust-global"]
+profiles     = ["static-pie", "dynamic"]
+toolchains   = ["distro"]
+corpus       = "standard"
+repeat       = 10
+
+[[suite]]
+id = "toolchain-control"
+why = """
+Rebuild allocator sources with one pinned Zig compiler across distributions.
+Rust still uses its distribution-specific link driver, so this controls the
+allocator compiler rather than isolating libc.
+"""
+distros      = ["alpine", "debian", "archlinux"]
+arches       = ["x86_64"]
+allocators   = ["system", "mimalloc"]
+integrations = ["rust-global"]
+profiles     = ["static-pie"]
+toolchains   = ["zig"]
+corpus       = "standard"
+repeat       = 10
+
+[[suite]]
+id = "preload"
+why = """
+Measure runtime replacement in dynamic binaries, including allocators that have
+no supported static integration. These results are separate from static groups.
+"""
+distros      = ["alpine", "debian"]
+arches       = ["x86_64", "aarch64"]
+allocators   = ["system", "mimalloc", "jemalloc", "snmalloc", "mesh", "tcmalloc", "rpmalloc", "hardened_malloc"]
+integrations = ["preload"]
+profiles     = ["dynamic"]
+toolchains   = ["distro"]
+corpus       = "standard"
+repeat       = 10
+
+[[suite]]
+id = "libc-contrast"
+why = """
+Test whether a result transfers across three musl and three glibc distributions.
+One x86_64 profile and mechanism keep the question focused on distribution and
+libc differences.
+"""
+distros      = ["alpine", "wolfi", "void", "debian", "ubuntu", "archlinux"]
+arches       = ["x86_64"]
+allocators   = ["system", "mimalloc", "jemalloc", "snmalloc", "rpmalloc", "hardened_malloc"]
+integrations = ["rust-global"]
+profiles     = ["static-pie"]
+toolchains   = ["distro"]
+corpus       = "standard"
+repeat       = 10
+
+[[suite]]
+id = "hardening-variants"
+why = """
+Compare hardened_malloc's default and light configurations with one shared
+system control. This measures performance, memory, and size, not security.
+"""
+distros      = ["alpine"]
+arches       = ["x86_64"]
+allocators   = ["system", "hardened_malloc"]
+integrations = ["rust-global"]
+profiles     = ["static-pie"]
+variants     = ["default", "light"]
+toolchains   = ["distro"]
+corpus       = "standard"
+repeat       = 10

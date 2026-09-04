@@ -1,0 +1,107 @@
+=== conditions ===
+date:    2026-09-03T05:31:10Z
+host:    Linux 6.18.44-fc-v24 x86_64
+docker:  Docker version 29.3.1, build c2be9cc
+images:  chimeralinux/chimera:latest, alpine:latest
+
+=== chimera ===
+=== 5a. is /usr/lib/libc.a there BEFORE base-devel-static? ===
+  /usr/lib/libc.a: no
+  PASS  absent before the static package
+
+=== 5b. and AFTER? ===
+  /usr/lib/libc.a:                 yes
+  cc -print-file-name=libc.a:      /lib/libc.a
+  PASS  present after base-devel-static
+
+=== 6. are /lib and /usr/lib the same directory? ===
+  ls -ld /lib:  lrwxrwxrwx  1 root root 7 Dec 20  2025 /lib -> usr/lib
+  PASS  same device:inode -- /lib IS /usr/lib, so both paths find the same file
+
+=== 7. what header style does llvm-nm print for archive members? ===
+  ar: LLVM (http://llvm.org/):
+  nm: llvm-nm, compatible with GNU nm
+    aio.lo:
+    aio_suspend.lo:
+    lio_listio.lo:
+  -> BARE member: -- same as GNU nm on this version
+
+=== 8.  does Chimera's OWN libc.a contain mimalloc? ===
+  members matching 'mimalloc': 1
+    mimalloc.o
+  who defines malloc in Chimera's libc.a:
+    lite_malloc.lo
+  mimalloc-internal symbols present in libc.a: 0
+  musl __bin_chunk present in libc.a:          0
+
+=== 1. does llvm-ar's MRI parser accept OPEN? ===
+  ar said: ar: error: script line 1: unknown command: OPEN
+  PASS  OPEN is rejected -- this is the observed failure, reproduced
+
+=== 9.  CAN THE NEGATIVE CONTROL FIRE? which musl allocator is this? ===
+  __bin_chunk: 0
+  unbin: 0
+  __libc_malloc_impl: 2
+  nontrivial_free: 0
+
+=== 2+3. the CREATE form: does it parse, and does the archive WORK? ===
+  members defining an allocation entry point:
+    calloc.lo
+    free.lo
+    lite_malloc.lo
+    mimalloc.o
+    posix_memalign.lo
+    realloc.lo
+  PASS  the CREATE form parses
+  spliced.a:  2314520 bytes,     1340 members
+  (source libc.a was  2487356 bytes,     1345 members)
+  PASS  all 6 members are gone from the spliced archive
+  PASS  repl.o was added
+  definitions of malloc in the spliced archive: 1
+  PASS  exactly one definition of malloc
+
+  -- install it as the system libc.a and link something static
+  the linker said:
+      error: linker command failed with exit code 1 (use -v to see invocation)
+      error: undefined hidden symbol: __malloc_tls_default
+  PASS  it does not link, and the undefined symbol is Chimera's allocator TLS:
+        the deletion strands __malloc_tls_default, which pthread_create.lo
+        and __init_tls.lo reference. That is a property of THIS libc, not
+        of the CREATE form -- the alpine half below links the same splice.
+  /usr/lib/libc.a restored
+
+exit: 0
+chimera probe exit: 0
+
+=== 4. the same CREATE script under GNU ar (alpine) ===
+  ar: GNU ar (GNU Binutils) 2.45.1
+  nm: GNU nm (GNU Binutils) 2.45.1
+  member defining malloc: lite_malloc.lo
+  which musl allocator is alpine's? (the negative control's premise)
+    __bin_chunk: 0
+    unbin: 0
+    __libc_malloc_impl: 2
+    nontrivial_free: 1
+  members defining an allocation entry point:
+    aligned_alloc.lo
+    calloc.lo
+    free.lo
+    lite_malloc.lo
+    malloc_usable_size.lo
+    posix_memalign.lo
+    realloc.lo
+  PASS  GNU ar accepts the same CREATE script -- one code path serves both
+  spliced.a: 1342 members (source: 1350)
+  PASS  every allocation member deleted
+  PASS  r.o added
+  -- install it as the system libc.a and link something static
+  PASS   it links -- CREATE produces a working archive
+  PASS  and the binary runs and returns 0
+  PASS  the stand-in's own symbol is in the binary -- the splice served the link
+  /usr/lib/libc.a restored
+  PASS  GNU ar also accepts OPEN -- so the old script worked here and only here
+exit: 0
+gnu probe exit: 0
+
+=== verdict ===
+chimera: 0, gnu: 0 -> exit 0

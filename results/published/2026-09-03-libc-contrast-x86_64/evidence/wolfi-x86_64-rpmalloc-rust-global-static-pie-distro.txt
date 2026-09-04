@@ -1,0 +1,16 @@
+# wolfi-x86_64-rpmalloc-rust-global-static-pie-distro
+# outcome: build_failed
+# source: cells/wolfi-x86_64-rpmalloc-rust-global-static-pie-distro/build.log -- 7300 bytes, 92 lines
+# kept 5 distinct diagnostic line(s) of 5 matching; 87 line(s) elided
+# classes: {'undefined reference': 1, 'error': 3, 'collect2/ld': 1}
+#  Chosen by relevance, not by `tail -n`. The full log is not published;
+#   the byte count above is what it was.
+
+--- undefined reference: 1 distinct ---
+          rpmalloc.c:(.text+0x15fe): undefined reference to `__isoc23_strtol'
+--- error: 3 distinct ---
+error: linking with `cc` failed: exit status: 1
+          collect2: error: ld returned 1 exit status
+error: could not compile `ripgrep` (bin "rg") due to 1 previous error
+--- collect2/ld: 1 distinct ---
+  = note: /usr/x86_64-pc-linux-gnu/bin/ld: /work/ripgrep-wolfi-x86_64-rpmalloc-rust-global-static-pie-distro/target/x86_64-unknown-linux-musl/release/deps/librgalloc_shim-02de4439e640c063.rlib(rpmalloc.o): in function `rpmalloc_initialize':

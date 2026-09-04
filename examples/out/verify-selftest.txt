@@ -1,0 +1,41 @@
+=== conditions ===
+=== conditions ===
+date:     2026-09-03T07:52:06Z
+kernel:   Linux 6.18.44-fc-v24 x86_64
+distro:   Debian GNU/Linux 13 (trixie)
+cc:       cc (Debian 14.2.0-19) 14.2.0
+libc:     ldd (Debian GLIBC 2.41-12+deb13u3) 2.41
+binutils: GNU nm (GNU Binutils for Debian) 2.44
+
+=== each check, given something it MUST refuse ===
+   want_elf: a dynamic binary called static       refused, as it must
+   want_elf: a dynamic binary called static-pie   refused, as it must
+   want_symbol: a symbol nothing defines          refused, as it must
+   want_no_symbol: a symbol that IS defined       refused, as it must
+   want_resident: a library nobody preloads       refused, as it must
+   want_not_resident: libc, always mapped         refused, as it must
+   want_run: a command that exits non-zero        refused, as it must
+   want_run: a command killed by SIGSEGV          refused, as it must
+   want_count: the wrong expected count           refused, as it must
+   want_aslr: a PIE told to be fixed              refused, as it must
+   want_displaced: the symbol survived            refused, as it must
+   want_displaced: absent from BOTH (no evidence) refused, as it must
+   want_symbol: a file nm cannot read             refused, as it must
+   want_no_symbol: a file nm cannot read          refused, as it must
+
+=== and the positive direction, so a check that always fails is caught ===
+   want_elf: a dynamic binary called dynamic      accepted, as it must
+   want_symbol: a symbol that IS defined          accepted, as it must
+   want_no_symbol: a symbol nothing defines       accepted, as it must
+   want_run: a command that exits 0               accepted, as it must
+   want_count: the right expected count           accepted, as it must
+   want_aslr: a PIE told to move                  accepted, as it must
+   want_displaced: present before, gone after     accepted, as it must
+
+=== what this establishes ===
+Every check in examples/verify.sh both refuses what it should and accepts
+what it should, and records the verdict where verify_summary reads it.
+ It does NOT establish that the six examples check the right things --
+   that is a reading job, and it is what a review pass is for.
+
+21 case(s), 0 failures

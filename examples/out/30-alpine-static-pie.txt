@@ -1,0 +1,150 @@
+Unable to find image 'alpine:latest' locally
+latest: Pulling from library/alpine
+Digest: sha256:28bd5fe8b56d1bd048e5babf5b10710ebe0bae67db86916198a6eec434943f8b
+Status: Downloaded newer image for alpine:latest
+note: appended the sandbox's proxy CA to /etc/ssl/certs/ca-certificates.crt (see docs/AGENTS.md)
+=== 1. toolchain and sources ===
+musl:  musl: the musl c library (libc) implementation
+gcc:   gcc (Alpine 15.2.0) 15.2.0
+=== conditions ===
+date:     2026-09-03T13:28:37Z
+kernel:   Linux 6.18.44-fc-v24 x86_64
+distro:   Alpine Linux v3.24
+cc:       cc (Alpine 15.2.0) 15.2.0
+libc:     musl libc (x86_64)
+binutils: GNU nm (GNU Binutils) 2.45.1
+
+note: the proxy CA was already appended to /etc/ssl/certs/ca-certificates.crt
+mimalloc: 18b08671c9302247bfb682286e6bf3cc1773f801
+
+=== 2. build the replacement as a STATIC, POSITION-INDEPENDENT archive ===
+ Both properties are load-bearing:
+   MI_OVERRIDE=ON               -> the archive defines malloc/free, not
+                                   only mi_malloc/mi_free. Without it
+                                   there is nothing to replace musl WITH.
+   POSITION_INDEPENDENT_CODE=ON -> a static-PIE cannot contain non-PIC
+                                   objects. Without it the final link
+                                   fails on a relocation you did not write.
+
+archive: /tmp/mi-build/libmimalloc.a (398980 bytes)
+it defines the plain names, which is what makes it a REPLACEMENT:
+   T calloc
+   T free
+   T malloc
+   T realloc
+
+=== 2b. the same program, built BEFORE the surgery, kept as the control ===
+  mallocng internals in the untouched binary: 2
+  mimalloc internals in the untouched binary: 0
+
+=== 3.  THE ARCHIVE ON THE LINK LINE, RUN SO YOU CAN SEE WHAT IT DOES ===
+`cc -static-pie prog.c libmimalloc.a` -- the obvious approach.
+
+For a small C program the linker satisfies malloc from the first archive
+that defines it and never extracts musl's malloc.lo, so this links and the
+binary works. For ripgrep it fails with `multiple definition` on nine
+symbols: Rust's std drags in musl objects referencing __libc_malloc, and
+then both archives are extracted.
+
+  exit status: 0
+  'multiple definition' errors: 0
+0
+
+  It linked. So look at what it produced, rather than stopping here:
+    mimalloc symbols:      2
+    musl allocator inside: 0
+    definitions of malloc: 1
+
+   SO WHY NOT JUST DO THIS? Whether it works is a property of YOUR
+     PROGRAM, not of the technique: it depends on which libc.a members
+     your program drags in, and that changes when you add a call to
+     getaddrinfo. An image whose allocator replacement works for one
+     binary and silently does not for the next is worse than none.
+      The surgery removes the dependence -- musl'\''s members are not
+     in the archive at all, so there is nothing for the linker to pick.
+
+=== 4. the surgery: delete musl's members, add mimalloc's ===
+=== the archive, before ===
+libc.a:      /usr/lib/libc.a (9398572 bytes, 1350 members)
+replacement: /tmp/mi-build/libmimalloc.a (398980 bytes, 19 members)
+
+=== members that define an allocation entry point ===
+  aligned_alloc.lo
+  calloc.lo
+  free.lo
+  lite_malloc.lo
+  malloc_usable_size.lo
+  posix_memalign.lo
+  realloc.lo
+  (7 members)
+
+guard: no candidate member defines any of: fork pthread_create printf open close memcpy read write execve mmap
+
+guard: the deletion strands nothing libc.a still references
+
+=== the archive, after ===
+libc.a: 9701374 bytes, 1360 members
+
+   exactly one definition of malloc in the spliced archive
+   exactly one definition of free in the spliced archive
+
+surgery: done. Any -static or -static-pie link in this image now gets the
+surgery: replacement allocator, with no extra flags.
+
+=== 5. build a static-PIE binary WITH NO ALLOCATOR FLAGS AT ALL ===
+  cc -static-pie -O2 -pthread -o allocprobe allocprobe.c
+ Read that command again: there is nothing allocator-shaped in it. That
+   is the entire claim of this mechanism.
+
+  cc -static -no-pie …        # the contrast. -no-pie is REQUIRED:
+                              # Alpine's gcc is --enable-default-pie, so
+                              # -static alone still gives you a PIE.
+  -rwxr-xr-x    1 root     root        576480 Sep  3 13:28 /tmp/probe-pie
+  -rwxr-xr-x    1 root     root        561104 Sep  3 13:28 /tmp/probe-static
+
+=== 6. is it the binary it claims to be? ===
+   /tmp/probe-pie is a static-pie binary
+   /tmp/probe-static is a static binary
+  -- the replacement is IN it:
+   /tmp/probe-pie defines mi_malloc
+   /tmp/probe-pie defines mi_free
+   /tmp/probe-pie defines malloc
+   /tmp/probe-pie defines free
+  -- and musl's own allocator is GONE (present before, absent after):
+   nontrivial_free: present before the surgery, gone after (the control fires)
+   get_meta: present before the surgery, gone after (the control fires)
+  -- it depends on nothing:
+   no NEEDED entries: nothing to install alongside it
+
+=== 7. does it WORK, and does it stay up? ===
+   stress, 4 threads, 60 000 iterations -> exit 0: STRESS-OK threads=4 iters=60000
+   stress, 8 threads (contention) -> exit 0: STRESS-OK threads=8 iters=30000
+   the plain static build too -> exit 0: STRESS-OK threads=4 iters=30000
+   known-answer: found 715 of an expected 715 needles in 5000 lines
+   known-answer: found 715 of an expected 715 needles in 5000 lines
+
+=== 8. static-PIE vs static, observed rather than assumed ===
+ Both are 'statically linked'. Only one of them moves. This is measured
+  from the running process, not read off the ELF header, because the two
+  have disagreed here before (docs/AGENTS.md, the first aarch64 run).
+
+   ASLR: 6 distinct load addresses in 6 runs
+   no ASLR, as expected for this link kind: 1 load address in 6 runs
+
+=== 9. restore, so the image is left as it was found ===
+  libc.a restored from libc.a.orig
+   In a real image you would NOT restore it: the whole point is that
+    every later build in that image inherits the replacement. Restoring
+    here keeps this example re-runnable.
+
+=== what this example establishes ===
+ musl's allocator can be replaced inside libc.a, and afterwards an
+   ordinary `cc -static-pie` produces a binary that contains the
+   replacement, does NOT contain musl's, runs a multi-threaded allocation
+   stress clean, returns the right answer, and still gets ASLR.
+ It does not establish a speed. This repository measures that, and its
+   headline finding is that the ANSWER DEPENDS ON THE MACHINE: the same
+   comparison has produced three different orderings on three CPUs
+   (docs/AGENTS.md). Measure on yours.
+
+  16 passed, 0 FAILED

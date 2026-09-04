@@ -1,0 +1,278 @@
+name: bench
+
+on:
+  schedule:
+    - cron: "17 3 * * 1,4"
+  workflow_dispatch:
+    inputs:
+      suite:
+        description: "Suite to run (smoke, core, profiles, mechanisms, distros, toolchain-control, preload, all)"
+        required: false
+        default: "core"
+        type: string
+      repeat:
+        description: "Repetitions per workload (blank = the suite's own value)"
+        required: false
+        default: ""
+        type: string
+      arches:
+        description: "Architectures"
+        required: false
+        default: "both"
+        type: choice
+        options: ["both", "x86_64", "aarch64"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: bench-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  bench:
+    name: ${{ matrix.arch }}
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: x86_64
+            runner: ubuntu-24.04
+          - arch: aarch64
+            runner: ubuntu-24.04-arm
+    steps:
+      - name: Skip architectures not requested
+        id: gate
+        env:
+          REQUESTED_ARCHES: ${{ github.event.inputs.arches || 'both' }}
+          MATRIX_ARCH: ${{ matrix.arch }}
+        run: |
+          if [ "$REQUESTED_ARCHES" = both ] || [ "$REQUESTED_ARCHES" = "$MATRIX_ARCH" ]; then
+            echo "run=yes" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=no" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        if: steps.gate.outputs.run == 'yes'
+
+      - name: Install the pinned Rust toolchain
+        if: steps.gate.outputs.run == 'yes'
+        run: |
+          set -euo pipefail
+          . toolchains/pins.env
+          rustup toolchain install "$RUST_VERSION" --profile minimal
+          rustup default "$RUST_VERSION"
+          rustc --version
+
+      - name: Build the orchestrator
+        if: steps.gate.outputs.run == 'yes'
+        run: cargo build --release -p alloc-bench
+
+      - name: Record the conditions
+        if: steps.gate.outputs.run == 'yes'
+        run: |
+          {
+            echo "=== runner ==="; uname -a
+            echo "=== cpu ==="; lscpu 2>/dev/null || cat /proc/cpuinfo | head -30
+            echo "=== memory ==="; free -m 2>/dev/null || cat /proc/meminfo | head -5
+            echo "=== disk ==="; df -h /
+            echo "=== docker ==="; docker version
+            echo "=== governor ==="
+            cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor 2>/dev/null \
+              || echo "no cpufreq governor exposed (usual on a cloud runner)"
+          } | tee conditions.txt
+
+      - name: Free disk space
+        if: steps.gate.outputs.run == 'yes'
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc \
+                      /usr/local/share/boost "$AGENT_TOOLSDIRECTORY" || true
+          df -h /
+
+      - name: Does this suite cover this architecture?
+        if: steps.gate.outputs.run == 'yes'
+        id: cells
+        env:
+          BENCH_SUITE: ${{ github.event.inputs.suite || 'core' }}
+          BENCH_ARCH: ${{ matrix.arch }}
+        run: |
+          set -euo pipefail
+          n=$(./target/release/alloc-bench plan \
+                --suite "$BENCH_SUITE" \
+                --arch "$BENCH_ARCH" \
+              | python3 -c 'import json,sys; print(len(json.load(sys.stdin)))')
+          echo "n=$n" >> "$GITHUB_OUTPUT"
+          if [ "$n" -eq 0 ]; then
+            echo "any=no" >> "$GITHUB_OUTPUT"
+            echo "suite '$BENCH_SUITE' has no $BENCH_ARCH cells; nothing to measure here" \
+              >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "any=yes" >> "$GITHUB_OUTPUT"
+          fi
+          echo "$n cell(s) for ${{ matrix.arch }}"
+
+      - name: doctor
+        if: steps.gate.outputs.run == 'yes' && steps.cells.outputs.any == 'yes'
+        run: ./target/release/alloc-bench doctor
+
+      - name: Run the benchmark
+        if: steps.gate.outputs.run == 'yes' && steps.cells.outputs.any == 'yes'
+        id: run
+        env:
+          BENCH_SUITE: ${{ github.event.inputs.suite || 'core' }}
+          BENCH_ARCH: ${{ matrix.arch }}
+          REPEAT: ${{ github.event.inputs.repeat }}
+        run: |
+          set -o pipefail
+          extra=()
+          if [ -n "$REPEAT" ]; then
+            extra=(--repeat "$REPEAT")
+          fi
+          ./target/release/alloc-bench run \
+            --suite "$BENCH_SUITE" \
+            --arch "$BENCH_ARCH" \
+            "${extra[@]}" \
+            --out "$GITHUB_WORKSPACE/results/ci-${{ matrix.arch }}" \
+            2>&1 | tee run.log
+
+      - name: Re-validate the dataset independently
+        if: steps.gate.outputs.run == 'yes' && steps.cells.outputs.any == 'yes' && always()
+        run: |
+          ./target/release/alloc-bench validate \
+            --run "$GITHUB_WORKSPACE/results/ci-${{ matrix.arch }}" \
+            | tee validation.txt
+
+      - name: Upload the evidence
+        if: steps.gate.outputs.run == 'yes' && steps.cells.outputs.any == 'yes' && always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: bench-${{ matrix.arch }}-${{ github.run_id }}
+          path: |
+            results/ci-${{ matrix.arch }}
+            conditions.txt
+            run.log
+            validation.txt
+          retention-days: 90
+
+      - name: Job summary
+        if: steps.gate.outputs.run == 'yes' && steps.cells.outputs.any == 'yes' && always()
+        run: |
+          d="results/ci-${{ matrix.arch }}"
+          {
+            echo "# ${{ matrix.arch }}"
+            echo
+            if [ -f "$d/report.md" ]; then
+              sed -n '/^## What this run does not establish/,/^## Conditions/p' "$d/report.md"
+              sed -n '/^## Rankings/,/^## Every workload/p' "$d/report.md"
+              echo
+              echo "<details><summary>Configurations that could not exist</summary>"
+              echo
+              sed -n '/^## Configurations that could not exist/,/^## Configurations that failed/p' "$d/report.md"
+              echo
+              echo "</details>"
+            else
+              echo "No report was produced. See the uploaded evidence."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  combine:
+    name: combined summary
+    needs: bench
+    if: always()
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          path: artifacts
+      - name: Combine
+        run: |
+          python3 scripts/report/combine.py artifacts >> "$GITHUB_STEP_SUMMARY" || {
+            echo "combine failed; the per-architecture artifacts are still complete" >> "$GITHUB_STEP_SUMMARY"
+          }
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: bench-combined-${{ github.run_id }}
+          path: artifacts
+          retention-days: 90
+
+  roll:
+    permissions:
+      contents: write
+    name: rolling aggregate
+    needs: bench
+    if: always() && github.event_name != 'pull_request'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          path: artifacts
+
+      - name: Fold each dataset into its window
+        id: fold
+        run: |
+          set -euo pipefail
+          changed=no
+          for d in artifacts/*/results/ci-*; do
+            [ -d "$d" ] || continue
+            [ -f "$d/rankings.json" ] || { echo "no rankings.json in $d; skipping"; continue; }
+            suite=$(python3 -c "import json,sys;print((json.load(open('$d/run.json'))['suites'] or ['unknown'])[0])")
+            arch=$(basename "$d" | sed 's/^ci-//')
+            python3 scripts/report/aggregate.py \
+              --window "results/rolling/${suite}-${arch}" --add "$d" --keep 6
+            changed=yes
+          done
+          echo "changed=$changed" >> "$GITHUB_OUTPUT"
+
+      - name: The windows are coherent
+        if: steps.fold.outputs.changed == 'yes'
+        run: |
+          set -euo pipefail
+          for w in results/rolling/*/; do
+            [ -d "$w/runs" ] || continue
+            python3 scripts/report/aggregate.py --window "$w" --check
+          done
+
+      - name: Commit the window
+        if: steps.fold.outputs.changed == 'yes'
+        run: |
+          set -euo pipefail
+          if [ -z "$(git status --porcelain -- results/rolling)" ]; then
+            echo "the window did not change" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results/rolling
+          git commit -m "Rolling aggregate: fold in bench run ${{ github.run_id }}
+
+          Generated by .github/workflows/bench.yml. The window keeps the last 6
+          runs per suite and arch; scripts/report/aggregate.py rewrote the
+          aggregate from them. No ordering is published where the ranks moved."
+          for i in 1 2 3 4 5; do
+            if git push origin HEAD:main; then exit 0; fi
+            sleep $(( i * 5 ))
+            git pull --rebase origin main
+          done
+          echo "could not push the rolling window after 5 attempts" >&2
+          exit 1
+
+      - name: Summary
+        if: always()
+        run: |
+          {
+            echo "# Rolling aggregate"
+            echo
+            for f in results/rolling/*/aggregate.md; do
+              [ -f "$f" ] || continue
+              sed -n '/^## What this aggregate does not establish/,/^## The runs in this window/p' "$f"
+            done
+          } >> "$GITHUB_STEP_SUMMARY"

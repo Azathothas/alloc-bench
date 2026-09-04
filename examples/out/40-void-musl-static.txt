@@ -1,0 +1,102 @@
+Unable to find image 'ghcr.io/void-linux/void-musl-busybox:latest' locally
+latest: Pulling from void-linux/void-musl-busybox
+2ee6b78081a1: Pulling fs layer
+32a9d955c794: Pulling fs layer
+2ee6b78081a1: Download complete
+32a9d955c794: Download complete
+32a9d955c794: Pull complete
+2ee6b78081a1: Pull complete
+Digest: sha256:2009a1d7978a72747d12c1ddd52831a6d9d742a23127df34ceafc5a4240ad6b8
+Status: Downloaded newer image for ghcr.io/void-linux/void-musl-busybox:latest
+note: appended the sandbox's proxy CA to /etc/ssl/certs/ca-certificates.crt (see docs/AGENTS.md)
+note: also installed 152 certificate(s) into the OpenSSL hashed directory
+=== 1. toolchain and sources, the Void way ===
+musl:  musl-1.2.6_1
+gcc:   gcc (GCC) 14.2.1 20250405
+=== conditions ===
+date:     2026-09-03T13:29:33Z
+kernel:   Linux 6.18.44-fc-v24 x86_64
+distro:   Void Linux
+cc:       cc (GCC) 14.2.1 20250405
+libc:     musl libc (x86_64)
+binutils: GNU nm (GNU Binutils) 2.44
+
+note: the proxy CA was already appended to /etc/ssl/certs/ca-certificates.crt
+mimalloc: 18b08671c9302247bfb682286e6bf3cc1773f801
+
+=== 2. can this compiler produce a static-PIE at all? ===
+ Probed, not assumed. A static-PIE needs Scrt1.o and rcrt1.o and a
+   linker that will take -static-pie; a distribution that ships neither
+   gives you a plain static binary while accepting the flag.
+
+  -static-pie:  supported, and it really produces a DYN image
+  link mode for this run: static-pie
+
+=== 3. build mimalloc as a static, position-independent archive ===
+archive: /tmp/mi-build/libmimalloc.a (387308 bytes)
+
+=== 4. find this distribution's libc.a -- it is NOT always /usr/lib ===
+libc.a:  /usr/lib/libc.a   (found via the usual path)
+
+=== 4b. the same program, built BEFORE the surgery, kept as the control ===
+  mallocng internals in the untouched binary: 2
+
+=== 5. the surgery, byte for byte the same script as example 30 ===
+=== the archive, before ===
+libc.a:      /usr/lib/libc.a (2727252 bytes, 1349 members)
+replacement: /tmp/mi-build/libmimalloc.a (387308 bytes, 19 members)
+
+=== members that define an allocation entry point ===
+  aligned_alloc.lo
+  calloc.lo
+  free.lo
+  lite_malloc.lo
+  malloc_usable_size.lo
+  posix_memalign.lo
+  realloc.lo
+  (7 members)
+
+guard: no candidate member defines any of: fork pthread_create printf open close memcpy read write execve mmap
+
+guard: the deletion strands nothing libc.a still references
+
+=== the archive, after ===
+libc.a: 3092864 bytes, 1359 members
+
+   exactly one definition of malloc in the spliced archive
+   exactly one definition of free in the spliced archive
+
+surgery: done. Any -static or -static-pie link in this image now gets the
+surgery: replacement allocator, with no extra flags.
+
+=== 6. build, with no allocator flags ===
+  cc -static-pie -O2 -pthread -o allocprobe allocprobe.c
+  -rwxr-xr-x    1 root     root        311792 Sep  3 13:29 /tmp/probe
+
+=== 7. verify ===
+   /tmp/probe is a static-pie binary
+   /tmp/probe defines mi_malloc
+   /tmp/probe defines mi_free
+   /tmp/probe defines malloc
+   /tmp/probe defines free
+   nontrivial_free: present before the surgery, gone after (the control fires)
+   get_meta: present before the surgery, gone after (the control fires)
+   no NEEDED entries
+   stress, 4 threads, 60 000 iterations -> exit 0: STRESS-OK threads=4 iters=60000
+   stress, 8 threads (contention) -> exit 0: STRESS-OK threads=8 iters=30000
+   known-answer: found 715 of an expected 715 needles in 5000 lines
+   ASLR: 6 distinct load addresses in 6 runs
+
+=== 8. restore ===
+  /usr/lib/libc.a restored
+
+=== what this example establishes ===
+ The libc.a surgery is a MUSL technique and not an Alpine one: the same
+   script, unchanged, works on a distribution that shares no packaging,
+   no toolchain configuration and no patch set with Alpine.
+ It also shows the honest handling of a toolchain difference: the link
+   mode is probed and reported rather than assumed, because a non-PIE
+   binary published under a PIE label is the exact failure this
+   repository's identity oracle exists to prevent.
+
+  12 passed, 0 FAILED

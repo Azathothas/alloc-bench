@@ -1,0 +1,32 @@
+# alpine-x86_64-rpmalloc-link-override-static-pie-distro
+# outcome: build_failed
+# source: cells/alpine-x86_64-rpmalloc-link-override-static-pie-distro/build.log -- 11478 bytes, 93 lines
+# kept 20 distinct diagnostic line(s) of 24 matching; 73 line(s) elided
+# classes: {'multiple definition': 5, 'undefined reference': 1, 'error': 3, 'collect2/ld': 11}
+#  Chosen by relevance, not by `tail -n`. The full log is not published;
+#   the byte count above is what it was.
+
+--- multiple definition: 5 distinct ---
+          rpmalloc.c:(.text+0xbd0): multiple definition of `free'; /usr/local/rustup/toolchains/1.96.0-x86_64-unknown-linux-musl/lib/rustlib/x86_64-unknown-linux-musl/lib/self-contained/libc.a(free.lo):/build/musl-cross-make/build/local/x86_64-linux-musl/obj_musl/../src_musl/src/malloc/free.c:5: first defined here
+          rpmalloc.c:(.text+0x2610): multiple definition of `calloc'; /usr/local/rustup/toolchains/1.96.0-x86_64-unknown-linux-musl/lib/rustlib/x86_64-unknown-linux-musl/lib/self-contained/libc.a(calloc.lo):/build/musl-cross-make/build/local/x86_64-linux-musl/obj_musl/../src_musl/src/malloc/calloc.c:34: first defined here
+          rpmalloc.c:(.text+0x2c70): multiple definition of `aligned_alloc'; /usr/local/rustup/toolchains/1.96.0-x86_64-unknown-linux-musl/lib/rustlib/x86_64-unknown-linux-musl/lib/self-contained/libc.a(aligned_alloc.lo):/build/musl-cross-make/build/local/x86_64-linux-musl/obj_musl/../src_musl/src/malloc/mallocng/aligned_alloc.c:6: first defined here
+          rpmalloc.c:(.text+0x2ef0): multiple definition of `posix_memalign'; /usr/local/rustup/toolchains/1.96.0-x86_64-unknown-linux-musl/lib/rustlib/x86_64-unknown-linux-musl/lib/self-contained/libc.a(posix_memalign.lo):/build/musl-cross-make/build/local/x86_64-linux-musl/obj_musl/../src_musl/src/malloc/posix_memalign.c:5: first defined here
+          rpmalloc.c:(.text+0x33b0): multiple definition of `realloc'; /usr/local/rustup/toolchains/1.96.0-x86_64-unknown-linux-musl/lib/rustlib/x86_64-unknown-linux-musl/lib/self-contained/libc.a(realloc.lo):/build/musl-cross-make/build/local/x86_64-linux-musl/obj_musl/../src_musl/src/malloc/realloc.c:5: first defined here
+--- undefined reference: 1 distinct ---
+          rpmalloc.c:(.text+0x3ff): undefined reference to `__stack_chk_fail'    [x5]
+--- error: 3 distinct ---
+error: linking with `cc` failed: exit status: 1
+          collect2: error: ld returned 1 exit status
+error: could not compile `ripgrep` (bin "rg") due to 1 previous error
+--- collect2/ld: 11 distinct ---
+  = note: /usr/lib/gcc/x86_64-alpine-linux-musl/15.2.0/../../../../x86_64-alpine-linux-musl/bin/ld: /cache/alloc/rpmalloc-beef233c176b235587c0145f765e4316e5ca60d1-override-pic1-musl-x86_64-distro-default/lib/liballocbench.a(rpmalloc.o): in function `rpfree':
+          /usr/lib/gcc/x86_64-alpine-linux-musl/15.2.0/../../../../x86_64-alpine-linux-musl/bin/ld: /cache/alloc/rpmalloc-beef233c176b235587c0145f765e4316e5ca60d1-override-pic1-musl-x86_64-distro-default/lib/liballocbench.a(rpmalloc.o): in function `rpcalloc':
+          /usr/lib/gcc/x86_64-alpine-linux-musl/15.2.0/../../../../x86_64-alpine-linux-musl/bin/ld: /cache/alloc/rpmalloc-beef233c176b235587c0145f765e4316e5ca60d1-override-pic1-musl-x86_64-distro-default/lib/liballocbench.a(rpmalloc.o): in function `rpaligned_alloc':
+          /usr/lib/gcc/x86_64-alpine-linux-musl/15.2.0/../../../../x86_64-alpine-linux-musl/bin/ld: /cache/alloc/rpmalloc-beef233c176b235587c0145f765e4316e5ca60d1-override-pic1-musl-x86_64-distro-default/lib/liballocbench.a(rpmalloc.o): in function `rpposix_memalign':
+          /usr/lib/gcc/x86_64-alpine-linux-musl/15.2.0/../../../../x86_64-alpine-linux-musl/bin/ld: /cache/alloc/rpmalloc-beef233c176b235587c0145f765e4316e5ca60d1-override-pic1-musl-x86_64-distro-default/lib/liballocbench.a(rpmalloc.o): in function `rprealloc':
+          /usr/lib/gcc/x86_64-alpine-linux-musl/15.2.0/../../../../x86_64-alpine-linux-musl/bin/ld: /cache/alloc/rpmalloc-beef233c176b235587c0145f765e4316e5ca60d1-override-pic1-musl-x86_64-distro-default/lib/liballocbench.a(rpmalloc.o): in function `huge_cache_purge_aged':
+          /usr/lib/gcc/x86_64-alpine-linux-musl/15.2.0/../../../../x86_64-alpine-linux-musl/bin/ld: /cache/alloc/rpmalloc-beef233c176b235587c0145f765e4316e5ca60d1-override-pic1-musl-x86_64-distro-default/lib/liballocbench.a(rpmalloc.o): in function `span_deallocate_block':
+          /usr/lib/gcc/x86_64-alpine-linux-musl/15.2.0/../../../../x86_64-alpine-linux-musl/bin/ld: /cache/alloc/rpmalloc-beef233c176b235587c0145f765e4316e5ca60d1-override-pic1-musl-x86_64-distro-default/lib/liballocbench.a(rpmalloc.o): in function `rpmalloc_thread_initialize':
+          /usr/lib/gcc/x86_64-alpine-linux-musl/15.2.0/../../../../x86_64-alpine-linux-musl/bin/ld: /cache/alloc/rpmalloc-beef233c176b235587c0145f765e4316e5ca60d1-override-pic1-musl-x86_64-distro-default/lib/liballocbench.a(rpmalloc.o): in function `rpmalloc_initialize':
+          /usr/lib/gcc/x86_64-alpine-linux-musl/15.2.0/../../../../x86_64-alpine-linux-musl/bin/ld: /cache/alloc/rpmalloc-beef233c176b235587c0145f765e4316e5ca60d1-override-pic1-musl-x86_64-distro-default/lib/liballocbench.a(rpmalloc.o): in function `heap_get_page_generic':
+          /usr/lib/gcc/x86_64-alpine-linux-musl/15.2.0/../../../../x86_64-alpine-linux-musl/bin/ld: /cache/alloc/rpmalloc-beef233c176b235587c0145f765e4316e5ca60d1-override-pic1-musl-x86_64-distro-default/lib/liballocbench.a(rpmalloc.o):rpmalloc.c:(.text+0x246a): more undefined references to `__stack_chk_fail' follow

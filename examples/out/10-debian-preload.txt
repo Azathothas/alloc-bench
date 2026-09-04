@@ -1,0 +1,83 @@
+Unable to find image 'debian:latest' locally
+latest: Pulling from library/debian
+27ee9a825048: Pulling fs layer
+b191a39d3860: Download complete
+27ee9a825048: Download complete
+27ee9a825048: Pull complete
+Digest: sha256:f324c7ff54321e8d9c588493a20244965938ce0aa50bbd1022d38010e9ffc4b1
+Status: Downloaded newer image for debian:latest
+note: no trust store yet -- call trust_extra_ca again after installing ca-certificates
+=== 1. install a replacement allocator from the distribution ===
+ No build step. Debian packages jemalloc, and this is the cheapest
+   possible version of 'replace the allocator': one apt-get.
+
+=== conditions ===
+date:     2026-09-03T13:22:25Z
+kernel:   Linux 6.18.44-fc-v24 x86_64
+distro:   Debian GNU/Linux 13 (trixie)
+cc:       cc (Debian 14.2.0-19) 14.2.0
+libc:     ldd (Debian GLIBC 2.41-12+deb13u3) 2.41
+binutils: GNU nm (GNU Binutils for Debian) 2.44
+
+installed: /usr/lib/x86_64-linux-gnu/libjemalloc.so.2 (843416 bytes)
+package:   libjemalloc2 5.3.0-3
+
+=== 2. the subject, built and linked exactly as it would be without us ===
+cc -O2 -pthread -o allocprobe allocprobe.c        # no allocator flags
+   /tmp/allocprobe is a dynamic binary
+  linked against:
+     	linux-vdso.so.1 (0x00007f8baf2ba000)
+     	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f8baf0b7000)
+     	/lib64/ld-linux-x86-64.so.2 (0x00007f8baf2bc000)
+
+=== 3. run it with the replacement, and PROVE the replacement is there ===
+ The proof is /proc/<pid>/maps of the running process. Not the exit
+   status, not the timing, not the absence of an error message.
+
+   libjemalloc.so.2 EXPORTS malloc in its dynamic symbol table
+   libjemalloc.so.2 is mapped into the running process (LD_PRELOAD took effect)
+   control: libjemalloc.so.2 is absent without LD_PRELOAD (so the check above can fail)
+   stress, 4 threads, 40 000 iterations, with the replacement -> exit 0: STRESS-OK threads=4 iters=40000
+   the same, single-threaded -> exit 0: STRESS-OK threads=1 iters=40000
+   known-answer: found 715 of an expected 715 needles in 5000 lines
+
+=== 4.  THE SILENT FAILURE, PLANTED ON PURPOSE ===
+A path that does not exist. Watch the program succeed anyway: this is
+what 'I set LD_PRELOAD and my benchmark got faster' looks like when the
+library was never loaded. The residency check is what tells them apart.
+
+  LD_PRELOAD=/usr/lib/libthis-does-not-exist.so ./allocprobe count 500
+    exit status: 0          <-  SUCCESS. The loader did not fail.
+    stdout:      COUNT planted=72 found=72
+    stderr:      ERROR: ld.so: object '/usr/lib/libthis-does-not-exist.so' from LD_PRELOAD cannot be preloaded (cannot open shared object file): ignored.
+   control: libthis-does-not-exist.so is absent without LD_PRELOAD (so the check above can fail)
+
+   The loader writes a line to stderr and carries on. A program that
+     does not read its own stderr -- which is most of them, under a
+     supervisor -- reports nothing at all. Check residency, not exit codes.
+
+=== 5. the system-wide version, and why to be careful with it ===
+/etc/ld.so.preload applies to EVERY dynamically linked program on the
+system, with no environment variable to forget. It is the closest thing
+to literally 'replacing the system's allocator'.
+
+  # echo /usr/lib/x86_64-linux-gnu/libjemalloc.so.2 > /etc/ld.so.preload
+   ls, an unrelated system binary, under the system-wide preload -> exit 0: bin boot dev etc examples home lib lib64 media mnt opt proc root run sbin srv sys tmp usr var
+   libjemalloc.so.2 is mapped into the running process (LD_PRELOAD took effect)
+  # rm /etc/ld.so.preload      <- restored
+
+   IF THE LIBRARY IS BROKEN, EVERYTHING IS BROKEN, including the shell
+     you would use to undo it. Test with LD_PRELOAD in one process first,
+     and on a real machine keep a second session open before writing that
+     file. In a container image it is safe: the blast radius is the image.
+
+=== what this example establishes ===
+ A dynamically linked binary can be given a different allocator with no
+   rebuild, and the replacement can be PROVEN to be in the process.
+ It does not establish that it is faster. NOT ONE preloaded allocator
+   this project has measured has beaten glibc's own on Debian: five of
+   six are slower and the sixth ties, in
+   results/published/2026-09-03-preload-x86_64-all-eight/.
+ It says nothing about musl. See examples 30 and 40.
+
+  9 passed, 0 FAILED

@@ -1,0 +1,1153 @@
+{
+  "composite_formula": "composite = 0.60 x (time / baseline_time) + 0.30 x (peak_rss / baseline_peak_rss) + 0.10 x (binary_bytes / baseline_binary_bytes); lower is better, 1.000 is the control",
+  "findings": [
+    {
+      "cell": "alpine-x86_64-hardened_malloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload json has a relative MAD of 5.6%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "alpine-x86_64-hardened_malloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 7.3%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "alpine-x86_64-jemalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 12.2%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "alpine-x86_64-mimalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 5.6%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "alpine-x86_64-rpmalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload files has a relative MAD of 5.4%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "alpine-x86_64-rpmalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload literal has a relative MAD of 8.5%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "alpine-x86_64-rpmalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 7.0%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "alpine-x86_64-snmalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload regex has a relative MAD of 6.8%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "alpine-x86_64-snmalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 10.8%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "alpine-x86_64-system-baseline-static-pie-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 6.9%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "archlinux-x86_64-jemalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 14.1%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "archlinux-x86_64-mimalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload json has a relative MAD of 11.1%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "archlinux-x86_64-mimalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload literal has a relative MAD of 7.2%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "archlinux-x86_64-mimalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload literal-j1 has a relative MAD of 6.5%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "archlinux-x86_64-mimalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload nomatch has a relative MAD of 5.9%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "archlinux-x86_64-mimalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload regex has a relative MAD of 5.1%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "archlinux-x86_64-mimalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 11.8%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "archlinux-x86_64-rpmalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload nomatch has a relative MAD of 7.8%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "archlinux-x86_64-rpmalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload regex has a relative MAD of 6.0%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "archlinux-x86_64-rpmalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 7.5%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "archlinux-x86_64-snmalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload literal has a relative MAD of 7.1%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "archlinux-x86_64-snmalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload nomatch has a relative MAD of 7.1%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "archlinux-x86_64-snmalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 12.4%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "archlinux-x86_64-system-baseline-static-pie-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 5.5%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "debian-x86_64-hardened_malloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 7.1%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "debian-x86_64-jemalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 8.1%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "debian-x86_64-mimalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload files has a relative MAD of 7.0%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "debian-x86_64-mimalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload literal has a relative MAD of 6.0%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "debian-x86_64-rpmalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload files has a relative MAD of 6.1%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "debian-x86_64-rpmalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload json has a relative MAD of 9.3%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "debian-x86_64-rpmalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload regex has a relative MAD of 5.1%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "debian-x86_64-rpmalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 10.4%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "debian-x86_64-snmalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 6.5%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "debian-x86_64-system-baseline-static-pie-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 9.7%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "ubuntu-x86_64-hardened_malloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload literal has a relative MAD of 6.0%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "ubuntu-x86_64-hardened_malloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 5.6%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "ubuntu-x86_64-jemalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload literal has a relative MAD of 9.4%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "ubuntu-x86_64-mimalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload literal-j1 has a relative MAD of 5.7%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "ubuntu-x86_64-mimalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 9.9%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "ubuntu-x86_64-rpmalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload files has a relative MAD of 5.2%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "ubuntu-x86_64-rpmalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 9.2%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "ubuntu-x86_64-snmalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 5.0%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "ubuntu-x86_64-system-baseline-static-pie-distro",
+      "check": "noisy",
+      "message": "workload literal has a relative MAD of 6.0%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "void-x86_64-jemalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload literal has a relative MAD of 5.6%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "void-x86_64-jemalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 10.5%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "void-x86_64-mimalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload nomatch has a relative MAD of 5.3%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "void-x86_64-mimalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload regex has a relative MAD of 6.5%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "void-x86_64-mimalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 10.7%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "void-x86_64-rpmalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload literal-j1 has a relative MAD of 7.2%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "void-x86_64-rpmalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 8.5%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "void-x86_64-snmalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload nomatch has a relative MAD of 5.6%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "void-x86_64-snmalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 6.1%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "void-x86_64-system-baseline-static-pie-distro",
+      "check": "noisy",
+      "message": "workload files has a relative MAD of 7.0%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "void-x86_64-system-baseline-static-pie-distro",
+      "check": "noisy",
+      "message": "workload literal has a relative MAD of 6.5%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "void-x86_64-system-baseline-static-pie-distro",
+      "check": "noisy",
+      "message": "workload literal-j1 has a relative MAD of 5.1%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "void-x86_64-system-baseline-static-pie-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 7.1%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "wolfi-x86_64-hardened_malloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 12.5%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "wolfi-x86_64-jemalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload literal-j1 has a relative MAD of 7.8%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "wolfi-x86_64-jemalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 10.4%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "wolfi-x86_64-mimalloc-rust-global-static-pie-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 7.0%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "wolfi-x86_64-system-baseline-static-pie-distro",
+      "check": "noisy",
+      "message": "workload literal-j1 has a relative MAD of 5.4%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "wolfi-x86_64-system-baseline-static-pie-distro",
+      "check": "noisy",
+      "message": "workload nomatch has a relative MAD of 8.4%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "wolfi-x86_64-system-baseline-static-pie-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 10.5%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "wolfi-x86_64-rpmalloc-rust-global-static-pie-distro",
+      "check": "cell-failed",
+      "message": "outcome build_failed: ripgrep build failed (rc=1); tail:   |   = note:  \"cc\" \"-m64\" \"<sysroot>/lib/rustlib/x86_64-unknown-linux-musl/lib/self-contained/rcrt1.o\" \"<sysroot>/lib/rustlib/x86_64-unknown-linux-musl/lib/self-contained/crti.o\" \"<sysroot>/lib/rustlib/x86_64-unknown-linux-musl/lib/self-contained/crtbeginS.o\" \"/work/ripgrep-wolfi-x86_64-rpmalloc-rust-global-static-pie-distro/target/x86_64-unknown-linux-musl/release/deps/rustcULRR9Y/symbols.o\" \"<2 object files omitted>\" \"-Wl,--as-needed\" \"-Wl,-Bstatic\" \"<sysroot>/lib/rustlib/x86_64-unknown-linux-musl/lib/libpanic_abort-*.rlib\" \"/work/ripgrep-wolfi-x86_64-rpmalloc-rust-global-static-pie-distro/target/x86_64-unknown-linux-musl/release/deps/{librgalloc_shim-02de4439e640c063,liblexopt-407a31dcde166e06,libtextwrap-278615dd5408a92d,libgrep-d8d16fe0c29d3f6f,libgrep_regex-9984297a66d2271f,libgrep_printer-ed9ccbaeb12ee3af,libserde-6b0324dbb2ef87c6,libserde_json-3e51198e617f3412,libitoa-61a51fd2a2f174e7,libzmij-b675156cb8bf78f3,libserde_core-f578568c656440e4,libgrep_searcher-b0ee80bbaeb2b834,libmemmap2-6a6587dbd3fcfc4f,libencoding_rs_io-1c65f137dae58e7b,libencoding_rs-02688f9dd973a30e,libcfg_if-5965ae4dd8b5183b,libgrep_matcher-3887eb8b9845cc31,libgrep_cli-79f4497ac363cd49,liblibc-869625c727b64d06,libtermcolor-04a2e87bc74b4a61,libanyhow-4c16751460f66969,libignore-a84e3c72fe65abc4,libwalkdir-259b0dc1b7f96fe4,libsame_file-4a11890ef354b3ee,libcrossbeam_deque-865710f31886de46,libcrossbeam_epoch-04ee6f3745e31826,libcrossbeam_utils-03e7cdded338de8d,libglobset-cbeaa443ef5edd89,liblog-6f9ec8cdb8b8c4fe,libbstr-f8490d57df4339ee,libregex_automata-b4962beb952fd9a8,libregex_syntax-6b45b808b9e54ea1,libaho_corasick-68fca43dfa5974bd,libmemchr-6b1c00c01968bd44}.rlib\" \"<sysroot>/lib/rustlib/x86_64-unknown-linux-musl/lib/{libstd-*,libobject-*,libmemchr-*,libaddr2line-*,libgimli-*,libcfg_if-*,librustc_demangle-*,libstd_detect-*,libhashbrown-*,librustc_std_workspace_alloc-*,libminiz_oxide-*,libadler2-*,libunwind-*}.rlib\" \"-lunwind\" \"<sysroot>/lib/rustlib/x86_64-unknown-linux-musl/lib/liblibc-*.rlib\" \"-lc\" \"<sysroot>/lib/rustlib/x86_64-unknown-linux-musl/lib/{librustc_std_workspace_core-*,liballoc-*,libcore-*,libcompiler_builtins-*}.rlib\" \"-L\" \"/work/ripgrep-wolfi-x86_64-rpmalloc-rust-global-static-pie-distro/target/x86_64-unknown-linux-musl/release/deps/rustcULRR9Y/raw-dylibs\" \"-Wl,-Bdynamic\" \"-Wl,--eh-frame-hdr\" \"-Wl,-z,noexecstack\" \"-nostartfiles\" \"-L\" \"/cache/alloc/rpmalloc-beef233c176b235587c0145f765e4316e5ca60d1-prefixed-pic1-musl-x86_64-distro-default/lib\" \"-L\" \"<sysroot>/lib/rustlib/x86_64-unknown-linux-musl/lib/self-contained\" \"-L\" \"<sysroot>/lib/rustlib/x86_64-unknown-linux-musl/lib\" \"-o\" \"/work/ripgrep-wolfi-x86_64-rpmalloc-rust-global-static-pie-distro/target/x86_64-unknown-linux-musl/release/deps/rg-86ee56f375d842b6\" \"-Wl,--gc-sections\" \"-static-pie\" \"-Wl,-z,relro,-z,now\" \"-Wl,-O1\" \"-nodefaultlibs\" \"-Wl,-z,stack-size=8388608\" \"<sysroot>/lib/rustlib/x86_64-unknown-linux-musl/lib/self-contained/crtendS.o\" \"<sysroot>/lib/rustlib/x86_64-unknown-linux-musl/lib/self-contained/crtn.o\"   = note: some arguments are omitted. use `--verbose` to show all linker arguments   = note: /usr/x86_64-pc-linux-gnu/bin/ld: /work/ripgrep-wolfi-x86_64-rpmalloc-rust-global-static-pie-distro/target/x86_64-unknown-linux-musl/release/deps/librgalloc_shim-02de4439e640c063.rlib(rpmalloc.o): in function `rpmalloc_initialize':           rpmalloc.c:(.text+0x15fe): undefined reference to `__isoc23_strtol'           collect2: error: ld returned 1 exit status              = note: some `extern` functions couldn't be found; some native libraries may need to be installed or have their path specified   = note: use the `-l` flag to specify native libraries to link   = note: use the `cargo:rustc-link-lib` directive to specify the native libraries to link with Cargo (see https://doc.rust-lang.org/cargo/reference/build-scripts.html#rustc-link-lib)  error: could not compile `ripgrep` (bin \"rg\") due to 1 previous error",
+      "severity": "info"
+    },
+    {
+      "cell": "wolfi-x86_64-snmalloc-rust-global-static-pie-distro",
+      "check": "cell-failed",
+      "message": "outcome build_failed: ripgrep build failed (rc=1); tail:           /usr/x86_64-pc-linux-gnu/bin/ld: /usr/local/rustup/toolchains/1.96.0-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libstd-ca1bab40bfe81adf.rlib(std-ca1bab40bfe81adf.std.a54583e5ff73ed63-cgu.0.rcgu.o): in function `std::sys::paths::unix::home_dir::fallback':           /rustc/ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96/library/std/src/sys/paths/unix.rs:456:(.text._RNvNtCsebJFismJkYh_3std3env8home_dir+0x10e): warning: Using 'getpwuid_r' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking           /usr/x86_64-pc-linux-gnu/bin/ld: /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib64/libc.a(qsort.o):(.data.rel.local.DW.ref.__gcc_personality_v0[DW.ref.__gcc_personality_v0]+0x0): undefined reference to `__gcc_personality_v0'           collect2: error: ld returned 1 exit status           /usr/x86_64-pc-linux-gnu/bin/ld: /usr/local/rustup/toolchains/1.96.0-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libstd-ca1bab40bfe81adf.rlib(std-ca1bab40bfe81adf.std.a54583e5ff73ed63-cgu.0.rcgu.o): note: the message above does not take linker garbage collection into account           /usr/x86_64-pc-linux-gnu/bin/ld: /usr/local/rustup/toolchains/1.96.0-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-musl/lib/libstd-ca1bab40bfe81adf.rlib(std-ca1bab40bfe81adf.std.a54583e5ff73ed63-cgu.0.rcgu.o): note: the message above does not take linker garbage collection into account              = note: some `extern` functions couldn't be found; some native libraries may need to be installed or have their path specified   = note: use the `-l` flag to specify native libraries to link   = note: use the `cargo:rustc-link-lib` directive to specify the native libraries to link with Cargo (see https://doc.rust-lang.org/cargo/reference/build-scripts.html#rustc-link-lib)  error: could not compile `ripgrep` (bin \"rg\") due to 1 previous error",
+      "severity": "info"
+    }
+  ],
+  "groups": [
+    {
+      "group": "alpine / x86_64 / static-pie / distro",
+      "rows": [
+        {
+          "allocator": "snmalloc",
+          "arch": "x86_64",
+          "cell_id": "alpine-x86_64-snmalloc-rust-global-static-pie-distro",
+          "composite": 0.9344160571099566,
+          "distro": "alpine",
+          "integration": "rust-global",
+          "is_baseline": false,
+          "profile": "static-pie",
+          "rel_mad": 0.039479708,
+          "rel_rss": 1.5201026518391787,
+          "rel_size": 1.068072044333822,
+          "rel_time": 0.6192967618747014,
+          "rss_kb": 7108.0,
+          "size_bytes": 9124736,
+          "startup_s": 0.001418256,
+          "time_s": 0.032931275,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "jemalloc",
+          "arch": "x86_64",
+          "cell_id": "alpine-x86_64-jemalloc-rust-global-static-pie-distro",
+          "composite": 1.0365256170691384,
+          "distro": "alpine",
+          "integration": "rust-global",
+          "is_baseline": false,
+          "profile": "static-pie",
+          "rel_mad": 0.038036092,
+          "rel_rss": 1.6159110350727117,
+          "rel_size": 1.6880114018380032,
+          "rel_time": 0.6382519439392075,
+          "rss_kb": 7556.0,
+          "size_bytes": 14420992,
+          "startup_s": 0.001419944,
+          "time_s": 0.033939222,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "rpmalloc",
+          "arch": "x86_64",
+          "cell_id": "alpine-x86_64-rpmalloc-rust-global-static-pie-distro",
+          "composite": 0.8046478114550892,
+          "distro": "alpine",
+          "integration": "rust-global",
+          "is_baseline": false,
+          "profile": "static-pie",
+          "rel_mad": 0.084649412,
+          "rel_rss": 1.0684345594525235,
+          "rel_size": 1.0111593054767403,
+          "rel_time": 0.6383358551194301,
+          "rss_kb": 4996.0,
+          "size_bytes": 8638520,
+          "startup_s": 0.001279332,
+          "time_s": 0.033943684,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "mimalloc",
+          "arch": "x86_64",
+          "cell_id": "alpine-x86_64-mimalloc-rust-global-static-pie-distro",
+          "composite": 1.5336535898852528,
+          "distro": "alpine",
+          "integration": "rust-global",
+          "is_baseline": false,
+          "profile": "static-pie",
+          "rel_mad": 0.021215928,
+          "rel_rss": 3.470487596236099,
+          "rel_size": 1.027801344323147,
+          "rel_time": 0.649545294303514,
+          "rss_kb": 16228.0,
+          "size_bytes": 8780696,
+          "startup_s": 0.001993078,
+          "time_s": 0.034539749,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "hardened_malloc",
+          "arch": "x86_64",
+          "cell_id": "alpine-x86_64-hardened_malloc-rust-global-static-pie-distro",
+          "composite": 1.5141818883699545,
+          "distro": "alpine",
+          "integration": "rust-global",
+          "is_baseline": false,
+          "profile": "static-pie",
+          "rel_mad": 0.021653376,
+          "rel_rss": 2.8751069289991444,
+          "rel_size": 1.0025779615656176,
+          "rel_time": 0.9189866891894154,
+          "rss_kb": 13444.0,
+          "size_bytes": 8565208,
+          "startup_s": 0.00318328,
+          "time_s": 0.048867369,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "system",
+          "arch": "x86_64",
+          "cell_id": "alpine-x86_64-system-baseline-static-pie-distro",
+          "composite": 0.9999999999999999,
+          "distro": "alpine",
+          "integration": "baseline",
+          "is_baseline": true,
+          "profile": "static-pie",
+          "rel_mad": 0.02356201,
+          "rel_rss": 1.0,
+          "rel_size": 1.0,
+          "rel_time": 1.0,
+          "rss_kb": 4676.0,
+          "size_bytes": 8543184,
+          "startup_s": 0.001616194,
+          "time_s": 0.053175274,
+          "toolchain": "distro",
+          "variant": "default"
+        }
+      ]
+    },
+    {
+      "group": "archlinux / x86_64 / static-pie / distro",
+      "rows": [
+        {
+          "allocator": "system",
+          "arch": "x86_64",
+          "cell_id": "archlinux-x86_64-system-baseline-static-pie-distro",
+          "composite": 0.9999999999999999,
+          "distro": "archlinux",
+          "integration": "baseline",
+          "is_baseline": true,
+          "profile": "static-pie",
+          "rel_mad": 0.02402752,
+          "rel_rss": 1.0,
+          "rel_size": 1.0,
+          "rel_time": 1.0,
+          "rss_kb": 5716.0,
+          "size_bytes": 9525400,
+          "startup_s": 0.00153167,
+          "time_s": 0.024601915,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "rpmalloc",
+          "arch": "x86_64",
+          "cell_id": "archlinux-x86_64-rpmalloc-rust-global-static-pie-distro",
+          "composite": 1.0618519119889243,
+          "distro": "archlinux",
+          "integration": "rust-global",
+          "is_baseline": false,
+          "profile": "static-pie",
+          "rel_mad": 0.041765435,
+          "rel_rss": 1.0370888733379986,
+          "rel_size": 1.0095214899111848,
+          "rel_time": 1.0829551683273437,
+          "rss_kb": 5928.0,
+          "size_bytes": 9616096,
+          "startup_s": 0.001644511,
+          "time_s": 0.026642771,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "snmalloc",
+          "arch": "x86_64",
+          "cell_id": "archlinux-x86_64-snmalloc-rust-global-static-pie-distro",
+          "composite": 1.2070281542267194,
+          "distro": "archlinux",
+          "integration": "rust-global",
+          "is_baseline": false,
+          "profile": "static-pie",
+          "rel_mad": 0.071054839,
+          "rel_rss": 1.3925822253324003,
+          "rel_size": 1.0200718080080626,
+          "rel_time": 1.1454105097103215,
+          "rss_kb": 7960.0,
+          "size_bytes": 9716592,
+          "startup_s": 0.001747016,
+          "time_s": 0.028179292,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "mimalloc",
+          "arch": "x86_64",
+          "cell_id": "archlinux-x86_64-mimalloc-rust-global-static-pie-distro",
+          "composite": 1.8004805048366614,
+          "distro": "archlinux",
+          "integration": "rust-global",
+          "is_baseline": false,
+          "profile": "static-pie",
+          "rel_mad": 0.071983652,
+          "rel_rss": 3.3663400979706086,
+          "rel_size": 1.0252957356121528,
+          "rel_time": 1.1467481698071065,
+          "rss_kb": 19242.0,
+          "size_bytes": 9766352,
+          "startup_s": 0.002081927,
+          "time_s": 0.028212201,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "jemalloc",
+          "arch": "x86_64",
+          "cell_id": "archlinux-x86_64-jemalloc-rust-global-static-pie-distro",
+          "composite": 1.3142176178257146,
+          "distro": "archlinux",
+          "integration": "rust-global",
+          "is_baseline": false,
+          "profile": "static-pie",
+          "rel_mad": 0.041385785,
+          "rel_rss": 1.5017494751574527,
+          "rel_size": 1.6789006235958595,
+          "rel_time": 1.1596711881981545,
+          "rss_kb": 8584.0,
+          "size_bytes": 15992200,
+          "startup_s": 0.001779552,
+          "time_s": 0.028530132,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "hardened_malloc",
+          "arch": "x86_64",
+          "cell_id": "archlinux-x86_64-hardened_malloc-rust-global-static-pie-distro",
+          "composite": 2.0357284382382654,
+          "distro": "archlinux",
+          "integration": "rust-global",
+          "is_baseline": false,
+          "profile": "static-pie",
+          "rel_mad": 0.03272304,
+          "rel_rss": 2.5374387683694892,
+          "rel_size": 1.0019283179708989,
+          "rel_time": 1.957173293217215,
+          "rss_kb": 14504.0,
+          "size_bytes": 9543768,
+          "startup_s": 0.003275915,
+          "time_s": 0.048150211,
+          "toolchain": "distro",
+          "variant": "default"
+        }
+      ]
+    },
+    {
+      "group": "debian / x86_64 / static-pie / distro",
+      "rows": [
+        {
+          "allocator": "system",
+          "arch": "x86_64",
+          "cell_id": "debian-x86_64-system-baseline-static-pie-distro",
+          "composite": 0.9999999999999999,
+          "distro": "debian",
+          "integration": "baseline",
+          "is_baseline": true,
+          "profile": "static-pie",
+          "rel_mad": 0.036222174,
+          "rel_rss": 1.0,
+          "rel_size": 1.0,
+          "rel_time": 1.0,
+          "rss_kb": 5532.0,
+          "size_bytes": 9460688,
+          "startup_s": 0.001817493,
+          "time_s": 0.026427908,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "snmalloc",
+          "arch": "x86_64",
+          "cell_id": "debian-x86_64-snmalloc-rust-global-static-pie-distro",
+          "composite": 1.1336984321618322,
+          "distro": "debian",
+          "integration": "rust-global",
+          "is_baseline": false,
+          "profile": "static-pie",
+          "rel_mad": 0.033505897,
+          "rel_rss": 1.4258857556037599,
+          "rel_size": 1.019021026800588,
+          "rel_time": 1.006717671334409,
+          "rss_kb": 7888.0,
+          "size_bytes": 9640640,
+          "startup_s": 0.00213294,
+          "time_s": 0.026605442,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "rpmalloc",
+          "arch": "x86_64",
+          "cell_id": "debian-x86_64-rpmalloc-rust-global-static-pie-distro",
+          "composite": 1.020433250239098,
+          "distro": "debian",
+          "integration": "rust-global",
+          "is_baseline": false,
+          "profile": "static-pie",
+          "rel_mad": 0.018489303,
+          "rel_rss": 1.0484454085321764,
+          "rel_size": 1.0092847370085558,
+          "rel_time": 1.0082852566309826,
+          "rss_kb": 5800.0,
+          "size_bytes": 9548528,
+          "startup_s": 0.001871396,
+          "time_s": 0.02664687,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "jemalloc",
+          "arch": "x86_64",
+          "cell_id": "debian-x86_64-jemalloc-rust-global-static-pie-distro",
+          "composite": 1.2333424676730773,
+          "distro": "debian",
+          "integration": "rust-global",
+          "is_baseline": false,
+          "profile": "static-pie",
+          "rel_mad": 0.027275638,
+          "rel_rss": 1.5010845986984815,
+          "rel_size": 1.6467039183619627,
+          "rel_time": 1.030577827045561,
+          "rss_kb": 8304.0,
+          "size_bytes": 15578952,
+          "startup_s": 0.002068933,
+          "time_s": 0.027236016,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "mimalloc",
+          "arch": "x86_64",
+          "cell_id": "debian-x86_64-mimalloc-rust-global-static-pie-distro",
+          "composite": 1.79796153190918,
+          "distro": "debian",
+          "integration": "rust-global",
+          "is_baseline": false,
+          "profile": "static-pie",
+          "rel_mad": 0.059595827,
+          "rel_rss": 3.463123644251627,
+          "rel_size": 1.0235230249639349,
+          "rel_time": 1.0944535602288308,
+          "rss_kb": 19158.0,
+          "size_bytes": 9683232,
+          "startup_s": 0.002519467,
+          "time_s": 0.028924118,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "hardened_malloc",
+          "arch": "x86_64",
+          "cell_id": "debian-x86_64-hardened_malloc-rust-global-static-pie-distro",
+          "composite": 1.910727126459543,
+          "distro": "debian",
+          "integration": "rust-global",
+          "is_baseline": false,
+          "profile": "static-pie",
+          "rel_mad": 0.033717411,
+          "rel_rss": 2.587129428778019,
+          "rel_size": 1.0017554748660986,
+          "rel_time": 1.724021250565879,
+          "rss_kb": 14312.0,
+          "size_bytes": 9477296,
+          "startup_s": 0.003718407,
+          "time_s": 0.045562275,
+          "toolchain": "distro",
+          "variant": "default"
+        }
+      ]
+    },
+    {
+      "group": "ubuntu / x86_64 / static-pie / distro",
+      "rows": [
+        {
+          "allocator": "system",
+          "arch": "x86_64",
+          "cell_id": "ubuntu-x86_64-system-baseline-static-pie-distro",
+          "composite": 0.9999999999999999,
+          "distro": "ubuntu",
+          "integration": "baseline",
+          "is_baseline": true,
+          "profile": "static-pie",
+          "rel_mad": 0.059618556,
+          "rel_rss": 1.0,
+          "rel_size": 1.0,
+          "rel_time": 1.0,
+          "rss_kb": 5744.0,
+          "size_bytes": 9554392,
+          "startup_s": 0.001890269,
+          "time_s": 0.025527885,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "snmalloc",
+          "arch": "x86_64",
+          "cell_id": "ubuntu-x86_64-snmalloc-rust-global-static-pie-distro",
+          "composite": 1.1609973629257417,
+          "distro": "ubuntu",
+          "integration": "rust-global",
+          "is_baseline": false,
+          "profile": "static-pie",
+          "rel_mad": 0.038606703,
+          "rel_rss": 1.3816155988857939,
+          "rel_size": 1.0198417649181655,
+          "rel_time": 1.0742141779469785,
+          "rss_kb": 7936.0,
+          "size_bytes": 9743968,
+          "startup_s": 0.002053135,
+          "time_s": 0.027422416,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "rpmalloc",
+          "arch": "x86_64",
+          "cell_id": "ubuntu-x86_64-rpmalloc-rust-global-static-pie-distro",
+          "composite": 1.0542124213364403,
+          "distro": "ubuntu",
+          "integration": "rust-global",
+          "is_baseline": false,
+          "profile": "static-pie",
+          "rel_mad": 0.006831148,
+          "rel_rss": 1.0146239554317549,
+          "rel_size": 1.0093042027164052,
+          "rel_time": 1.0814913573921223,
+          "rss_kb": 5828.0,
+          "size_bytes": 9643288,
+          "startup_s": 0.00193443,
+          "time_s": 0.027608187,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "jemalloc",
+          "arch": "x86_64",
+          "cell_id": "ubuntu-x86_64-jemalloc-rust-global-static-pie-distro",
+          "composite": 1.2534972324911506,
+          "distro": "ubuntu",
+          "integration": "rust-global",
+          "is_baseline": false,
+          "profile": "static-pie",
+          "rel_mad": 0.094095076,
+          "rel_rss": 1.4672701949860725,
+          "rel_size": 1.6438890093686758,
+          "rel_time": 1.0815454550974357,
+          "rss_kb": 8428.0,
+          "size_bytes": 15706360,
+          "startup_s": 0.002084441,
+          "time_s": 0.027609568,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "mimalloc",
+          "arch": "x86_64",
+          "cell_id": "ubuntu-x86_64-mimalloc-rust-global-static-pie-distro",
+          "composite": 1.807265360666952,
+          "distro": "ubuntu",
+          "integration": "rust-global",
+          "is_baseline": false,
+          "profile": "static-pie",
+          "rel_mad": 0.048153274,
+          "rel_rss": 3.354456824512535,
+          "rel_size": 1.0243825038788443,
+          "rel_time": 1.1641501048755116,
+          "rss_kb": 19268.0,
+          "size_bytes": 9787352,
+          "startup_s": 0.002435824,
+          "time_s": 0.02971829,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "hardened_malloc",
+          "arch": "x86_64",
+          "cell_id": "ubuntu-x86_64-hardened_malloc-rust-global-static-pie-distro",
+          "composite": 1.9335029114520237,
+          "distro": "ubuntu",
+          "integration": "rust-global",
+          "is_baseline": false,
+          "profile": "static-pie",
+          "rel_mad": 0.05990564,
+          "rel_rss": 2.5417827298050137,
+          "rel_size": 1.0017851476054154,
+          "rel_time": 1.7846492962499634,
+          "rss_kb": 14600.0,
+          "size_bytes": 9571448,
+          "startup_s": 0.003513304,
+          "time_s": 0.045558322,
+          "toolchain": "distro",
+          "variant": "default"
+        }
+      ]
+    },
+    {
+      "group": "void / x86_64 / static-pie / distro",
+      "rows": [
+        {
+          "allocator": "rpmalloc",
+          "arch": "x86_64",
+          "cell_id": "void-x86_64-rpmalloc-rust-global-static-pie-distro",
+          "composite": 0.7888632844704908,
+          "distro": "void",
+          "integration": "rust-global",
+          "is_baseline": false,
+          "profile": "static-pie",
+          "rel_mad": 0.033140854,
+          "rel_rss": 1.1322314049586777,
+          "rel_size": 1.0111593054767403,
+          "rel_time": 0.5801298873920224,
+          "rss_kb": 4932.0,
+          "size_bytes": 8638520,
+          "startup_s": 0.001305814,
+          "time_s": 0.030250703,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "snmalloc",
+          "arch": "x86_64",
+          "cell_id": "void-x86_64-snmalloc-rust-global-static-pie-distro",
+          "composite": 0.9463698177695243,
+          "distro": "void",
+          "integration": "rust-global",
+          "is_baseline": false,
+          "profile": "static-pie",
+          "rel_mad": 0.011838983,
+          "rel_rss": 1.6170798898071626,
+          "rel_size": 1.0058835207107795,
+          "rel_time": 0.6010958312604959,
+          "rss_kb": 7044.0,
+          "size_bytes": 8593448,
+          "startup_s": 0.00158278,
+          "time_s": 0.031343966,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "jemalloc",
+          "arch": "x86_64",
+          "cell_id": "void-x86_64-jemalloc-rust-global-static-pie-distro",
+          "composite": 1.059899434821951,
+          "distro": "void",
+          "integration": "rust-global",
+          "is_baseline": false,
+          "profile": "static-pie",
+          "rel_mad": 0.055555794,
+          "rel_rss": 1.6584022038567494,
+          "rel_size": 1.6910734920376291,
+          "rel_time": 0.655452374101939,
+          "rss_kb": 7224.0,
+          "size_bytes": 14447152,
+          "startup_s": 0.001621409,
+          "time_s": 0.034178372,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "mimalloc",
+          "arch": "x86_64",
+          "cell_id": "void-x86_64-mimalloc-rust-global-static-pie-distro",
+          "composite": 1.6078946758593011,
+          "distro": "void",
+          "integration": "rust-global",
+          "is_baseline": false,
+          "profile": "static-pie",
+          "rel_mad": 0.034436837,
+          "rel_rss": 3.680440771349862,
+          "rel_size": 1.0277975986470618,
+          "rel_time": 0.6683044743160604,
+          "rss_kb": 16032.0,
+          "size_bytes": 8780664,
+          "startup_s": 0.001864716,
+          "time_s": 0.034848541,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "hardened_malloc",
+          "arch": "x86_64",
+          "cell_id": "void-x86_64-hardened_malloc-rust-global-static-pie-distro",
+          "composite": 1.5758439547236345,
+          "distro": "void",
+          "integration": "rust-global",
+          "is_baseline": false,
+          "profile": "static-pie",
+          "rel_mad": 0.021576642,
+          "rel_rss": 3.0275482093663912,
+          "rel_size": 1.0025779615656176,
+          "rel_time": 0.9455361595952586,
+          "rss_kb": 13188.0,
+          "size_bytes": 8565208,
+          "startup_s": 0.003041032,
+          "time_s": 0.049304706,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "system",
+          "arch": "x86_64",
+          "cell_id": "void-x86_64-system-baseline-static-pie-distro",
+          "composite": 0.9999999999999999,
+          "distro": "void",
+          "integration": "baseline",
+          "is_baseline": true,
+          "profile": "static-pie",
+          "rel_mad": 0.065487218,
+          "rel_rss": 1.0,
+          "rel_size": 1.0,
+          "rel_time": 1.0,
+          "rss_kb": 4356.0,
+          "size_bytes": 8543184,
+          "startup_s": 0.001487083,
+          "time_s": 0.052144707,
+          "toolchain": "distro",
+          "variant": "default"
+        }
+      ]
+    },
+    {
+      "group": "wolfi / x86_64 / static-pie / distro",
+      "rows": [
+        {
+          "allocator": "mimalloc",
+          "arch": "x86_64",
+          "cell_id": "wolfi-x86_64-mimalloc-rust-global-static-pie-distro",
+          "composite": 1.8460589724144474,
+          "distro": "wolfi",
+          "integration": "rust-global",
+          "is_baseline": false,
+          "profile": "static-pie",
+          "rel_mad": 0.025257985,
+          "rel_rss": 4.606295149638803,
+          "rel_size": 1.0304996195980107,
+          "rel_time": 0.6018674426050091,
+          "rss_kb": 17854.0,
+          "size_bytes": 8798752,
+          "startup_s": 0.001902606,
+          "time_s": 0.030110863,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "jemalloc",
+          "arch": "x86_64",
+          "cell_id": "wolfi-x86_64-jemalloc-rust-global-static-pie-distro",
+          "composite": 1.072970697531265,
+          "distro": "wolfi",
+          "integration": "rust-global",
+          "is_baseline": false,
+          "profile": "static-pie",
+          "rel_mad": 0.030345693,
+          "rel_rss": 1.7347781217750258,
+          "rel_size": 1.7530703874853366,
+          "rel_time": 0.6287170370837062,
+          "rss_kb": 6724.0,
+          "size_bytes": 14968304,
+          "startup_s": 0.001603327,
+          "time_s": 0.031454123,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "hardened_malloc",
+          "arch": "x86_64",
+          "cell_id": "wolfi-x86_64-hardened_malloc-rust-global-static-pie-distro",
+          "composite": 1.6823941330447796,
+          "distro": "wolfi",
+          "integration": "rust-global",
+          "is_baseline": false,
+          "profile": "static-pie",
+          "rel_mad": 0.048431717,
+          "rel_rss": 3.2868937048503613,
+          "rel_size": 1.0030816308938884,
+          "rel_time": 0.9933630975004708,
+          "rss_kb": 12740.0,
+          "size_bytes": 8564648,
+          "startup_s": 0.003298158,
+          "time_s": 0.049697023,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "system",
+          "arch": "x86_64",
+          "cell_id": "wolfi-x86_64-system-baseline-static-pie-distro",
+          "composite": 0.9999999999999999,
+          "distro": "wolfi",
+          "integration": "baseline",
+          "is_baseline": true,
+          "profile": "static-pie",
+          "rel_mad": 0.045298443,
+          "rel_rss": 1.0,
+          "rel_size": 1.0,
+          "rel_time": 1.0,
+          "rss_kb": 3876.0,
+          "size_bytes": 8538336,
+          "startup_s": 0.001595755,
+          "time_s": 0.050029061,
+          "toolchain": "distro",
+          "variant": "default"
+        }
+      ]
+    }
+  ],
+  "primary_workload": "literal",
+  "run_id": "20260903-035021",
+  "verdicts": [
+    {
+      "group": "alpine / x86_64 / static-pie / distro",
+      "margin_pct": 3.060759111209618,
+      "note": "the lead of 3.1% is within this run's own spread (3.9% relative MAD), so the ordering between the top rows is not established here",
+      "winner": "snmalloc (rust-global)",
+      "within_noise": true
+    },
+    {
+      "group": "archlinux / x86_64 / static-pie / distro",
+      "margin_pct": 8.295516832734364,
+      "note": "system is 8.3% faster than the next row, which is outside the run's spread of 4.2%",
+      "winner": "system (baseline)",
+      "within_noise": false
+    },
+    {
+      "group": "debian / x86_64 / static-pie / distro",
+      "margin_pct": 0.6717671334409067,
+      "note": "the lead of 0.7% is within this run's own spread (3.6% relative MAD), so the ordering between the top rows is not established here",
+      "winner": "system (baseline)",
+      "within_noise": true
+    },
+    {
+      "group": "ubuntu / x86_64 / static-pie / distro",
+      "margin_pct": 7.4214177946978435,
+      "note": "system is 7.4% faster than the next row, which is outside the run's spread of 6.0%",
+      "winner": "system (baseline)",
+      "within_noise": false
+    },
+    {
+      "group": "void / x86_64 / static-pie / distro",
+      "margin_pct": 3.6140085736189356,
+      "note": "rpmalloc is 3.6% faster than the next row, which is outside the run's spread of 3.3%",
+      "winner": "rpmalloc (rust-global)",
+      "within_noise": false
+    },
+    {
+      "group": "wolfi / x86_64 / static-pie / distro",
+      "margin_pct": 4.461047828486347,
+      "note": "mimalloc is 4.5% faster than the next row, which is outside the run's spread of 3.0%",
+      "winner": "mimalloc (rust-global)",
+      "within_noise": false
+    }
+  ]
+}

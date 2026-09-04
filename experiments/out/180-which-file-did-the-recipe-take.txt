@@ -1,0 +1,74 @@
+=== conditions ===
+date:  2026-09-03T18:15:02Z
+host:  Linux 6.18.44-fc-v24 x86_64
+cc:    cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+tree:  /home/user/alloc-bench at 9aab32f
+
+=== what is in the planted bazel-bin ===
+  libtcmalloc_allocbench.so                     elf-shared
+  libtcmalloc_allocbench.so-2.params            not-elf
+  libtcmalloc_allocbench.so.jdeps               not-elf
+  libtcmalloc_lookalike.so                      elf-relocatable
+
+=== case 1: does the OLD selector's glob match a non-library at all? ===
+  files matching 'libtcmalloc*.so*':
+    libtcmalloc_allocbench.so
+    libtcmalloc_allocbench.so-2.params
+    libtcmalloc_allocbench.so.jdeps
+    libtcmalloc_lookalike.so
+ the glob matches 4 files, only one of which is a library.
+      So which one `head -1` returns is decided by directory order,
+        not by the recipe. That is the defect.
+
+=== case 2: can the OLD selector actually take the wrong file? ===
+  libtcmalloc_allocbench.so-2.params created first, old selector took: libtcmalloc_lookalike.so               (elf-relocatable)
+  libtcmalloc_allocbench.so created first,       old selector took: libtcmalloc_lookalike.so               (elf-relocatable)
+ the OLD selector takes a NON-LIBRARY, and ships it as the allocator.
+      READ THIS PRECISELY. What is demonstrated is that the old selector
+       returns a file that is not a shared object. It is NOT demonstrated
+       that the answer CHANGES between the two arrangements above --
+       creation order is not readdir order, and a probe cannot dictate
+       what a filesystem enumerates first. The order-dependence is an
+       argument from `head -1` over an unsorted `find`, and the fix
+       removes both the ambiguity and the ordering question together.
+
+=== case 3: does the NEW selector take the library under BOTH orders? ===
+  libtcmalloc_allocbench.so-2.params created first, new selector took: libtcmalloc_allocbench.so              (elf-shared)
+  libtcmalloc_allocbench.so created first,       new selector took: libtcmalloc_allocbench.so              (elf-shared)
+ the NEW selector is order-independent and takes the ELF shared object.
+
+=== case 4: a relocatable .o wearing a .so name is REFUSED, not shipped ===
+  old selector took : libtcmalloc_lookalike.so (elf-relocatable)
+  new selector took : <nothing>  (exit 1)
+ the new selector REFUSES rather than shipping an ET_REL object.
+  and it says why, on stderr:
+    no candidate is elf-shared:
+      elf-relocatable  /tmp/alloc-bench-180.24754/only-lookalike/libtcmalloc_lookalike.so
+
+=== case 5: can the guard itself fail? ===
+ pick_elf_so refuses a tree with no shared object in it.
+ and accepts as soon as a real one is present -- so it is not refusing everything.
+
+=== case 6: the ARCHIVE selector, which is the path most cells take ===
+  liballoc_elf.a               not-an-archive
+  liballoc_real.a              ar-archive
+  liballoc_script.a            not-an-archive
+  old selector took : liballoc_real.a (ar-archive)
+  new selector took : liballoc_real.a (ar-archive)
+ pick_ar takes the real archive and passes over the linker script and the ELF.
+ and refuses when no candidate is an archive.
+
+=== elf_kind and ar_kind tell their states apart ===
+  a shared object:         elf-shared
+  a relocatable .o:        elf-relocatable
+  a text file:             not-elf
+  a file that is not there: not-readable
+  ar_kind on a .so:        not-an-archive
+
+=== what this probe cannot tell you ===
+- WHICH file run 33749457837 actually copied. That artefact expired
+  before the diagnosis; the .params file is an inference from the glob
+  and the 'file format not recognized' message. The fix does not rest
+  on it.
+- whether tcmalloc's number reproduces. That needs another dispatch
+  with this fix in the tree.

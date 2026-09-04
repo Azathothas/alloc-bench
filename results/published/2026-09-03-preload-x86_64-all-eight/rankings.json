@@ -1,0 +1,441 @@
+{
+  "composite_formula": "composite = 0.60 x (time / baseline_time) + 0.30 x (peak_rss / baseline_peak_rss) + 0.10 x (binary_bytes / baseline_binary_bytes); lower is better, 1.000 is the control",
+  "findings": [
+    {
+      "cell": "alpine-x86_64-hardened_malloc-preload-dynamic-distro",
+      "check": "noisy",
+      "message": "workload literal-j1 has a relative MAD of 13.3%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "alpine-x86_64-hardened_malloc-preload-dynamic-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 16.1%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "alpine-x86_64-jemalloc-preload-dynamic-distro",
+      "check": "noisy",
+      "message": "workload nomatch has a relative MAD of 8.1%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "alpine-x86_64-mimalloc-preload-dynamic-distro",
+      "check": "noisy",
+      "message": "workload json has a relative MAD of 5.2%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "alpine-x86_64-mimalloc-preload-dynamic-distro",
+      "check": "noisy",
+      "message": "workload regex has a relative MAD of 5.7%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "alpine-x86_64-mimalloc-preload-dynamic-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 12.4%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "alpine-x86_64-snmalloc-preload-dynamic-distro",
+      "check": "noisy",
+      "message": "workload files has a relative MAD of 6.9%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "alpine-x86_64-snmalloc-preload-dynamic-distro",
+      "check": "noisy",
+      "message": "workload literal-j1 has a relative MAD of 7.7%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "alpine-x86_64-snmalloc-preload-dynamic-distro",
+      "check": "noisy",
+      "message": "workload nomatch has a relative MAD of 8.1%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "alpine-x86_64-snmalloc-preload-dynamic-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 8.7%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "alpine-x86_64-system-baseline-dynamic-distro",
+      "check": "noisy",
+      "message": "workload files has a relative MAD of 6.6%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "alpine-x86_64-system-baseline-dynamic-distro",
+      "check": "noisy",
+      "message": "workload nomatch has a relative MAD of 7.3%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "debian-x86_64-hardened_malloc-preload-dynamic-distro",
+      "check": "noisy",
+      "message": "workload files has a relative MAD of 6.6%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "debian-x86_64-hardened_malloc-preload-dynamic-distro",
+      "check": "noisy",
+      "message": "workload literal-j1 has a relative MAD of 6.3%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "debian-x86_64-hardened_malloc-preload-dynamic-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 5.6%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "debian-x86_64-jemalloc-preload-dynamic-distro",
+      "check": "noisy",
+      "message": "workload regex has a relative MAD of 6.9%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "debian-x86_64-mimalloc-preload-dynamic-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 10.8%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "debian-x86_64-snmalloc-preload-dynamic-distro",
+      "check": "noisy",
+      "message": "workload literal-j1 has a relative MAD of 5.4%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "debian-x86_64-snmalloc-preload-dynamic-distro",
+      "check": "noisy",
+      "message": "workload regex has a relative MAD of 5.2%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "debian-x86_64-snmalloc-preload-dynamic-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 5.9%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "debian-x86_64-system-baseline-dynamic-distro",
+      "check": "noisy",
+      "message": "workload literal has a relative MAD of 5.0%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    }
+  ],
+  "groups": [
+    {
+      "group": "alpine / x86_64 / dynamic / distro",
+      "rows": [
+        {
+          "allocator": "snmalloc",
+          "arch": "x86_64",
+          "cell_id": "alpine-x86_64-snmalloc-preload-dynamic-distro",
+          "composite": 0.9188978264135603,
+          "distro": "alpine",
+          "integration": "preload",
+          "is_baseline": false,
+          "profile": "dynamic",
+          "rel_mad": 0.039333233,
+          "rel_rss": 1.5285769083237437,
+          "rel_size": 1.0,
+          "rel_time": 0.6005412565273954,
+          "rss_kb": 7970.0,
+          "size_bytes": 8249936,
+          "startup_s": 0.002398755,
+          "time_s": 0.039765393,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "mimalloc",
+          "arch": "x86_64",
+          "cell_id": "alpine-x86_64-mimalloc-preload-dynamic-distro",
+          "composite": 1.4496853136252261,
+          "distro": "alpine",
+          "integration": "preload",
+          "is_baseline": false,
+          "profile": "dynamic",
+          "rel_mad": 0.021246465,
+          "rel_rss": 3.265439202148063,
+          "rel_size": 1.0,
+          "rel_time": 0.6167559216346788,
+          "rss_kb": 17026.0,
+          "size_bytes": 8249936,
+          "startup_s": 0.002806604,
+          "time_s": 0.040839062,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "mesh",
+          "arch": "x86_64",
+          "cell_id": "alpine-x86_64-mesh-preload-dynamic-distro",
+          "composite": 0.8829938451125606,
+          "distro": "alpine",
+          "integration": "preload",
+          "is_baseline": false,
+          "profile": "dynamic",
+          "rel_mad": 0.036061125,
+          "rel_rss": 1.3387034906022248,
+          "rel_size": 1.0,
+          "rel_time": 0.6356379965531553,
+          "rss_kb": 6980.0,
+          "size_bytes": 8249936,
+          "startup_s": 0.002387186,
+          "time_s": 0.042089356,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "jemalloc",
+          "arch": "x86_64",
+          "cell_id": "alpine-x86_64-jemalloc-preload-dynamic-distro",
+          "composite": 0.8952263144002486,
+          "distro": "alpine",
+          "integration": "preload",
+          "is_baseline": false,
+          "profile": "dynamic",
+          "rel_mad": 0.031210093,
+          "rel_rss": 1.3379363252780974,
+          "rel_size": 1.0,
+          "rel_time": 0.6564090280280324,
+          "rss_kb": 6976.0,
+          "size_bytes": 8249936,
+          "startup_s": 0.002183829,
+          "time_s": 0.043464729,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "rpmalloc",
+          "arch": "x86_64",
+          "cell_id": "alpine-x86_64-rpmalloc-preload-dynamic-distro",
+          "composite": 0.8705806735598101,
+          "distro": "alpine",
+          "integration": "preload",
+          "is_baseline": false,
+          "profile": "dynamic",
+          "rel_mad": 0.049797612,
+          "rel_rss": 1.0863060989643267,
+          "rel_size": 1.0,
+          "rel_time": 0.7411480731175201,
+          "rss_kb": 5664.0,
+          "size_bytes": 8249936,
+          "startup_s": 0.001849712,
+          "time_s": 0.049075803,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "system",
+          "arch": "x86_64",
+          "cell_id": "alpine-x86_64-system-baseline-dynamic-distro",
+          "composite": 0.9999999999999999,
+          "distro": "alpine",
+          "integration": "baseline",
+          "is_baseline": true,
+          "profile": "dynamic",
+          "rel_mad": 0.033424591,
+          "rel_rss": 1.0,
+          "rel_size": 1.0,
+          "rel_time": 1.0,
+          "rss_kb": 5214.0,
+          "size_bytes": 8249936,
+          "startup_s": 0.002157796,
+          "time_s": 0.066215922,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "hardened_malloc",
+          "arch": "x86_64",
+          "cell_id": "alpine-x86_64-hardened_malloc-preload-dynamic-distro",
+          "composite": 1.5294196573484027,
+          "distro": "alpine",
+          "integration": "preload",
+          "is_baseline": false,
+          "profile": "dynamic",
+          "rel_mad": 0.017081452,
+          "rel_rss": 2.7491369390103566,
+          "rel_size": 1.0,
+          "rel_time": 1.0077976260754928,
+          "rss_kb": 14334.0,
+          "size_bytes": 8249936,
+          "startup_s": 0.004820818,
+          "time_s": 0.066732249,
+          "toolchain": "distro",
+          "variant": "default"
+        }
+      ]
+    },
+    {
+      "group": "debian / x86_64 / dynamic / distro",
+      "rows": [
+        {
+          "allocator": "system",
+          "arch": "x86_64",
+          "cell_id": "debian-x86_64-system-baseline-dynamic-distro",
+          "composite": 0.9999999999999999,
+          "distro": "debian",
+          "integration": "baseline",
+          "is_baseline": true,
+          "profile": "dynamic",
+          "rel_mad": 0.050058531,
+          "rel_rss": 1.0,
+          "rel_size": 1.0,
+          "rel_time": 1.0,
+          "rss_kb": 6546.0,
+          "size_bytes": 8320792,
+          "startup_s": 0.002716289,
+          "time_s": 0.035027083,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "snmalloc",
+          "arch": "x86_64",
+          "cell_id": "debian-x86_64-snmalloc-preload-dynamic-distro",
+          "composite": 1.1173353556726329,
+          "distro": "debian",
+          "integration": "preload",
+          "is_baseline": false,
+          "profile": "dynamic",
+          "rel_mad": 0.036168561,
+          "rel_rss": 1.334860983806905,
+          "rel_size": 1.0,
+          "rel_time": 1.0281284342176022,
+          "rss_kb": 8738.0,
+          "size_bytes": 8320792,
+          "startup_s": 0.003099801,
+          "time_s": 0.03601234,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "mimalloc",
+          "arch": "x86_64",
+          "cell_id": "debian-x86_64-mimalloc-preload-dynamic-distro",
+          "composite": 1.7370347178005225,
+          "distro": "debian",
+          "integration": "preload",
+          "is_baseline": false,
+          "profile": "dynamic",
+          "rel_mad": 0.028613837,
+          "rel_rss": 3.0696608615948673,
+          "rel_size": 1.0,
+          "rel_time": 1.1935607655367706,
+          "rss_kb": 20094.0,
+          "size_bytes": 8320792,
+          "startup_s": 0.003815647,
+          "time_s": 0.041806952,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "rpmalloc",
+          "arch": "x86_64",
+          "cell_id": "debian-x86_64-rpmalloc-preload-dynamic-distro",
+          "composite": 1.1224725120691004,
+          "distro": "debian",
+          "integration": "preload",
+          "is_baseline": false,
+          "profile": "dynamic",
+          "rel_mad": 0.035875431,
+          "rel_rss": 1.010388023220287,
+          "rel_size": 1.0,
+          "rel_time": 1.198926841838357,
+          "rss_kb": 6614.0,
+          "size_bytes": 8320792,
+          "startup_s": 0.003072326,
+          "time_s": 0.04199491,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "jemalloc",
+          "arch": "x86_64",
+          "cell_id": "debian-x86_64-jemalloc-preload-dynamic-distro",
+          "composite": 1.2041117740902747,
+          "distro": "debian",
+          "integration": "preload",
+          "is_baseline": false,
+          "profile": "dynamic",
+          "rel_mad": 0.018991448,
+          "rel_rss": 1.2471738466238924,
+          "rel_size": 1.0,
+          "rel_time": 1.2165993668385118,
+          "rss_kb": 8164.0,
+          "size_bytes": 8320792,
+          "startup_s": 0.003337258,
+          "time_s": 0.042613927,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "mesh",
+          "arch": "x86_64",
+          "cell_id": "debian-x86_64-mesh-preload-dynamic-distro",
+          "composite": 1.225328682901651,
+          "distro": "debian",
+          "integration": "preload",
+          "is_baseline": false,
+          "profile": "dynamic",
+          "rel_mad": 0.023410162,
+          "rel_rss": 1.2517567980446074,
+          "rel_size": 1.0,
+          "rel_time": 1.2496694058137812,
+          "rss_kb": 8194.0,
+          "size_bytes": 8320792,
+          "startup_s": 0.00333247,
+          "time_s": 0.043772274,
+          "toolchain": "distro",
+          "variant": "default"
+        },
+        {
+          "allocator": "hardened_malloc",
+          "arch": "x86_64",
+          "cell_id": "debian-x86_64-hardened_malloc-preload-dynamic-distro",
+          "composite": 2.0960548370933636,
+          "distro": "debian",
+          "integration": "preload",
+          "is_baseline": false,
+          "profile": "dynamic",
+          "rel_mad": 0.009426474,
+          "rel_rss": 2.437824625725634,
+          "rel_size": 1.0,
+          "rel_time": 2.1078457489594555,
+          "rss_kb": 15958.0,
+          "size_bytes": 8320792,
+          "startup_s": 0.006284302,
+          "time_s": 0.073831688,
+          "toolchain": "distro",
+          "variant": "default"
+        }
+      ]
+    }
+  ],
+  "primary_workload": "literal",
+  "run_id": "20260903-003445",
+  "verdicts": [
+    {
+      "group": "alpine / x86_64 / dynamic / distro",
+      "margin_pct": 2.700008522485869,
+      "note": "the lead of 2.7% is within this run's own spread (3.9% relative MAD), so the ordering between the top rows is not established here",
+      "winner": "snmalloc (preload)",
+      "within_noise": true
+    },
+    {
+      "group": "debian / x86_64 / dynamic / distro",
+      "margin_pct": 2.8128434217602316,
+      "note": "the lead of 2.8% is within this run's own spread (5.0% relative MAD), so the ordering between the top rows is not established here",
+      "winner": "system (baseline)",
+      "within_noise": true
+    }
+  ]
+}

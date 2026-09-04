@@ -1,0 +1,155 @@
+{
+  "composite_formula": "composite = 0.60 x (time / baseline_time) + 0.30 x (peak_rss / baseline_peak_rss) + 0.10 x (binary_bytes / baseline_binary_bytes); lower is better, 1.000 is the control",
+  "findings": [
+    {
+      "cell": "alpine-aarch64-mimalloc-rust-global-static-lto-distro",
+      "check": "noisy",
+      "message": "workload startup has a relative MAD of 10.0%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "alpine-aarch64-snmalloc-rust-global-static-lto-distro",
+      "check": "noisy",
+      "message": "workload nomatch has a relative MAD of 5.5%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    },
+    {
+      "cell": "alpine-aarch64-system-baseline-static-lto-distro",
+      "check": "noisy",
+      "message": "workload nomatch has a relative MAD of 7.1%, above the 5% threshold; differences smaller than that cannot be attributed to the allocator on this host",
+      "severity": "warn"
+    }
+  ],
+  "groups": [
+    {
+      "group": "alpine / aarch64 / static-lto / distro",
+      "rows": [
+        {
+          "allocator": "jemalloc",
+          "arch": "aarch64",
+          "cell_id": "alpine-aarch64-jemalloc-rust-global-static-lto-distro",
+          "composite": 1.1206705040740126,
+          "distro": "alpine",
+          "integration": "rust-global",
+          "is_baseline": false,
+          "profile": "static-lto",
+          "rel_mad": 0.02897899,
+          "rel_rss": 1.5691609977324263,
+          "rel_size": 1.9098652727761483,
+          "rel_time": 0.7648927957944499,
+          "rss_kb": 5536.0,
+          "size_bytes": 12902240,
+          "startup_s": 0.001055594,
+          "time_s": 0.026856102,
+          "toolchain": "distro"
+        },
+        {
+          "allocator": "rpmalloc",
+          "arch": "aarch64",
+          "cell_id": "alpine-aarch64-rpmalloc-rust-global-static-lto-distro",
+          "composite": 0.9164112236764997,
+          "distro": "alpine",
+          "integration": "rust-global",
+          "is_baseline": false,
+          "profile": "static-lto",
+          "rel_mad": 0.028909411,
+          "rel_rss": 1.126984126984127,
+          "rel_size": 1.0598711346005136,
+          "rel_time": 0.7872147868686838,
+          "rss_kb": 3976.0,
+          "size_bytes": 7160040,
+          "startup_s": 0.000819644,
+          "time_s": 0.027639848,
+          "toolchain": "distro"
+        },
+        {
+          "allocator": "mimalloc",
+          "arch": "aarch64",
+          "cell_id": "alpine-aarch64-mimalloc-rust-global-static-lto-distro",
+          "composite": 2.179802837721792,
+          "distro": "alpine",
+          "integration": "rust-global",
+          "is_baseline": false,
+          "profile": "static-lto",
+          "rel_mad": 0.020523436,
+          "rel_rss": 5.075396825396825,
+          "rel_size": 1.0364830474855142,
+          "rel_time": 0.9225591422569879,
+          "rss_kb": 17906.0,
+          "size_bytes": 7002040,
+          "startup_s": 0.000872535,
+          "time_s": 0.032391915,
+          "toolchain": "distro"
+        },
+        {
+          "allocator": "snmalloc",
+          "arch": "aarch64",
+          "cell_id": "alpine-aarch64-snmalloc-rust-global-static-lto-distro",
+          "composite": 1.2691471395329947,
+          "distro": "alpine",
+          "integration": "rust-global",
+          "is_baseline": false,
+          "profile": "static-lto",
+          "rel_mad": 0.025010497,
+          "rel_rss": 1.8922902494331066,
+          "rel_size": 1.0854310572481163,
+          "rel_time": 0.9881949316304184,
+          "rss_kb": 6676.0,
+          "size_bytes": 7332712,
+          "startup_s": 0.000808461,
+          "time_s": 0.034696449,
+          "toolchain": "distro"
+        },
+        {
+          "allocator": "system",
+          "arch": "aarch64",
+          "cell_id": "alpine-aarch64-system-baseline-static-lto-distro",
+          "composite": 0.9999999999999999,
+          "distro": "alpine",
+          "integration": "baseline",
+          "is_baseline": true,
+          "profile": "static-lto",
+          "rel_mad": 0.011242504,
+          "rel_rss": 1.0,
+          "rel_size": 1.0,
+          "rel_time": 1.0,
+          "rss_kb": 3528.0,
+          "size_bytes": 6755576,
+          "startup_s": 0.001061543,
+          "time_s": 0.035110936,
+          "toolchain": "distro"
+        },
+        {
+          "allocator": "hardened_malloc",
+          "arch": "aarch64",
+          "cell_id": "alpine-aarch64-hardened_malloc-rust-global-static-lto-distro",
+          "composite": 1.8744563736547788,
+          "distro": "alpine",
+          "integration": "rust-global",
+          "is_baseline": false,
+          "profile": "static-lto",
+          "rel_mad": 0.013449684,
+          "rel_rss": 3.701814058956916,
+          "rel_size": 1.0023601244364655,
+          "rel_time": 1.1061269058734293,
+          "rss_kb": 13060.0,
+          "size_bytes": 6771520,
+          "startup_s": 0.002117407,
+          "time_s": 0.038837151,
+          "toolchain": "distro"
+        }
+      ]
+    }
+  ],
+  "primary_workload": "literal",
+  "run_id": "20260902-020947",
+  "verdicts": [
+    {
+      "group": "alpine / aarch64 / static-lto / distro",
+      "margin_pct": 2.9183162917686336,
+      "note": "jemalloc is 2.9% faster than the next row, which is outside the run's spread of 2.9%",
+      "winner": "jemalloc (rust-global)",
+      "within_noise": false
+    }
+  ]
+}
