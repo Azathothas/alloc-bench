@@ -31,30 +31,30 @@ The last **6** run(s) of this suite, on **3** distinct CPU model(s). Primary wor
 
 | allocator | mech | rel median ↓ | rel min ↓ | rel max ↓ | between-run spread ↓ | within-run MAD ↓ | rank | RSS rel ↓ |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| jemalloc | `rust-global` | **0.872** | 0.592 | 0.886 | 33.8% | 0.6%–4.2% | 1/1/1/1/3/1  | 5.565  (1.69–5.58) |
-| rpmalloc | `rust-global` | **0.884** | 0.616 | 0.907 | 32.9% | 0.6%–2.0% | 2/2/2/2/4/2  | 7.990  (1.12–8.01) |
-| system *(control)* | `baseline` | **1.000** | 1.000 | 1.000 | 0.0% | 1.4%–4.1% | 4/3/3/3/6/3 | 1.000 |
-| mimalloc | `rust-global` | **1.003** | 0.577 | 1.035 | 45.7% | 1.2%–3.5% | 3/4/4/4/2/4  | 3.106 |
-| snmalloc | `rust-global` | **1.130** | 0.553 | 1.152 | 53.0% | 1.3%–4.6% | 5/5/5/5/1/5  | 2.694  (1.58–2.75) |
-| hardened_malloc | `rust-global` | **1.233** | 0.890 | 1.263 | 30.3% | 0.5%–6.4% | 6/6/6/6/5/6  | 6.246  (2.93–6.28) |
+| jemalloc | `rust-global` | **0.868** | 0.592 | 0.886 | 33.9% | 0.6%–4.2% | 1/1/1/1/1/3  | 5.547  (1.69–5.58) |
+| rpmalloc | `rust-global` | **0.881** | 0.616 | 0.907 | 33.0% | 0.6%–2.0% | 2/2/2/2/2/4  | 7.958  (1.12–8.00) |
+| system *(control)* | `baseline` | **1.000** | 1.000 | 1.000 | 0.0% | 1.4%–4.1% | 3/4/3/3/3/6 | 1.000 |
+| mimalloc | `rust-global` | **1.001** | 0.577 | 1.035 | 45.8% | 1.2%–3.5% | 4/3/4/4/4/2  | 3.104 |
+| snmalloc | `rust-global` | **1.126** | 0.553 | 1.152 | 53.1% | 1.5%–4.6% | 5/5/5/5/5/1  | 2.711  (1.58–2.75) |
+| hardened_malloc | `rust-global` | **1.230** | 0.890 | 1.263 | 30.3% | 1.1%–6.4% | 6/6/6/6/6/5  | 6.215  (2.93–6.28) |
 
  **`rank` is this cell's position in each run, newest first**, fastest = 1. A candidate marked  moved, and a moved rank is why no ordering is claimed.
 
- **The control's own position is how many allocators beat it that run: 3, 2, 2, 2, 5, 2.** That number moving is the same finding as the rank changes above, stated as a count.
+ **The control's own position is how many allocators beat it that run: 2, 3, 2, 2, 2, 5.** That number moving is the same finding as the rank changes above, stated as a count.
 
  **Peak RSS does not transfer either**, for **hardened_malloc**, **jemalloc**, **rpmalloc**, **snmalloc**. A memory-capped deployment cannot be sized from the median column alone; the range is the honest figure.
 
- **The within-run MAD is a floor on the uncertainty, not a bound.** The widest cell here is **snmalloc**: it moved **53.0%** between runs while its own samples never spread more than **4.6%** within one.
+ **The within-run MAD is a floor on the uncertainty, not a bound.** The widest cell here is **snmalloc**: it moved **53.1%** between runs while its own samples never spread more than **4.6%** within one.
 
 ## The runs in this window
 
 | started | CPU | cores | kernel | commit | CI run |
 | --- | --- | --- | --- | --- | --- |
+| 2026-09-21T08:59:38Z | AMD EPYC 7763 64-Core Processor | 4 | `Linux 6.17.0-1022-azure` | `6a420a9` | [`35580691061`](https://github.com/Azathothas/alloc-bench/actions/runs/35580691061) |
 | 2026-09-17T08:41:57Z | AMD EPYC 7763 64-Core Processor | 4 | `Linux 6.17.0-1022-azure` | `f20b844` | [`35200972464`](https://github.com/Azathothas/alloc-bench/actions/runs/35200972464) |
 | 2026-09-14T08:58:58Z | AMD EPYC 9V74 80-Core Processor | 4 | `Linux 6.17.0-1022-azure` | `4663693` | [`34825316597`](https://github.com/Azathothas/alloc-bench/actions/runs/34825316597) |
 | 2026-09-10T08:11:39Z | AMD EPYC 9V74 80-Core Processor | 4 | `Linux 6.17.0-1022-azure` | `a86d5a6` | [`34453653215`](https://github.com/Azathothas/alloc-bench/actions/runs/34453653215) |
 | 2026-09-07T08:21:58Z | AMD EPYC 9V74 80-Core Processor | 4 | `Linux 6.17.0-1022-azure` | `8ba0fdd` | [`34100027540`](https://github.com/Azathothas/alloc-bench/actions/runs/34100027540) |
 | 2026-09-01T11:02:31Z | Intel(R) Xeon(R) Processor @ 2.10GHz | 4 | `Linux 6.18.44-fc-v22` | `194ed63` | local |
-| 2026-09-01T11:00:58Z | AMD EPYC 7763 64-Core Processor | 4 | `Linux 6.17.0-1022-azure` | `194ed63` | [`33500081741`](https://github.com/Azathothas/alloc-bench/actions/runs/33500081741) |
 
  **A measurement carries its conditions.** Never quote a figure above without naming which of these machines it came from - and where the window spans several, the figure is a range, not a number.
