@@ -1,28 +1,26 @@
 {
-  "run_id": "20260910-081139",
-  "started_at": "2026-09-10T08:11:39Z",
+  "run_id": "20261001-101240",
+  "started_at": "2026-10-01T10:12:40Z",
   "suites": [
     "core"
   ],
   "host": {
     "kernel": "Linux 6.17.0-1022-azure",
     "arch": "x86_64",
-    "cpu_model": "AMD EPYC 9V74 80-Core Processor",
+    "cpu_model": "INTEL(R) XEON(R) PLATINUM 8573C",
     "cpu_count": 4,
-    "mem_total_kb": 16373452,
+    "mem_total_kb": 16372436,
     "container_runtime": "docker",
     "runtime_version": "28.0.4",
     "emulated": false,
     "env": {
       "page_size_bytes": 4096,
       "transparent_hugepage": "always",
-      "cpu_caches": "L1d=32K L1i=32K L2=1024K L3=32768K",
+      "cpu_caches": "L1d=48K L1i=32K L2=2048K L3=266240K",
       "numa_nodes": 1,
       "threads_per_core": 2,
-      "cpus_allowed": "0-3",
-      "unread": {
-        "scaling_governor": "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor: entity not found"
-      }
+      "scaling_governor": "performance",
+      "cpus_allowed": "0-3"
     }
   },
   "tool_versions": {
@@ -105,18 +103,18 @@
     "GITHUB_REF": "refs/heads/main",
     "GITHUB_REPOSITORY": "Azathothas/alloc-bench",
     "GITHUB_RUN_ATTEMPT": "1",
-    "GITHUB_RUN_ID": "34453653215",
-    "GITHUB_RUN_NUMBER": "2",
-    "GITHUB_SHA": "a86d5a649f82eb7c71862cec316c9a05007e7331",
+    "GITHUB_RUN_ID": "36847381898",
+    "GITHUB_RUN_NUMBER": "8",
+    "GITHUB_SHA": "6ae9bde965db418c205fdb2ed57ebdc26006bfb4",
     "GITHUB_WORKFLOW": "bench",
     "ImageOS": "ubuntu24",
-    "ImageVersion": "20260831.293.1",
+    "ImageVersion": "20260927.320.1",
     "RUNNER_ARCH": "X64",
-    "RUNNER_NAME": "GitHub Actions 1000044650",
+    "RUNNER_NAME": "GitHub Actions 1000047679",
     "RUNNER_OS": "Linux"
   },
   "corpus_seed": 20260901,
-  "git_commit": "a86d5a649f82eb7c71862cec316c9a05007e7331",
+  "git_commit": "6ae9bde965db418c205fdb2ed57ebdc26006bfb4",
   "git_dirty": false,
   "git_untracked": 2
 }

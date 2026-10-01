@@ -1,6 +1,6 @@
 {
-  "run_id": "20260910-081035",
-  "started_at": "2026-09-10T08:10:35Z",
+  "run_id": "20261001-101040",
+  "started_at": "2026-10-01T10:10:40Z",
   "suites": [
     "core"
   ],
@@ -9,7 +9,7 @@
     "arch": "aarch64",
     "cpu_model": "aarch64 CPU part 0xd49",
     "cpu_count": 4,
-    "mem_total_kb": 16330124,
+    "mem_total_kb": 16330084,
     "container_runtime": "docker",
     "runtime_version": "28.0.4",
     "emulated": false,
@@ -105,18 +105,18 @@
     "GITHUB_REF": "refs/heads/main",
     "GITHUB_REPOSITORY": "Azathothas/alloc-bench",
     "GITHUB_RUN_ATTEMPT": "1",
-    "GITHUB_RUN_ID": "34453653215",
-    "GITHUB_RUN_NUMBER": "2",
-    "GITHUB_SHA": "a86d5a649f82eb7c71862cec316c9a05007e7331",
+    "GITHUB_RUN_ID": "36847381898",
+    "GITHUB_RUN_NUMBER": "8",
+    "GITHUB_SHA": "6ae9bde965db418c205fdb2ed57ebdc26006bfb4",
     "GITHUB_WORKFLOW": "bench",
     "ImageOS": "ubuntu24-arm64",
-    "ImageVersion": "20260907.118.1",
+    "ImageVersion": "20260920.129.1",
     "RUNNER_ARCH": "ARM64",
-    "RUNNER_NAME": "GitHub Actions 1000044649",
+    "RUNNER_NAME": "GitHub Actions 1000047678",
     "RUNNER_OS": "Linux"
   },
   "corpus_seed": 20260901,
-  "git_commit": "a86d5a649f82eb7c71862cec316c9a05007e7331",
+  "git_commit": "6ae9bde965db418c205fdb2ed57ebdc26006bfb4",
   "git_dirty": false,
   "git_untracked": 2
 }
