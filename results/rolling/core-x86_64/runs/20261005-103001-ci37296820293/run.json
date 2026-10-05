@@ -1,6 +1,6 @@
 {
-  "run_id": "20260914-085858",
-  "started_at": "2026-09-14T08:58:58Z",
+  "run_id": "20261005-103001",
+  "started_at": "2026-10-05T10:30:01Z",
   "suites": [
     "core"
   ],
@@ -105,18 +105,18 @@
     "GITHUB_REF": "refs/heads/main",
     "GITHUB_REPOSITORY": "Azathothas/alloc-bench",
     "GITHUB_RUN_ATTEMPT": "1",
-    "GITHUB_RUN_ID": "34825316597",
-    "GITHUB_RUN_NUMBER": "3",
-    "GITHUB_SHA": "46636933b99e2175b3bd34d18293947264e8e4bd",
+    "GITHUB_RUN_ID": "37296820293",
+    "GITHUB_RUN_NUMBER": "9",
+    "GITHUB_SHA": "a3fd77b3618dca2b533f6f89f391ab75403b910b",
     "GITHUB_WORKFLOW": "bench",
     "ImageOS": "ubuntu24",
-    "ImageVersion": "20260907.300.1",
+    "ImageVersion": "20260927.320.1",
     "RUNNER_ARCH": "X64",
-    "RUNNER_NAME": "GitHub Actions 1000045388",
+    "RUNNER_NAME": "GitHub Actions 1000047901",
     "RUNNER_OS": "Linux"
   },
   "corpus_seed": 20260901,
-  "git_commit": "46636933b99e2175b3bd34d18293947264e8e4bd",
+  "git_commit": "a3fd77b3618dca2b533f6f89f391ab75403b910b",
   "git_dirty": false,
   "git_untracked": 2
 }
