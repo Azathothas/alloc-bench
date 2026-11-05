@@ -24,7 +24,7 @@
           "allocator": "jemalloc",
           "beats_control_but_inside_its_own_noise": false,
           "beats_control_every_run": true,
-          "between_run_spread": 0.090695521309518,
+          "between_run_spread": 0.09086031000061677,
           "crosses_control": false,
           "integration": "rust-global",
           "is_baseline": false,
@@ -42,20 +42,20 @@
           "rank_stable": true,
           "rel_rss": {
             "max": 1.5542725173210161,
-            "median": 1.5341956549604108,
+            "median": 1.5063291139240507,
             "min": 1.498539435248296
           },
           "rel_time": {
             "max": 0.7833701848722386,
-            "median": 0.7601281511671412,
+            "median": 0.7587495456671455,
             "min": 0.7144299659400947,
             "values": [
+              0.762880622417922,
               0.754618468916369,
               0.7144299659400947,
               0.7412786120142061,
               0.7656378334179134,
-              0.7833701848722386,
-              0.7678379111135648
+              0.7833701848722386
             ]
           },
           "variant": "default",
@@ -68,7 +68,7 @@
           "allocator": "rpmalloc",
           "beats_control_but_inside_its_own_noise": false,
           "beats_control_every_run": true,
-          "between_run_spread": 0.05785281853872414,
+          "between_run_spread": 0.058718706853377406,
           "crosses_control": false,
           "integration": "rust-global",
           "is_baseline": false,
@@ -91,21 +91,21 @@
           },
           "rel_time": {
             "max": 0.8011249645209148,
-            "median": 0.781647530117787,
+            "median": 0.7701210592744046,
             "min": 0.7559044517997685,
             "values": [
+              0.7705984565894892,
               0.7682546812823228,
               0.7936513982762541,
               0.7559044517997685,
               0.76964366195932,
-              0.8011249645209148,
-              0.7989923478258143
+              0.8011249645209148
             ]
           },
           "variant": "default",
           "within_run_mad": {
             "max": 0.021437408,
-            "min": 0.012620185
+            "min": 0.011589471
           }
         },
         {
@@ -129,8 +129,8 @@
           ],
           "rank_stable": true,
           "rel_rss": {
-            "max": 5.170900692840647,
-            "median": 4.77048950844519,
+            "max": 5.168591224018476,
+            "median": 4.375851996105161,
             "min": 4.374391431353457
           },
           "rel_time": {
@@ -138,12 +138,12 @@
             "median": 0.895692869810293,
             "min": 0.8847714394942482,
             "values": [
+              0.9080488577032053,
               0.8958277568436009,
               0.8847714394942482,
               0.8903254509569861,
               0.895557982776985,
-              0.9209892763470916,
-              0.9033501317357439
+              0.9209892763470916
             ]
           },
           "variant": "default",
@@ -164,17 +164,17 @@
           "loses_to_control_every_run": false,
           "n_runs": 6,
           "positions": [
+            5,
             4,
             4,
             4,
             5,
-            4,
-            5
+            4
           ],
           "rank_stable": false,
           "rel_rss": {
-            "max": 1.9272517321016167,
-            "median": 1.75819782725533,
+            "max": 1.9087759815242493,
+            "median": 1.6416747809152872,
             "min": 1.626095423563778
           },
           "rel_time": {
@@ -182,12 +182,12 @@
             "median": 0.9823816019678304,
             "min": 0.9603590459620432,
             "values": [
+              1.0019425436630571,
               0.9781812354051491,
               0.980408583657615,
               0.9603590459620432,
               1.0029076847182703,
-              0.9843546202780458,
-              1.0025562400814638
+              0.9843546202780458
             ]
           },
           "variant": "default",
@@ -208,12 +208,12 @@
           "loses_to_control_every_run": false,
           "n_runs": 6,
           "positions": [
+            4,
             5,
             5,
             5,
             4,
-            5,
-            4
+            5
           ],
           "rank_stable": false,
           "rel_rss": {
@@ -237,14 +237,14 @@
           "variant": "default",
           "within_run_mad": {
             "max": 0.062326888,
-            "min": 0.018841389
+            "min": 0.014312771
           }
         },
         {
           "allocator": "hardened_malloc",
           "beats_control_but_inside_its_own_noise": false,
           "beats_control_every_run": false,
-          "between_run_spread": 0.05461360224250638,
+          "between_run_spread": 0.05471951218002979,
           "crosses_control": false,
           "integration": "rust-global",
           "is_baseline": false,
@@ -262,26 +262,26 @@
           "rank_stable": true,
           "rel_rss": {
             "max": 3.733256351039261,
-            "median": 3.4406301229392993,
+            "median": 3.148003894839338,
             "min": 3.148003894839338
           },
           "rel_time": {
             "max": 1.135741329958874,
-            "median": 1.1047791284456634,
+            "median": 1.1026408219475008,
             "min": 1.0754053620721196,
             "values": [
+              1.0996502734699392,
               1.0972628206625699,
               1.1179556661126353,
               1.0754053620721196,
               1.135741329958874,
-              1.1056313704250622,
-              1.1039268864662646
+              1.1056313704250622
             ]
           },
           "variant": "default",
           "within_run_mad": {
             "max": 0.06292342,
-            "min": 0.026407543
+            "min": 0.024347257
           }
         }
       ]
@@ -293,6 +293,21 @@
     "keep": 6,
     "n_runs": 6,
     "runs": [
+      {
+        "ci_run_id": "42014989721",
+        "corpus_seed": 20260901,
+        "cpu_count": 4,
+        "cpu_model": "aarch64 CPU part 0xd49",
+        "emulated": false,
+        "git_commit": "5218b161d688740ce2f88eb4ea7dd111796a3876",
+        "kernel": "Linux 7.0.0-1017-azure",
+        "run_id": "20261105-105829",
+        "runtime": "docker",
+        "started_at": "2026-11-05T10:58:29Z",
+        "suites": [
+          "core"
+        ]
+      },
       {
         "ci_run_id": "41434684550",
         "corpus_seed": 20260901,
@@ -364,21 +379,6 @@
         "run_id": "20261019-085544",
         "runtime": "docker",
         "started_at": "2026-10-19T08:55:44Z",
-        "suites": [
-          "core"
-        ]
-      },
-      {
-        "ci_run_id": "38704856958",
-        "corpus_seed": 20260901,
-        "cpu_count": 4,
-        "cpu_model": "aarch64 CPU part 0xd49",
-        "emulated": false,
-        "git_commit": "107e4310259cae01645fc7bed5d907a53d19603f",
-        "kernel": "Linux 6.17.0-1022-azure",
-        "run_id": "20261015-082041",
-        "runtime": "docker",
-        "started_at": "2026-10-15T08:20:41Z",
         "suites": [
           "core"
         ]

@@ -33,16 +33,16 @@ The last **6** run(s) of this suite, on **1** distinct CPU model(s). Primary wor
 
 | allocator | mech | rel median ↓ | rel min ↓ | rel max ↓ | between-run spread ↓ | within-run MAD ↓ | rank | RSS rel ↓ |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| jemalloc | `rust-global` | **0.760** | 0.714 | 0.783 | 9.1% | 1.2%–3.5% | 1/1/1/1/1/1 | 1.534 |
-| rpmalloc | `rust-global` | **0.782** | 0.756 | 0.801 | 5.8% | 1.3%–2.1% | 2/2/2/2/2/2 | 1.171 |
-| mimalloc | `rust-global` | **0.896** | 0.885 | 0.921 | 4.0% | 1.6%–3.2% | 3/3/3/3/3/3 | 4.770 |
-| snmalloc | `rust-global` | **0.982** | 0.960 | 1.003 | 4.3% | 1.0%–4.3% | 4/4/4/5/4/5  | 1.758 |
-| system *(control)* | `baseline` | **1.000** | 1.000 | 1.000 | 0.0% | 1.9%–6.2% | 5/5/5/4/5/4 | 1.000 |
-| hardened_malloc | `rust-global` | **1.105** | 1.075 | 1.136 | 5.5% | 2.6%–6.3% | 6/6/6/6/6/6 | 3.441 |
+| jemalloc | `rust-global` | **0.759** | 0.714 | 0.783 | 9.1% | 1.2%–3.5% | 1/1/1/1/1/1 | 1.506 |
+| rpmalloc | `rust-global` | **0.770** | 0.756 | 0.801 | 5.9% | 1.2%–2.1% | 2/2/2/2/2/2 | 1.171 |
+| mimalloc | `rust-global` | **0.896** | 0.885 | 0.921 | 4.0% | 1.6%–3.2% | 3/3/3/3/3/3 | 4.376 |
+| snmalloc | `rust-global` | **0.982** | 0.960 | 1.003 | 4.3% | 1.0%–4.3% | 5/4/4/4/5/4  | 1.642 |
+| system *(control)* | `baseline` | **1.000** | 1.000 | 1.000 | 0.0% | 1.4%–6.2% | 4/5/5/5/4/5 | 1.000 |
+| hardened_malloc | `rust-global` | **1.103** | 1.075 | 1.136 | 5.5% | 2.4%–6.3% | 6/6/6/6/6/6 | 3.148 |
 
  **`rank` is this cell's position in each run, newest first**, fastest = 1. A candidate marked  moved, and a moved rank is why no ordering is claimed.
 
- **The control's own position is how many allocators beat it that run: 4, 4, 4, 3, 4, 3.** That number moving is the same finding as the rank changes above, stated as a count.
+ **The control's own position is how many allocators beat it that run: 3, 4, 4, 4, 3, 4.** That number moving is the same finding as the rank changes above, stated as a count.
 
  **The within-run MAD is a floor on the uncertainty, not a bound.** The widest cell here is **jemalloc**: it moved **9.1%** between runs while its own samples never spread more than **3.5%** within one.
 
@@ -50,11 +50,11 @@ The last **6** run(s) of this suite, on **1** distinct CPU model(s). Primary wor
 
 | started | CPU | cores | kernel | commit | CI run |
 | --- | --- | --- | --- | --- | --- |
+| 2026-11-05T10:58:29Z | aarch64 CPU part 0xd49 | 4 | `Linux 7.0.0-1017-azure` | `5218b16` | [`42014989721`](https://github.com/Azathothas/alloc-bench/actions/runs/42014989721) |
 | 2026-11-02T11:11:49Z | aarch64 CPU part 0xd49 | 4 | `Linux 7.0.0-1017-azure` | `eebb121` | [`41434684550`](https://github.com/Azathothas/alloc-bench/actions/runs/41434684550) |
 | 2026-10-29T10:00:33Z | aarch64 CPU part 0xd49 | 4 | `Linux 7.0.0-1017-azure` | `5b1f83a` | [`40853952902`](https://github.com/Azathothas/alloc-bench/actions/runs/40853952902) |
 | 2026-10-26T08:59:00Z | aarch64 CPU part 0xd49 | 4 | `Linux 6.17.0-1022-azure` | `d64c26a` | [`40295895029`](https://github.com/Azathothas/alloc-bench/actions/runs/40295895029) |
 | 2026-10-22T08:39:12Z | aarch64 CPU part 0xd49 | 4 | `Linux 7.0.0-1017-azure` | `9fe050d` | [`39749224084`](https://github.com/Azathothas/alloc-bench/actions/runs/39749224084) |
 | 2026-10-19T08:55:44Z | aarch64 CPU part 0xd49 | 4 | `Linux 6.17.0-1022-azure` | `75156b9` | [`39226163030`](https://github.com/Azathothas/alloc-bench/actions/runs/39226163030) |
-| 2026-10-15T08:20:41Z | aarch64 CPU part 0xd49 | 4 | `Linux 6.17.0-1022-azure` | `107e431` | [`38704856958`](https://github.com/Azathothas/alloc-bench/actions/runs/38704856958) |
 
  **A measurement carries its conditions.** Never quote a figure above without naming which of these machines it came from - and where the window spans several, the figure is a range, not a number.
