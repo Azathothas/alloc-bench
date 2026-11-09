@@ -1,24 +1,24 @@
 {
-  "run_id": "20261019-085544",
-  "started_at": "2026-10-19T08:55:44Z",
+  "run_id": "20261109-113747",
+  "started_at": "2026-11-09T11:37:47Z",
   "suites": [
     "core"
   ],
   "host": {
-    "kernel": "Linux 6.17.0-1022-azure",
-    "arch": "aarch64",
-    "cpu_model": "aarch64 CPU part 0xd49",
+    "kernel": "Linux 7.0.0-1017-azure",
+    "arch": "x86_64",
+    "cpu_model": "AMD EPYC 9V45 96-Core Processor",
     "cpu_count": 4,
-    "mem_total_kb": 16330124,
+    "mem_total_kb": 16367524,
     "container_runtime": "docker",
     "runtime_version": "28.0.4",
     "emulated": false,
     "env": {
       "page_size_bytes": 4096,
       "transparent_hugepage": "madvise",
-      "cpu_caches": "L1d=64K L1i=64K L2=1024K L3=131072K",
+      "cpu_caches": "L1d=48K L1i=32K L2=1024K L3=32768K",
       "numa_nodes": 1,
-      "threads_per_core": 1,
+      "threads_per_core": 2,
       "cpus_allowed": "0-3",
       "unread": {
         "scaling_governor": "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor: entity not found"
@@ -26,9 +26,9 @@
     }
   },
   "tool_versions": {
-    "curl": "curl 8.5.0 (aarch64-unknown-linux-gnu) libcurl/8.5.0 OpenSSL/3.0.13 zlib/1.3 brotli/1.1.0 zstd/1.5.5 libidn2/2.3.7 libpsl/0.21.2 (+libidn2/2.3.7) libssh/0.10.6/openssl/zlib nghttp2/1.59.0 librtmp/2.3 OpenLDAP/2.6.10",
+    "curl": "curl 8.5.0 (x86_64-pc-linux-gnu) libcurl/8.5.0 OpenSSL/3.0.13 zlib/1.3 brotli/1.1.0 zstd/1.5.5 libidn2/2.3.7 libpsl/0.21.2 (+libidn2/2.3.7) libssh/0.10.6/openssl/zlib nghttp2/1.59.0 librtmp/2.3 OpenLDAP/2.6.10",
     "docker": "Docker version 28.0.4, build b8034c0",
-    "git": "git version 2.55.0",
+    "git": "git version 2.56.0",
     "podman": "podman version 4.9.3"
   },
   "lock": {
@@ -105,18 +105,18 @@
     "GITHUB_REF": "refs/heads/main",
     "GITHUB_REPOSITORY": "Azathothas/alloc-bench",
     "GITHUB_RUN_ATTEMPT": "1",
-    "GITHUB_RUN_ID": "39226163030",
-    "GITHUB_RUN_NUMBER": "13",
-    "GITHUB_SHA": "75156b9e5af2ef4a9147018d417022cddc4e9e3f",
+    "GITHUB_RUN_ID": "42610175428",
+    "GITHUB_RUN_NUMBER": "19",
+    "GITHUB_SHA": "070e3214dcb4ca45f89d9acec973d883d45810fd",
     "GITHUB_WORKFLOW": "bench",
-    "ImageOS": "ubuntu24-arm64",
-    "ImageVersion": "20261012.149.1",
-    "RUNNER_ARCH": "ARM64",
-    "RUNNER_NAME": "GitHub Actions 1000053438",
+    "ImageOS": "ubuntu24",
+    "ImageVersion": "20261101.360.1",
+    "RUNNER_ARCH": "X64",
+    "RUNNER_NAME": "GitHub Actions 1000071987",
     "RUNNER_OS": "Linux"
   },
   "corpus_seed": 20260901,
-  "git_commit": "75156b9e5af2ef4a9147018d417022cddc4e9e3f",
+  "git_commit": "070e3214dcb4ca45f89d9acec973d883d45810fd",
   "git_dirty": false,
   "git_untracked": 2
 }
