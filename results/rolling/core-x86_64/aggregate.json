@@ -1,11 +1,10 @@
 {
   "cpu_models": [
-    "AMD EPYC 7763 64-Core Processor",
     "AMD EPYC 9V45 96-Core Processor",
     "AMD EPYC 9V74 80-Core Processor",
     "INTEL(R) XEON(R) PLATINUM 8573C"
   ],
-  "distinct_cpu_models": 4,
+  "distinct_cpu_models": 3,
   "generated_from": "rankings.json of each run in the window; nothing re-derived",
   "groups": [
     {
@@ -30,7 +29,7 @@
           "allocator": "jemalloc",
           "beats_control_but_inside_its_own_noise": false,
           "beats_control_every_run": true,
-          "between_run_spread": 0.050294371645988996,
+          "between_run_spread": 0.04989240207795183,
           "crosses_control": false,
           "integration": "rust-global",
           "is_baseline": false,
@@ -39,34 +38,34 @@
           "n_runs": 6,
           "positions": [
             1,
+            1,
             2,
             1,
             1,
-            2,
-            1
+            2
           ],
           "rank_stable": false,
           "rel_rss": {
-            "max": 5.519808743169399,
-            "median": 1.6162573500559307,
+            "max": 5.113513513513514,
+            "median": 1.6039844574042177,
             "min": 1.5792580101180438
           },
           "rel_time": {
             "max": 0.8898322330743119,
-            "median": 0.8657044479915992,
+            "median": 0.8726791942157506,
             "min": 0.8462921718314367,
             "values": [
+              0.8714925381148806,
               0.8898322330743119,
               0.8738658503166207,
               0.8894752875739285,
               0.8462921718314367,
-              0.8550542731023708,
-              0.8575430456665778
+              0.8550542731023708
             ]
           },
           "variant": "default",
           "within_run_mad": {
-            "max": 0.017930919,
+            "max": 0.01869708,
             "min": 0.007614494
           }
         },
@@ -74,7 +73,7 @@
           "allocator": "rpmalloc",
           "beats_control_but_inside_its_own_noise": false,
           "beats_control_every_run": true,
-          "between_run_spread": 0.12687498310804635,
+          "between_run_spread": 0.125642227489556,
           "crosses_control": false,
           "integration": "rust-global",
           "is_baseline": false,
@@ -83,29 +82,29 @@
           "n_runs": 6,
           "positions": [
             2,
+            2,
             1,
             2,
             2,
-            1,
-            2
+            1
           ],
           "rank_stable": false,
           "rel_rss": {
-            "max": 7.909153005464481,
-            "median": 1.1234141375836764,
+            "max": 7.823986486486486,
+            "median": 1.102018555522188,
             "min": 1.0935919055649241
           },
           "rel_time": {
             "max": 0.9079827727168475,
-            "median": 0.8680835768036335,
+            "median": 0.8766008956064447,
             "min": 0.797844683573514,
             "values": [
+              0.8935261078357856,
               0.8915502216477136,
               0.8591971204894475,
               0.9079827727168475,
               0.8616515695651759,
-              0.797844683573514,
-              0.8745155840420912
+              0.797844683573514
             ]
           },
           "variant": "default",
@@ -129,9 +128,9 @@
             3,
             3,
             3,
+            3,
             4,
-            4,
-            3
+            4
           ],
           "rank_stable": false,
           "rel_rss": {
@@ -162,7 +161,7 @@
           "allocator": "mimalloc",
           "beats_control_but_inside_its_own_noise": false,
           "beats_control_every_run": false,
-          "between_run_spread": 0.053323182028549986,
+          "between_run_spread": 0.0645562773321144,
           "crosses_control": true,
           "integration": "rust-global",
           "is_baseline": false,
@@ -173,32 +172,32 @@
             4,
             4,
             4,
+            4,
             3,
-            5,
-            4
+            5
           ],
           "rank_stable": false,
           "rel_rss": {
             "max": 3.9362157534246576,
-            "median": 3.8745784148397977,
+            "median": 3.875210792580101,
             "min": 3.039189189189189
           },
           "rel_time": {
-            "max": 1.0440622313860153,
-            "median": 1.0121953969076158,
+            "max": 1.0557769990802472,
+            "median": 1.0175346195081736,
             "min": 0.9900887519882501,
             "values": [
+              1.0557769990802472,
               1.0440622313860153,
               1.0002822740004458,
               1.0108880261691129,
               0.9900887519882501,
-              1.0241812128472345,
-              1.013502767646119
+              1.0241812128472345
             ]
           },
           "variant": "default",
           "within_run_mad": {
-            "max": 0.031039136,
+            "max": 0.036847925,
             "min": 0.002717766
           }
         },
@@ -206,7 +205,7 @@
           "allocator": "snmalloc",
           "beats_control_but_inside_its_own_noise": false,
           "beats_control_every_run": false,
-          "between_run_spread": 0.15523437375891225,
+          "between_run_spread": 0.15345030038886612,
           "crosses_control": true,
           "integration": "rust-global",
           "is_baseline": false,
@@ -218,26 +217,26 @@
             5,
             5,
             5,
-            3,
-            5
+            5,
+            3
           ],
           "rank_stable": false,
           "rel_rss": {
-            "max": 2.724726775956284,
-            "median": 1.531048592021068,
+            "max": 2.6638513513513513,
+            "median": 1.5193929173693086,
             "min": 1.506626763574177
           },
           "rel_time": {
             "max": 1.1663095844812887,
-            "median": 1.12569524585532,
+            "median": 1.1387830202410893,
             "min": 0.9915629879475534,
             "values": [
+              1.1428691065928456,
               1.156635688775616,
               1.1346969338893333,
               1.1663095844812887,
               1.102780609514565,
-              0.9915629879475534,
-              1.1166935578213066
+              0.9915629879475534
             ]
           },
           "variant": "default",
@@ -250,7 +249,7 @@
           "allocator": "hardened_malloc",
           "beats_control_but_inside_its_own_noise": false,
           "beats_control_every_run": false,
-          "between_run_spread": 0.08036548976441607,
+          "between_run_spread": 0.08000008886753679,
           "crosses_control": false,
           "integration": "rust-global",
           "is_baseline": false,
@@ -267,26 +266,26 @@
           ],
           "rank_stable": true,
           "rel_rss": {
-            "max": 6.161885245901639,
-            "median": 2.8834280397312986,
+            "max": 6.118918918918919,
+            "median": 2.8749717921857325,
             "min": 2.84822934232715
           },
           "rel_time": {
             "max": 1.3063946925765513,
-            "median": 1.2321253832299295,
+            "median": 1.2377531234796362,
             "min": 1.2073743327021091,
             "values": [
+              1.2379692082388754,
               1.3063946925765513,
               1.226713727739462,
               1.237537038720397,
               1.2073743327021091,
-              1.3004371644143387,
-              1.216803178951339
+              1.3004371644143387
             ]
           },
           "variant": "default",
           "within_run_mad": {
-            "max": 0.04068248,
+            "max": 0.044980346,
             "min": 0.009881716
           }
         }
@@ -299,6 +298,21 @@
     "keep": 6,
     "n_runs": 6,
     "runs": [
+      {
+        "ci_run_id": "43207393489",
+        "corpus_seed": 20260901,
+        "cpu_count": 4,
+        "cpu_model": "AMD EPYC 9V45 96-Core Processor",
+        "emulated": false,
+        "git_commit": "e7202927fc78c16a7c218544884737ebeab6ff42",
+        "kernel": "Linux 7.0.0-1017-azure",
+        "run_id": "20261112-111634",
+        "runtime": "docker",
+        "started_at": "2026-11-12T11:16:34Z",
+        "suites": [
+          "core"
+        ]
+      },
       {
         "ci_run_id": "42610175428",
         "corpus_seed": 20260901,
@@ -370,21 +384,6 @@
         "run_id": "20261026-085956",
         "runtime": "docker",
         "started_at": "2026-10-26T08:59:56Z",
-        "suites": [
-          "core"
-        ]
-      },
-      {
-        "ci_run_id": "39749224084",
-        "corpus_seed": 20260901,
-        "cpu_count": 4,
-        "cpu_model": "AMD EPYC 7763 64-Core Processor",
-        "emulated": false,
-        "git_commit": "9fe050dc32851d129709a328f9c8481a8bfb5365",
-        "kernel": "Linux 6.17.0-1022-azure",
-        "run_id": "20261022-084043",
-        "runtime": "docker",
-        "started_at": "2026-10-22T08:40:43Z",
         "suites": [
           "core"
         ]
