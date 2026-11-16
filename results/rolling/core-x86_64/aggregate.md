@@ -19,9 +19,9 @@ The last **6** run(s) of this suite, on **3** distinct CPU model(s). Primary wor
 
 ## What this aggregate does not establish
 
- **The ordering does not transfer** in `alpine / x86_64 / static-pie-lto / distro`. 4 allocator(s) changed rank between runs: **jemalloc**, **mimalloc**, **rpmalloc**, **snmalloc**. **No ordering is published for this group.**
+ **The ordering does not transfer** in `alpine / x86_64 / static-pie-lto / distro`. 3 allocator(s) changed rank between runs: **jemalloc**, **mimalloc**, **rpmalloc**. **No ordering is published for this group.**
 
- **Changed which side of the control they sit on:** **mimalloc**, **snmalloc**. A recommendation naming one of these is a statement about a machine, not about the allocator.
+ **Changed which side of the control they sit on:** **mimalloc**. A recommendation naming one of these is a statement about a machine, not about the allocator.
 
 ## What survives every run in the window
 
@@ -31,30 +31,28 @@ The last **6** run(s) of this suite, on **3** distinct CPU model(s). Primary wor
 
 | allocator | mech | rel median ↓ | rel min ↓ | rel max ↓ | between-run spread ↓ | within-run MAD ↓ | rank | RSS rel ↓ |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| jemalloc | `rust-global` | **0.873** | 0.846 | 0.890 | 5.0% | 0.8%–1.9% | 1/1/2/1/1/2  | 1.604  (1.58–5.11) |
-| rpmalloc | `rust-global` | **0.877** | 0.798 | 0.908 | 12.6% | 0.8%–2.6% | 2/2/1/2/2/1  | 1.102  (1.09–7.82) |
-| system *(control)* | `baseline` | **1.000** | 1.000 | 1.000 | 0.0% | 0.8%–3.4% | 3/3/3/3/4/4 | 1.000 |
-| mimalloc | `rust-global` | **1.018** | 0.990 | 1.056 | 6.5% | 0.3%–3.7% | 4/4/4/4/3/5  | 3.875 |
-| snmalloc | `rust-global` | **1.139** | 0.992 | 1.166 | 15.3% | 1.1%–10.5% | 5/5/5/5/5/3  | 1.519  (1.51–2.66) |
-| hardened_malloc | `rust-global` | **1.238** | 1.207 | 1.306 | 8.0% | 1.0%–4.5% | 6/6/6/6/6/6 | 2.875  (2.85–6.12) |
+| jemalloc | `rust-global` | **0.873** | 0.751 | 0.890 | 15.9% | 0.8%–1.9% | 1/1/1/2/1/1  | 1.604 |
+| rpmalloc | `rust-global` | **0.877** | 0.817 | 0.908 | 10.4% | 0.8%–2.0% | 2/2/2/1/2/2  | 1.094 |
+| system *(control)* | `baseline` | **1.000** | 1.000 | 1.000 | 0.0% | 0.8%–3.4% | 3/3/3/3/3/4 | 1.000 |
+| mimalloc | `rust-global` | **1.021** | 0.990 | 1.056 | 6.4% | 0.3%–3.7% | 4/4/4/4/4/3  | 3.876 |
+| snmalloc | `rust-global` | **1.139** | 1.043 | 1.166 | 10.8% | 1.1%–2.5% | 5/5/5/5/5/5 | 1.519 |
+| hardened_malloc | `rust-global` | **1.234** | 1.207 | 1.306 | 8.0% | 1.0%–4.5% | 6/6/6/6/6/6 | 2.868 |
 
  **`rank` is this cell's position in each run, newest first**, fastest = 1. A candidate marked  moved, and a moved rank is why no ordering is claimed.
 
- **The control's own position is how many allocators beat it that run: 2, 2, 2, 2, 3, 3.** That number moving is the same finding as the rank changes above, stated as a count.
+ **The control's own position is how many allocators beat it that run: 2, 2, 2, 2, 2, 3.** That number moving is the same finding as the rank changes above, stated as a count.
 
- **Peak RSS does not transfer either**, for **hardened_malloc**, **jemalloc**, **rpmalloc**, **snmalloc**. A memory-capped deployment cannot be sized from the median column alone; the range is the honest figure.
-
- **The within-run MAD is a floor on the uncertainty, not a bound.** The widest cell here is **snmalloc**: it moved **15.3%** between runs while its own samples never spread more than **10.5%** within one.
+ **The within-run MAD is a floor on the uncertainty, not a bound.** The widest cell here is **jemalloc**: it moved **15.9%** between runs while its own samples never spread more than **1.9%** within one.
 
 ## The runs in this window
 
 | started | CPU | cores | kernel | commit | CI run |
 | --- | --- | --- | --- | --- | --- |
+| 2026-11-16T11:24:27Z | Intel(R) Xeon(R) 6975P-C | 4 | `Linux 7.0.0-1014-aws` | `b808112` | [`43857029324`](https://github.com/Azathothas/alloc-bench/actions/runs/43857029324) |
 | 2026-11-12T11:16:34Z | AMD EPYC 9V45 96-Core Processor | 4 | `Linux 7.0.0-1017-azure` | `e720292` | [`43207393489`](https://github.com/Azathothas/alloc-bench/actions/runs/43207393489) |
 | 2026-11-09T11:37:47Z | AMD EPYC 9V45 96-Core Processor | 4 | `Linux 7.0.0-1017-azure` | `070e321` | [`42610175428`](https://github.com/Azathothas/alloc-bench/actions/runs/42610175428) |
 | 2026-11-05T10:59:31Z | AMD EPYC 9V74 80-Core Processor | 4 | `Linux 7.0.0-1017-azure` | `5218b16` | [`42014989721`](https://github.com/Azathothas/alloc-bench/actions/runs/42014989721) |
 | 2026-11-02T11:13:22Z | AMD EPYC 9V45 96-Core Processor | 4 | `Linux 7.0.0-1017-azure` | `eebb121` | [`41434684550`](https://github.com/Azathothas/alloc-bench/actions/runs/41434684550) |
 | 2026-10-29T10:02:52Z | AMD EPYC 9V74 80-Core Processor | 4 | `Linux 7.0.0-1017-azure` | `5b1f83a` | [`40853952902`](https://github.com/Azathothas/alloc-bench/actions/runs/40853952902) |
-| 2026-10-26T08:59:56Z | INTEL(R) XEON(R) PLATINUM 8573C | 4 | `Linux 6.17.0-1022-azure` | `d64c26a` | [`40295895029`](https://github.com/Azathothas/alloc-bench/actions/runs/40295895029) |
 
  **A measurement carries its conditions.** Never quote a figure above without naming which of these machines it came from - and where the window spans several, the figure is a range, not a number.
