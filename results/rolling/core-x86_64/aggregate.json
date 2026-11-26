@@ -2,17 +2,16 @@
   "cpu_models": [
     "AMD EPYC 7763 64-Core Processor",
     "AMD EPYC 9V45 96-Core Processor",
-    "AMD EPYC 9V74 80-Core Processor",
     "INTEL(R) XEON(R) PLATINUM 8573C",
     "Intel(R) Xeon(R) 6975P-C"
   ],
-  "distinct_cpu_models": 5,
+  "distinct_cpu_models": 4,
   "generated_from": "rankings.json of each run in the window; nothing re-derived",
   "groups": [
     {
       "beat_control_every_run": [
-        "rpmalloc",
-        "jemalloc"
+        "jemalloc",
+        "rpmalloc"
       ],
       "control_crossers": [
         "mimalloc"
@@ -20,60 +19,14 @@
       "group": "alpine / x86_64 / static-pie-lto / distro",
       "ordering_transfers": false,
       "rank_movers": [
-        "rpmalloc",
-        "jemalloc",
         "mimalloc"
       ],
       "rows": [
         {
-          "allocator": "rpmalloc",
-          "beats_control_but_inside_its_own_noise": false,
-          "beats_control_every_run": true,
-          "between_run_spread": 0.08927779288494513,
-          "crosses_control": false,
-          "integration": "rust-global",
-          "is_baseline": false,
-          "label": "rpmalloc",
-          "loses_to_control_every_run": false,
-          "n_runs": 6,
-          "positions": [
-            2,
-            2,
-            2,
-            2,
-            2,
-            1
-          ],
-          "rank_stable": false,
-          "rel_rss": {
-            "max": 1.110445205479452,
-            "median": 1.0935919055649241,
-            "min": 1.0935919055649241
-          },
-          "rel_time": {
-            "max": 0.8935261078357856,
-            "median": 0.8575934364117275,
-            "min": 0.816962058640331,
-            "values": [
-              0.8228397144845578,
-              0.8559897523340075,
-              0.816962058640331,
-              0.8935261078357856,
-              0.8915502216477136,
-              0.8591971204894475
-            ]
-          },
-          "variant": "default",
-          "within_run_mad": {
-            "max": 0.024703844,
-            "min": 0.008460725
-          }
-        },
-        {
           "allocator": "jemalloc",
           "beats_control_but_inside_its_own_noise": false,
           "beats_control_every_run": true,
-          "between_run_spread": 0.16086338186777144,
+          "between_run_spread": 0.169156050973538,
           "crosses_control": false,
           "integration": "rust-global",
           "is_baseline": false,
@@ -86,31 +39,75 @@
             1,
             1,
             1,
-            2
+            1
           ],
-          "rank_stable": false,
+          "rank_stable": true,
           "rel_rss": {
             "max": 1.6467116357504217,
             "median": 1.6050216278962322,
-            "min": 1.5792580101180438
+            "min": 1.5927487352445193
           },
           "rel_time": {
-            "max": 0.8898322330743119,
+            "max": 0.8969832108894953,
             "median": 0.8623252325612171,
             "min": 0.751115679894602,
             "values": [
+              0.8969832108894953,
               0.8022191002629636,
               0.8531579270075536,
               0.751115679894602,
               0.8714925381148806,
-              0.8898322330743119,
-              0.8738658503166207
+              0.8898322330743119
             ]
           },
           "variant": "default",
           "within_run_mad": {
-            "max": 0.01869708,
+            "max": 0.032707489,
             "min": 0.011642029
+          }
+        },
+        {
+          "allocator": "rpmalloc",
+          "beats_control_but_inside_its_own_noise": false,
+          "beats_control_every_run": true,
+          "between_run_spread": 0.10720759248679639,
+          "crosses_control": false,
+          "integration": "rust-global",
+          "is_baseline": false,
+          "label": "rpmalloc",
+          "loses_to_control_every_run": false,
+          "n_runs": 6,
+          "positions": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "rank_stable": true,
+          "rel_rss": {
+            "max": 1.110445205479452,
+            "median": 1.0935919055649241,
+            "min": 1.0935919055649241
+          },
+          "rel_time": {
+            "max": 0.9106368353328406,
+            "median": 0.8737699869908606,
+            "min": 0.816962058640331,
+            "values": [
+              0.9106368353328406,
+              0.8228397144845578,
+              0.8559897523340075,
+              0.816962058640331,
+              0.8935261078357856,
+              0.8915502216477136
+            ]
+          },
+          "variant": "default",
+          "within_run_mad": {
+            "max": 0.024703844,
+            "min": 0.012989564
           }
         },
         {
@@ -126,8 +123,8 @@
           "n_runs": 6,
           "positions": [
             3,
-            4,
             3,
+            4,
             3,
             3,
             3
@@ -161,7 +158,7 @@
           "allocator": "mimalloc",
           "beats_control_but_inside_its_own_noise": false,
           "beats_control_every_run": false,
-          "between_run_spread": 0.08279403510697524,
+          "between_run_spread": 0.08259115704166708,
           "crosses_control": true,
           "integration": "rust-global",
           "is_baseline": false,
@@ -170,8 +167,8 @@
           "n_runs": 6,
           "positions": [
             4,
-            3,
             4,
+            3,
             4,
             4,
             4
@@ -184,28 +181,28 @@
           },
           "rel_time": {
             "max": 1.0557769990802472,
-            "median": 1.0313399574431958,
+            "median": 1.0338733552394697,
             "min": 0.970388202436469,
             "values": [
+              1.0360057874330186,
               1.030938991840471,
               0.970388202436469,
               1.0317409230459205,
               1.0557769990802472,
-              1.0440622313860153,
-              1.0002822740004458
+              1.0440622313860153
             ]
           },
           "variant": "default",
           "within_run_mad": {
             "max": 0.036847925,
-            "min": 0.002717766
+            "min": 0.010186598
           }
         },
         {
           "allocator": "snmalloc",
           "beats_control_but_inside_its_own_noise": false,
           "beats_control_every_run": false,
-          "between_run_spread": 0.09969222502318702,
+          "between_run_spread": 0.12039806105210553,
           "crosses_control": false,
           "integration": "rust-global",
           "is_baseline": false,
@@ -227,16 +224,16 @@
             "min": 1.5126475548060707
           },
           "rel_time": {
-            "max": 1.156635688775616,
-            "median": 1.1387830202410893,
+            "max": 1.1810802831494653,
+            "median": 1.1459686831717106,
             "min": 1.0431078756691567,
             "values": [
+              1.1810802831494653,
               1.0673923729675656,
               1.1490682597505755,
               1.0431078756691567,
               1.1428691065928456,
-              1.156635688775616,
-              1.1346969338893333
+              1.156635688775616
             ]
           },
           "variant": "default",
@@ -249,7 +246,7 @@
           "allocator": "hardened_malloc",
           "beats_control_but_inside_its_own_noise": false,
           "beats_control_every_run": false,
-          "between_run_spread": 0.06418467996735643,
+          "between_run_spread": 0.06030975371184952,
           "crosses_control": false,
           "integration": "rust-global",
           "is_baseline": false,
@@ -272,15 +269,15 @@
           },
           "rel_time": {
             "max": 1.3063946925765513,
-            "median": 1.2414327667850662,
-            "min": 1.226713727739462,
+            "median": 1.2474346862663084,
+            "min": 1.231162213876212,
             "values": [
+              1.3026940456891989,
               1.24997304720136,
               1.2448963253312568,
               1.231162213876212,
               1.2379692082388754,
-              1.3063946925765513,
-              1.226713727739462
+              1.3063946925765513
             ]
           },
           "variant": "default",
@@ -298,6 +295,21 @@
     "keep": 6,
     "n_runs": 6,
     "runs": [
+      {
+        "ci_run_id": "45821286657",
+        "corpus_seed": 20260901,
+        "cpu_count": 4,
+        "cpu_model": "AMD EPYC 9V45 96-Core Processor",
+        "emulated": false,
+        "git_commit": "038282730cf01a1b838b3f77e2cc48d4acb1db3b",
+        "kernel": "Linux 7.0.0-1017-azure",
+        "run_id": "20261126-123858",
+        "runtime": "docker",
+        "started_at": "2026-11-26T12:38:58Z",
+        "suites": [
+          "core"
+        ]
+      },
       {
         "ci_run_id": "45177353300",
         "corpus_seed": 20260901,
@@ -369,21 +381,6 @@
         "run_id": "20261109-113747",
         "runtime": "docker",
         "started_at": "2026-11-09T11:37:47Z",
-        "suites": [
-          "core"
-        ]
-      },
-      {
-        "ci_run_id": "42014989721",
-        "corpus_seed": 20260901,
-        "cpu_count": 4,
-        "cpu_model": "AMD EPYC 9V74 80-Core Processor",
-        "emulated": false,
-        "git_commit": "5218b161d688740ce2f88eb4ea7dd111796a3876",
-        "kernel": "Linux 7.0.0-1017-azure",
-        "run_id": "20261105-105931",
-        "runtime": "docker",
-        "started_at": "2026-11-05T10:59:31Z",
         "suites": [
           "core"
         ]
